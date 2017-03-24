@@ -5,6 +5,12 @@
 ## Originally written at University of California, Santa barbara on March 24, 2017
 ####################################################################################################
 
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 runAFAM <- function() {
   runApp("R")
 }
