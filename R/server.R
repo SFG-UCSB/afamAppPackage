@@ -1138,7 +1138,7 @@ shinyServer(function(input, output) {
       #file.copy(src, 'indicatorTable.csv')
       
       library(rmarkdown)
-      out <- render('data/AFAMSummary.rmd', switch(
+      out <- render('AFAMSummary.rmd', switch(
         input$format,
         HTML = html_document(), Word = word_document()
       ))
@@ -1279,7 +1279,7 @@ shinyServer(function(input, output) {
   
   output$renderSummary <- renderUI({
     tagList(
-      rmarkdown::render("data/AFAMSummary.rmd"),
+      rmarkdown::render("AFAMSummary.rmd"),
       inclRmd("AFAMSummary.html")
     )
   })
