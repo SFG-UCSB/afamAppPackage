@@ -5,7 +5,7 @@ date: "March 24, 2017"
 output: html_document
 ---
 
-Simply copy and paste the following code into a new ".R" file. This will load all necessary packages and start the AFAM App.
+Simply copy and paste the following code into your R console. This will load the AFAM package onto your computer from an online file sharing service. Note that this step requires internet connection.
 
 ```{r setup, echo=TRUE,eval=FALSE}
 ## Specify packages that are required for AFAM app. Install them if they're not installed already
@@ -19,6 +19,16 @@ lapply(list.of.packages, require, character.only = TRUE)
 ## Install AFAM from Github, an online file-sharing service
 install_github("SFG-UCSB/afamAppPackage")
 
+## Load AFAM Package
+library(afamAppPackage)
+
+## Run AFAM App
+runAFAM()
+```
+
+You now have the AFAM App Package installed on your computer! To use it, simply load the package, and run the app. You may cut and paste the following code into your R console. Note that once the package is installed during the step above, you no longer need internet connectivity to run the app!
+
+```{r setup, echo=TRUE,eval=FALSE}
 ## Load AFAM Package
 library(afamAppPackage)
 
