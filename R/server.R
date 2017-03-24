@@ -1279,7 +1279,7 @@ shinyServer(function(input, output) {
   
   output$renderSummary <- renderUI({
     tagList(
-      rmarkdown::render("AFAMSummary.rmd"),
+      rmarkdown::render("data/AFAMSummary.rmd"),
       inclRmd("AFAMSummary.html")
     )
   })
