@@ -5,7 +5,13 @@ date: "March 24, 2017"
 output: html_document
 ---
 
-To install the AFAM app onto your computer, simply copy and paste the following code into your R console. This will load the AFAM package onto your computer from an online file sharing service. Note that this step requires internet connection.
+# AFAM app quick-start guide
+
+This will guide you through installing the AFAM App on your computer, and then running the app through R Studio.
+
+## Step 1 - Install AFAM App Package (requires internet)
+
+To install the AFAM app onto your computer, simply copy and paste the following code into your R console. This will install the AFAM package onto your computer from an online file sharing service. Note that this step requires internet connection.
 
 ```{r setup, echo=TRUE,eval=FALSE}
 ## Specify packages that are required for AFAM app. Install them if they're not installed already
@@ -20,7 +26,9 @@ lapply(list.of.packages, require, character.only = TRUE)
 install_github("SFG-UCSB/afamAppPackage")
 ```
 
-You now have the AFAM App Package installed on your computer! To use it, simply load the package, and run the app. You may copy and paste the following code into your R console. Note that once the package is installed during the step above, you no longer need internet connectivity to run the app!
+## Step 2 - Run AFAM App (does not require internet)
+
+You now have the AFAM App Package installed on your computer! To use it, simply load the package, and run the app. You may copy and paste the following code into your R Studio console. Note that once the package is installed during the step above, you no longer need internet connectivity to run the app!
 
 ```{r setup, echo=TRUE,eval=FALSE}
 ## Load AFAM Package
