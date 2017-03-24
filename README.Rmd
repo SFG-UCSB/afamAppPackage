@@ -1,0 +1,27 @@
+---
+title: "AFAM_Quick_Start"
+author: "Sustainable Fisheries Group"
+date: "March 24, 2017"
+output: html_document
+---
+
+Simply copy and paste the following code into a new ".R" file. This will load all necessary packages and start the AFAM App.
+
+```{r setup, echo=TRUE,eval=FALSE}
+## Specify packages that are required for AFAM app. Install them if they're not installed already
+list.of.packages <- c("tidyverse", "gridExtra", "pander", "shiny", "DT","devtools")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages) > 0 ) install.packages(new.packages)
+
+## Load packages required for AFAM
+lapply(list.of.packages, require, character.only = TRUE)
+
+## Install AFAM from Github, an online file-sharing service
+install_github("SFG-UCSB/afamAppPackage")
+
+## Load AFAM Package
+library(afamAppPackage)
+
+## Run AFAM App
+runAFAM()
+```
