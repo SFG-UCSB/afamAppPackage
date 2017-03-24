@@ -1,0 +1,21 @@
+Package: afamAppPackage
+Title: AFAM Shiny App Package
+Version: 0.1
+Authors@R: person("McDonald", "Gavin", email = "gmcdonald@bren.ucsb.edu", role = c("aut","cre"))
+Description: This package contains all functions and data to run the AFAM Shiny App.
+Depends:
+    R (>= 3.2.2)
+License: GPL-2
+LazyData: true
+RoxygenNote: 6.0.1
+Imports:
+  tidyverse,
+  gridExtra,
+  pander,
+  shiny,
+  DT
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr,
+    pander,
+    readr

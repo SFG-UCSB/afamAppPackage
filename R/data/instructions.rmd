@@ -1,0 +1,6 @@
+# Welcome to the Fish Forever AFAM Toolkit Dashboard!
+
+We've tried to make using the AFAM Toolkit Dashboard simple and intuitive. The dashboard follows the steps outlined in the toolkit word document. Proceed through each step, working left to right. Each tab has additional instruction. For additional guidance during each step, consult the AFAM Toolkit Microsoft Word document.
+
+Please contact Gavin McDonald with any questions, comments, or feedback (gmcdonald@bren.ucsb.edu).
+
