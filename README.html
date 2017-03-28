@@ -123,8 +123,28 @@ $(document).ready(function () {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#afam-app-quick-start-guide">AFAM app quick-start guide</a><ul>
+<li><a href="#step-1---install-afam-app-package">Step 1 - Install AFAM App Package</a><ul>
+<li><a href="#option-1---install-package-from-internet">Option 1 - Install package from internet</a></li>
+<li><a href="#option-2---install-package-from-a-file-on-your-computer-does-not-require-internet">Option 2 - Install package from a file on your computer (does not require internet)</a></li>
+</ul></li>
+<li><a href="#step-2---run-afam-app-does-not-require-internet">Step 2 - Run AFAM App (does not require internet)</a></li>
+</ul></li>
+</ul>
+</div>
 
-<p>Simply copy and paste the following code into a new “.R” file. This will load all necessary packages and start the AFAM App.</p>
+<div id="afam-app-quick-start-guide" class="section level1">
+<h1>AFAM app quick-start guide</h1>
+<p>This will guide you through installing the AFAM App on your computer, and then running the app through R Studio.</p>
+<div id="step-1---install-afam-app-package" class="section level2">
+<h2>Step 1 - Install AFAM App Package</h2>
+<p>First, install the AFAM package onto your computer so that you can use it in R and R Studio.</p>
+<div id="option-1---install-package-from-internet" class="section level3">
+<h3>Option 1 - Install package from internet</h3>
+<p>This is the best option and should be chosen if you have internet connectivity. This will install the AFAM package onto your computer from an online file sharing service (“Github”). This will ensure that your version of the app is the most up-to-date as possible. Note that this step requires internet connection.</p>
+<p>If you choose this option, simply copy and paste the following code into your R or R Studio console and run the code.</p>
 <pre class="r"><code>## Specify packages that are required for AFAM app. Install them if they're not installed already
 list.of.packages &lt;- c(&quot;tidyverse&quot;, &quot;gridExtra&quot;, &quot;pander&quot;, &quot;shiny&quot;, &quot;DT&quot;,&quot;devtools&quot;)
 new.packages &lt;- list.of.packages[!(list.of.packages %in% installed.packages()[,&quot;Package&quot;])]
@@ -134,13 +154,36 @@ if(length(new.packages) &gt; 0 ) install.packages(new.packages)
 lapply(list.of.packages, require, character.only = TRUE)
 
 ## Install AFAM from Github, an online file-sharing service
-install_github(&quot;SFG-UCSB/afamAppPackage&quot;)
+install_github(&quot;SFG-UCSB/afamAppPackage&quot;)</code></pre>
+</div>
+<div id="option-2---install-package-from-a-file-on-your-computer-does-not-require-internet" class="section level3">
+<h3>Option 2 - Install package from a file on your computer (does not require internet)</h3>
+<p>This is the option to choose if you don’t have internet connectivity, but do have a copy of the app file (this will be called something like “afamAppPackage_0.1.tar.gz”). This option will install the AFAM package onto your computer using this file. Note that this may mean you don’t have the most up-to-date version of the app as possible.</p>
+<p>If you choose this option, simply copy and paste the following code into your R or R Studio console and run the code. Note that you’ll need to change the working directory to the location where you have the app file, and will also need to change the file name to match the name of the file you have.</p>
+<pre class="r"><code>## Specify packages that are required for AFAM app. Install them if they're not installed already
+list.of.packages &lt;- c(&quot;tidyverse&quot;, &quot;gridExtra&quot;, &quot;pander&quot;, &quot;shiny&quot;, &quot;DT&quot;,&quot;devtools&quot;)
+new.packages &lt;- list.of.packages[!(list.of.packages %in% installed.packages()[,&quot;Package&quot;])]
+if(length(new.packages) &gt; 0 ) install.packages(new.packages)
 
-## Load AFAM Package
+## Load packages required for AFAM
+lapply(list.of.packages, require, character.only = TRUE)
+
+## Set your working directory to where the AFAM app file is located. Note that you'll need to change this to match the actual directory on your computer
+setwd(&quot;/Users/gmcdonald/github/afamAppPackage&quot;)
+## Install AFAM from your local file. Note that you may need to update this file name.
+install.packages(&quot;afamAppPackage_0.1.tar.gz&quot;, repos = NULL, type=&quot;source&quot;)</code></pre>
+</div>
+</div>
+<div id="step-2---run-afam-app-does-not-require-internet" class="section level2">
+<h2>Step 2 - Run AFAM App (does not require internet)</h2>
+<p>You now have the AFAM App Package installed on your computer! To use it, simply load the package into your current session using the “library” function, and run the app. You may copy and paste the following code into your R Studio console. Note that once the package is installed during the step above, you no longer need internet connectivity to run the app!</p>
+<pre class="r"><code>## Load AFAM Package
 library(afamAppPackage)
 
 ## Run AFAM App
 runAFAM()</code></pre>
+</div>
+</div>
 
 
 
