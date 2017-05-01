@@ -1316,7 +1316,8 @@ froese = function(l_inf,M,k,t0,wa,wb,m50,lengthData){
   }
   
   biomassVec = nVec * weightVec
-  Lopt = which(biomassVec == max(biomassVec))
+  #Lopt = which(biomassVec == max(biomassVec))
+  Lopt = l_inf * 3 / (3 + M / k)
   Lopt_lower = Lopt * 0.9
   Lopt_upper = Lopt * 1.1
   Lmega = Lopt * 1.1
