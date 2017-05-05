@@ -3,12 +3,17 @@ title: "Basic fisheries visualizations"
 output:
   html_document: default
   html_notebook: default
+  pdf_document: default
 ---
+# Introuction
+This short document will walk you through some basic fisheries visualizations. You will first load packages that contain useful functions. You will next load your data. Finally, you'll plot your data in a number of different ways, looking for outliers along the way, and also seeing what interesting things you can say about the data.
+
+This is a very quick introduction, but a great resource for learning more is a free book called [R for Data Science](http://r4ds.had.co.nz/).
 
 # Load libraries
-The first step in any analysis is the load the packages you will need for your analysis. Loading packages allow you to use powerful functions not included in "base" R.
+The first step in any analysis is the load the packages you will need for your analysis. Loading packages allows you to use powerful functions not included in "base" R.
 
-For this analysis, you will use the tidyverse package, which actually loads a group of useful packages including tidyr, dplyr, and ggplot2. You will also use Lubridate, which helps dealing with dates and times.
+For this analysis, you will use the tidyverse package, which actually loads a group of useful packages including tidyr, dplyr, and ggplot2. tidyr and dplyr are very handy packages for manipulating data, while ggplot2 is one of the best packages from plotting data. You will also use Lubridate, which helps dealing with dates and times.
 ```{r}
 library(tidyverse) 
 
@@ -37,7 +42,7 @@ head(life_history_parameters)
 The "life_history_parameters" data frame includes several important life history parameters that were found doing a literature review of this species. *L_infinity*, *k*, and *t0* describe the age-to-length relationship using the von Bertalanffy growth equation. *M* represents natural mortality. *Wa* and *Wb* describe the length-to-weight relationship. *m50* and *m95* describe the lengths at which 50% and 95% of the fish are mature, respecitvely. *maxAge* is the maximum age of the fish.
 
 # Plot data
-Let's first look at the length data from the catch, which gives an indication of the size structure and health of the population. To do this in R, you start by taking the landings data and working through a series of "pipes", which progressively analyze the data from one step to the next and are shown with the "%>%" operation. Essentially, the output of one line is fed into the input of the next line.
+Let's first look at the length data from the catch, which gives an indication of the size structure and health of the population. To do this in R, you start by taking the landings data and working through a series of "pipes", which progressively analyze the data from one step to the next and are shown with the "%>%" operation. Essentially, the output of one line is fed into the input of the next line. In all of the code below, there are some helpful comments to tell you what each line is doing. Comments start with the "#" operation, and are not evaluated by R - they are simply there to document the code.
 
 Let's look at the length data for 2014. We'll create a histogram of the length data, which shows how many individuals of each size class were measured in the catch. On the histogram, we'll also include the length at which fish mature to get a sense of how sustainable the catch is - the catch should be composed mostly of mature fish. This information comes from the life history parameter data input file. We'll also include the length of a theoretically infinitely old fish to see if there are any outliers - we wouldn't expect for there to be any fish longer than this!
 
@@ -52,16 +57,15 @@ landings_data %>% ## Start with the landings data frame
   ggtitle("Length histogram of Caesio cuning in the catch\nLength at 95% maturity shown as a red line.\nL_Infinity shown as a black line.") ## Add figure title
 ```
 
-You'll notice that a few of the fish are older than a fish that is theoretically infinitely old! These measurements are probably measurement errors. Let's filter these out from the data set.
+You'll notice that a few of the fish are much older than a fish that is theoretically infinitely old! This does not necessarily mean it is impossible for fish to reach these lengths, but rather that the average fish reaches asymptotic age at this length. However, lengths longer than this should still be flagged as possible measurement errors. In fact, it appears that the two measurements greater than 200cm were indeed measurement errors, so let's filter those out from the data.
 
 ```{r}
 
 landings_data <- landings_data %>%
-  filter(Length_cm < life_history_parameters$L_inf) ## Re-write landings data frame to only include measurements with lengths less than L infinity
+  filter(Length_cm < 200) ## Re-write landings data frame to only include measurements with lengths less than 200cm
 
 landings_data %>% ## Start with the landings data frame
   filter(Year == 2014) %>% ## Filter data to only look at length measurements from 2014
-  filter(Length_cm < life_history_parameters$L_inf) %>% ## Filter out any observations greater than L_infinity. These are likely errors.
   ggplot(aes(Length_cm)) + ## Plot annual landings versus year
   geom_histogram() + ## Plot a histogram of the length data
   geom_vline(aes(xintercept=life_history_parameters$L_inf)) + ## Add a black line for L infinity, the length of a theoretically infinitely old fish. No measured fish should be greater than this length. Use the life_history_parameter data frame to get this value.
