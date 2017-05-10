@@ -458,7 +458,7 @@ shinyServer(function(input, output) {
         stat_summary(fun.y = median, geom = "point",size=4,colour="#EA883A") +
         stat_summary(fun.y = median, geom = "line",linetype=2,colour="#00ADB7") +
         theme_bw() +
-        ylab("Median Annual CPUE [kg/hour]") +
+        ylab("Median CPUE [kg/hour]") +
         xlab("Year") +
         theme(axis.text.x = element_text(angle = 90, hjust = 1),
               text = element_text(size=20),

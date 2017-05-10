@@ -316,7 +316,7 @@ shinyUI(fluidPage(
                         mainPanel(
                           fixedRow(
                             column(6,h3("Enter a likely interpretation for each possible assessment result")),
-                            column(6,h3("Enter a harvest control rule for each possible assessment result"))),
+                            column(6,h3("Enter a management response for each possible interpretation"))),
                           hr(),
                           fixedRow(
                             column(6,uiOutput("IntepretationUI")),

@@ -86,7 +86,7 @@ cat("\n  ")
                      #eval(parse(text = paste0("HCR",fullList[i]))))
     
     rownames(hcrTable) = NULL
-    colnames(hcrTable) = c("Assessment Result","Likely Interpretation","Harvest Control Rule")
+    colnames(hcrTable) = c("Assessment Result","Likely Interpretation","Management Response")
     
     pandoc.table(hcrTable,split.table=Inf,justify="left")
     
