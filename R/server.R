@@ -180,8 +180,10 @@ shinyServer(function(input, output) {
     if(is.null(tierTable()$tier)) return()
     if(tierTable()$tier < 2) return()
     #indicatorList = c("Average Length (Fishery Dependent)","Fishing Mortality / Natural Mortality (Catch Curve)","Fishing Mortality / Natural Mortality (LBAR)","Spawning Potential Ratio (SPR)","Froese Sustainability Indicators")
-    indicatorList = c("Average Length (Fishery Dependent)","Fishing Mortality / Natural Mortality (LBAR)","Froese Sustainability Indicators")
-    checkboxGroupInput(inputId = "indicatorLengthSelection",label = "Select at least one length-based performance indicator:",choices=indicatorList,selected="Average Length (Fishery Dependent)")
+    #indicatorList = c("Average Length (Fishery Dependent)","Fishing Mortality / Natural Mortality (LBAR)","Froese Sustainability Indicators")
+    indicatorList = c("Froese Sustainability Indicators","Fishing Mortality / Natural Mortality (LBAR)")
+    #checkboxGroupInput(inputId = "indicatorLengthSelection",label = "Select at least one length-based performance indicator:",choices=indicatorList,selected="Average Length (Fishery Dependent)")
+    checkboxGroupInput(inputId = "indicatorLengthSelection",label = "Select at least one length-based performance indicator:",choices=indicatorList,selected="Froese Sustainability Indicators")
   })
   
   output$indicatorLandingsUI <- renderUI({
@@ -194,8 +196,8 @@ shinyServer(function(input, output) {
   output$indicatorUnderwaterUI <- renderUI({
     if(is.null(tierTable()$tier)) return()
     if(tierTable()$tier < 2) return()
-    indicatorList = c("Fished:Unfished Density Ratio (Target Species)","Fished:Unfished Biomass Ratio (coral reef threshold aggregated across species)","Average Length (Fishery Independent)")
-    checkboxGroupInput(inputId = "indicatorUnderwaterSelection",label = "Select at least one underwater-survey-based performance indicator:",choices=indicatorList,selected="Fished:Unfished Density Ratio (Target Species)")
+    indicatorList = c("Fished:Unfished Biomass Ratio (coral reef threshold aggregated across species)","Fished:Unfished Density Ratio (Target Species)")
+    checkboxGroupInput(inputId = "indicatorUnderwaterSelection",label = "Select at least one underwater-survey-based performance indicator:",choices=indicatorList,selected="Fished:Unfished Biomass Ratio (coral reef threshold aggregated across species)")
   })
   
   output$gearUI <- renderUI({

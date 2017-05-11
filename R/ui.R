@@ -13,7 +13,7 @@ shinyUI(fluidPage(
                           h4("Instructions: Select available data types, upload data (you may choose either real or dummy data), select site, and select species for analysis. A data summary will be shown on the right. Your assessment and management tier will also be automatically calculated."),
                           checkboxGroupInput("checkDataGroup", label = "Select the available data types", 
                                              choices = list("Local Ecological Knowledge" = "dataLEK", "Length composition data" = "dataLength", "Landings and Effort Data" = "landingsData","Underwater Visual Survey Data" = "underwaterData"),
-                                             selected = c("dataLEK","dataLength","landingsData")),
+                                             selected = c("dataLEK")),
                           hr(),
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('dataLength') != -1 | input.checkDataGroup.indexOf('landingsData') != -1 | input.checkDataGroup.indexOf('underwaterData') != -1",
@@ -78,7 +78,10 @@ shinyUI(fluidPage(
                         sidebarPanel(
                           h4("Instructions: Select at least one performance indicator from each data stream. The list will be automatically populated based on your available data and assessment and management tier. On the right, enter target reference points (TRPs) and limit reference points (LRPs) for each indicator. Default reference points are provided, but you may choose to update these based on species, local ecological knowledge, and community goals."),
                           conditionalPanel(
-                            condition = "input.checkDataGroup.indexOf('dataLEK') != -1",
+                            condition = "input.checkDataGroup.indexOf('dataLEK') != -1 &
+                            (input.checkDataGroup.indexOf('dataLength') == -1 &
+                            input.checkDataGroup.indexOf('landingsData') == -1 &
+                            input.checkDataGroup.indexOf('underwaterData') == -1)",
                             uiOutput("indicatorLEKUI"),
                             hr()
                           ),
@@ -400,22 +403,40 @@ shinyUI(fluidPage(
                                               )
                                             )
                                    ),
-                                   tabPanel("Average Length (Fishery Dependent)",
+                                   tabPanel("Froese Sustainability Indicators",
                                             sidebarLayout(
                                               sidebarPanel(
                                                 conditionalPanel(
-                                                  condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Average Length (Fishery Dependent)') != -1",
-                                                  h4("Instructions: Average length will be automatically calculated using the life history information provided and year and gear selected."),
-                                                  downloadButton("downloadLengthFD",label="Download Average Length (Fishery Dependent) Results (CSV)")
-                                                )),
+                                                  condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Froese Sustainability Indicators') != -1",
+                                                  h4("Instructions: The results for the Froese Sustainability Indicators method will be automatically calculated using the life history information provided and data visualizations performed. Once this is done, select the aggregated assessment result below. Unless you have reason to believe otherwise, select the most critical of the 3 results (percent mature, percent optimal, and percent megaspawner)."),
+                                                  selectInput(inputId = "froese_Result",label = "Select the aggregated assessment result from the Froese Sustainability Indicators technique:",choices=c("Green","Yellow","Red"),selected=NULL),
+                                                  downloadButton("downloadFroese",label="Download Froese Results (CSV)"))
+                                              ),
                                               mainPanel(
                                                 conditionalPanel(
-                                                  condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Average Length (Fishery Dependent)') != -1",
-                                                  h3("Average Length (Fishery Dependent) is calculated automatically."),
-                                                  DT::dataTableOutput("lengthFD")
-                                                )
+                                                  condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Froese Sustainability Indicators') != -1",
+                                                  h2("Froese Model Outputs"),
+                                                  h4("L_Mature, L_Optimal, L_Mega, Percent Mature, Percent Optimal, and Percent Megaspawner have been calculated automatically using the life history information and length data provided."),
+                                                  DT::dataTableOutput("Froese"))
                                               )
-                                            )),
+                                            )
+                                   ),
+                                   # tabPanel("Average Length (Fishery Dependent)",
+                                   #          sidebarLayout(
+                                   #            sidebarPanel(
+                                   #              conditionalPanel(
+                                   #                condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Average Length (Fishery Dependent)') != -1",
+                                   #                h4("Instructions: Average length will be automatically calculated using the life history information provided and year and gear selected."),
+                                   #                downloadButton("downloadLengthFD",label="Download Average Length (Fishery Dependent) Results (CSV)")
+                                   #              )),
+                                   #            mainPanel(
+                                   #              conditionalPanel(
+                                   #                condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Average Length (Fishery Dependent)') != -1",
+                                   #                h3("Average Length (Fishery Dependent) is calculated automatically."),
+                                   #                DT::dataTableOutput("lengthFD")
+                                   #              )
+                                   #            )
+                                   #          )),
                                    tabPanel("Fishing Mortality / Natural Mortality Indicator (LBAR)",
                                             sidebarLayout(
                                               sidebarPanel(
@@ -432,24 +453,6 @@ shinyUI(fluidPage(
                                                   h4("LBAR, Z, F, and F/M have been calculated using the life history information provided in Tab 4 (L_inf, k, and M) along with the length at full selectivity (L_c), which is automatically calculated from the histograms in Tab 5"),
                                                   DT::dataTableOutput("LBAR"),
                                                   plotOutput("LBARBox",height=1600))
-                                              )
-                                            )
-                                   ),
-                                   tabPanel("Froese Sustainability Indicators",
-                                            sidebarLayout(
-                                              sidebarPanel(
-                                                conditionalPanel(
-                                                  condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Froese Sustainability Indicators') != -1",
-                                                  h4("Instructions: The results for the Froese Sustainability Indicators method will be automatically calculated using the life history information provided and data visualizations performed. Once this is done, select the aggregated assessment result below. Unless you have reason to believe otherwise, select the most critical of the 3 results (percent mature, percent optimal, and percent megaspawner)."),
-                                                  selectInput(inputId = "froese_Result",label = "Select the aggregated assessment result from the Froese Sustainability Indicators technique:",choices=c("Green","Yellow","Red"),selected=NULL),
-                                                  downloadButton("downloadFroese",label="Download Froese Results (CSV)"))
-                                              ),
-                                              mainPanel(
-                                                conditionalPanel(
-                                                  condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Froese Sustainability Indicators') != -1",
-                                                  h2("Froese Model Outputs"),
-                                                  h4("L_Mature, L_Optimal, L_Mega, Percent Mature, Percent Optimal, and Percent Megaspawner have been calculated automatically using the life history information and length data provided."),
-                                                  DT::dataTableOutput("Froese"))
                                               )
                                             )
                                    )
@@ -490,14 +493,6 @@ shinyUI(fluidPage(
                                  )),
                         tabPanel("Underwater Visual Survey Performance Indicators",
                                  tabsetPanel(
-                                   tabPanel("Data Visualization",
-                                            sidebarLayout(
-                                              sidebarPanel(
-                                              ),
-                                              mainPanel(
-                                              )
-                                            )
-                                   ),
                                    tabPanel("Fished:Unfished Density Ratio (Target Species)",
                                             sidebarLayout(
                                               sidebarPanel(
@@ -506,14 +501,6 @@ shinyUI(fluidPage(
 
                                               ))),
                                    tabPanel("Fished:Unfished Biomass Ratio (coral reef threshold aggregated across species)",
-                                            sidebarLayout(
-                                              sidebarPanel(
-
-                                              ),
-                                              mainPanel(
-
-                                              ))),
-                                   tabPanel("Average Length (Fishery Independent)",
                                             sidebarLayout(
                                               sidebarPanel(
 
