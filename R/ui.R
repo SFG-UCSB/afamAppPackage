@@ -275,7 +275,7 @@ shinyUI(fluidPage(
                                      textInput("CPUE_LRP", label = NULL, value = "Rapidly decreasing CPUE"))
                             ),hr()),
                           conditionalPanel(
-                            condition = "input.checkDataGroup && input.indicatorUnderwaterSelection && input.checkDataGroup.indexOf('underwaterData') != -1 && input.indicatorUnderwaterSelection.indexOf('Fished:Unfished Density Ratio (Target Species)') != -1",
+                            condition = "input.checkDataGroup && input.indicatorUnderwaterSelection && input.checkDataGroup.indexOf('underwaterData') != -1 && input.indicatorUnderwaterSelection.indexOf('Density Ratio (Target Species)') != -1",
                             fixedRow(
                               column(4,
                                      h4("Fished:Unfished Density Ratio (Target Species)")
@@ -287,7 +287,7 @@ shinyUI(fluidPage(
                                      numericInput("DR_LRP", label = NULL, value = 0.4))
                             ),hr()),
                           conditionalPanel(
-                            condition = "input.checkDataGroup && input.indicatorUnderwaterSelection && input.checkDataGroup.indexOf('underwaterData') != -1 && input.indicatorUnderwaterSelection.indexOf('Fished:Unfished Biomass Ratio (coral reef threshold aggregated across species)') != -1",
+                            condition = "input.checkDataGroup && input.indicatorUnderwaterSelection && input.checkDataGroup.indexOf('underwaterData') != -1 && input.indicatorUnderwaterSelection.indexOf('Biomass Ratio (aggregated across species)') != -1",
                             fixedRow(
                               column(4,
                                      h4("Fished:Unfished Biomass Ratio (coral reef threshold aggregated across species)")
@@ -369,14 +369,16 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.checkDataGroup.indexOf('dataLength') != -1",
-                                                  h4("Instructions: Enter life history information for site and species selected in Step 1. Ensure parameters use consistent length and weight units (i.e., centimeters and grams)."),
-                                                  numericInput("Linf", label = "L_Infinity (von Bertalannfy growth parameter)", value = 76.4),
-                                                  numericInput("k", label = "k (von Bertalannfy growth parameter)", value = 0.09),
-                                                  numericInput("M", label = "M (Natural Mortality)", value = 0.2083),
-                                                  numericInput("t0", label = "t0 (von Bertalannfy growth parameter, theoretical age at length 0)", value = -5.7),
-                                                  numericInput("w_a", label = "w_a (length-weight relationship parameter a)", value = 0.0000029138),
-                                                  numericInput("w_b", label = "w_b (length-weight relationship parameter b)", value = 3.2697),
-                                                  numericInput("m50", label = "m50 (Lengthat which 50% of individuals have reached maturity.)", value = 36.6),
+                                                  h4("Instructions: First select your country. If your species and country is already included in the Fish Forever life history database, the life history parameters will be automatically filled out. Ensure that these parameters look reasonable. If the species and country is not included in the database, you will need to enter these parameters manually. Ensure parameters use consistent length and weight units (i.e., centimeters and grams)."),
+                                                  selectInput("countrySelection",label="Select country",choices=c("Philippines","Indonesia","Brazil")),
+                                                  uiOutput("linfUI"),
+                                                  uiOutput("kUI"),
+                                                  uiOutput("t0UI"),
+                                                  uiOutput("mUI"),
+                                                  uiOutput("waUI"),
+                                                  uiOutput("wbUI"),
+                                                  uiOutput("m50UI"),
+                                                  uiOutput("m95UI"),
                                                   downloadButton("downloadLHI",label="Download Life History Information"))
                                               ),
                                               mainPanel(
@@ -493,18 +495,23 @@ shinyUI(fluidPage(
                                  )),
                         tabPanel("Underwater Visual Survey Performance Indicators",
                                  tabsetPanel(
-                                   tabPanel("Fished:Unfished Density Ratio (Target Species)",
+                                   tabPanel("Biomass Ratio (aggregated across species)",
                                             sidebarLayout(
                                               sidebarPanel(
-                                              ),
+                                                conditionalPanel(
+                                                  condition = "input.checkDataGroup && input.indicatorUnderwaterSelection && input.checkDataGroup.indexOf('underwaterData') != -1 && input.indicatorUnderwaterSelection.indexOf('Biomass Ratio (aggregated across species)') != -1",
+                                                  numericInput(inputId="BR_PI",min=0,max=10,value=NULL,label="Instructions: Enter the aggregated biomass-ratio from the underwater visual survey data. This is the ratio of the total biomass (aggregated across all species) inside the no-take zone divided by the total biomass outside the no-take zone.")
+                                                )),
                                               mainPanel(
-
+                                                
                                               ))),
-                                   tabPanel("Fished:Unfished Biomass Ratio (coral reef threshold aggregated across species)",
+                                   tabPanel("Density Ratio (Target Species)",
                                             sidebarLayout(
                                               sidebarPanel(
-
-                                              ),
+                                              conditionalPanel(
+                                                condition = "input.checkDataGroup && input.indicatorUnderwaterSelection && input.checkDataGroup.indexOf('underwaterData') != -1 && input.indicatorUnderwaterSelection.indexOf('Density Ratio (Target Species)') != -1",
+                                                numericInput(inputId="DR_PI",min=0,max=10,value=NULL,label="Instructions: Enter the target species density-ratio from the underwater visual survey data. This is the ratio of the density (only for the target species) inside the no-take zone divided by the total density outside the no-take zone.")
+                                              )),
                                               mainPanel(
 
                                               )))

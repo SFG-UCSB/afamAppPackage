@@ -10,7 +10,62 @@ shinyServer(function(input, output) {
     if (input$dataType == "Use Dummy Data") df = df_length else df = read_csv(inFile$datapath)
     df
   })
+  
 
+  lhiData <- reactive({
+    if(is.null(input$countrySelection) | is.null(input$speciesSelection)) return(NULL)
+    lhiData <- lhi_database %>%
+      filter(Country == input$countrySelection &
+             Species == input$speciesSelection)
+    lhiData
+  })
+  
+  output$linfUI <- renderUI({
+        if (nrow(lhiData()) == 0) linfDefault <- NA else linfDefault <- lhiData()$L_inf
+        numericInput("Linf", label = "L_Infinity (von Bertalannfy growth parameter)", value = linfDefault)
+  })
+  
+  output$kUI <- renderUI({
+    if (nrow(lhiData()) == 0) kDefault <- NA else kDefault <- lhiData()$k
+    numericInput("k", label = "k (von Bertalannfy growth parameter)", value = kDefault)
+  })
+  
+  output$t0UI <- renderUI({
+    if (nrow(lhiData()) == 0) t0Default <- NA else t0Default <- lhiData()$t0
+    numericInput("t0", label = "t0 (von Bertalannfy growth parameter, theoretical age at length 0)", value = t0Default)
+  })
+  
+  output$mUI <- renderUI({
+    if (nrow(lhiData()) == 0) mDefault <- NA else mDefault <- lhiData()$M
+    numericInput("M", label = "M (Natural Mortality)", value = mDefault)
+  })
+  
+  output$mUI <- renderUI({
+    if (nrow(lhiData()) == 0) mDefault <- NA else mDefault <- lhiData()$M
+    numericInput("M", label = "M (Natural Mortality)", value = mDefault)
+  })
+  
+  output$waUI <- renderUI({
+    if (nrow(lhiData()) == 0) waDefault <- NA else waDefault <- lhiData()$Wa
+    numericInput("w_a", label = "w_a (length-weight relationship parameter a)", value = waDefault)
+  })
+  
+  output$wbUI <- renderUI({
+    if (nrow(lhiData()) == 0) wbDefault <- NA else wbDefault <- lhiData()$Wb
+    numericInput("w_b", label = "w_b (length-weight relationship parameter b)", value = wbDefault)
+  })
+  
+  output$m50UI <- renderUI({
+    if (nrow(lhiData()) == 0) m50Default <- NA else m50Default <- lhiData()$m50
+    numericInput("m50", label = "m50 (Lengthat which 50% of individuals have reached maturity.)", value = m50Default)
+  })
+  
+  output$m95UI <- renderUI({
+    if (nrow(lhiData()) == 0) m95Default <- NA else m95Default <- lhiData()$m95
+    numericInput("m95", label = "m95 (Lengthat which 95% of individuals have reached maturity.)", value = m95Default)
+  })
+  
+  
   catchData <- reactive({
     if(is.null(input$dataType)) return(NULL)
     inFile <- input$dataLandings
@@ -80,7 +135,7 @@ shinyServer(function(input, output) {
   
   LHIInput <- reactive({
     if(is.null(input$siteSelection) | is.null(input$speciesSelection)) return()
-    table = data.frame(matrix(NA,nrow=1,ncol=9))
+    table = data.frame(matrix(NA,nrow=1,ncol=10))
     
     colnames(table) = c("Site",
                         "Species",
@@ -90,7 +145,8 @@ shinyServer(function(input, output) {
                         "t0",
                         "w_a",
                         "w_b",
-                        "m50")
+                        "m50",
+                        "m95")
     
     table[1,] = c(input$siteSelection,
                   input$speciesSelection,
@@ -100,7 +156,8 @@ shinyServer(function(input, output) {
                   input$t0,
                   input$w_a,
                   input$w_b,
-                  input$m50)
+                  input$m50,
+                  input$m95)
     
     table
   })
@@ -196,8 +253,8 @@ shinyServer(function(input, output) {
   output$indicatorUnderwaterUI <- renderUI({
     if(is.null(tierTable()$tier)) return()
     if(tierTable()$tier < 2) return()
-    indicatorList = c("Fished:Unfished Biomass Ratio (coral reef threshold aggregated across species)","Fished:Unfished Density Ratio (Target Species)")
-    checkboxGroupInput(inputId = "indicatorUnderwaterSelection",label = "Select at least one underwater-survey-based performance indicator:",choices=indicatorList,selected="Fished:Unfished Biomass Ratio (coral reef threshold aggregated across species)")
+    indicatorList = c("Biomass Ratio (aggregated across species)","Density Ratio (Target Species)")
+    checkboxGroupInput(inputId = "indicatorUnderwaterSelection",label = "Select at least one underwater-survey-based performance indicator:",choices=indicatorList,selected="Biomass Ratio (aggregated across species)")
   })
   
   output$gearUI <- renderUI({
@@ -207,7 +264,7 @@ shinyServer(function(input, output) {
     df = subset(df,species==input$speciesSelection)
     df = subset(df,site==input$siteSelection)
     gears = c("Look at All Gear Types","Aggregate Across Gear Types",as.vector(unique(df$gear)))
-    selectInput(inputId="gearSelection","Select Gear Type for Visualization",choices=gears,selected="Look at All Gear Types")
+    selectInput(inputId="gearSelection","Select Gear Type for Visualization",choices=gears,selected="Aggregate Across Gear Types")
   })
   
   output$gearGlobalUI <- renderUI({
@@ -220,7 +277,7 @@ shinyServer(function(input, output) {
         df = subset(df,species==input$speciesSelection)
         df = subset(df,site==input$siteSelection)
         gears = c("Aggregate Across Gear Types",as.vector(unique(df$gear)))
-        selectInput(inputId="gearGlobalSelection","Select Gear Type for Visualization and Analysis",choices=gears,selected="Look at All Gear Types")}
+        selectInput(inputId="gearGlobalSelection","Select Gear Type for Visualization and Analysis",choices=gears,selected="Aggregate Across Gear Types")}
   })
   
   output$speciesUI <- renderUI({
@@ -255,7 +312,7 @@ shinyServer(function(input, output) {
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
     years = c("Look at All Years","Aggregate Across Years",as.vector(unique(df$year)))
-    selectInput(inputId="yearSelection","Select Year for Visualization",choices=years,selected="Look at All Years")
+    selectInput(inputId="yearSelection","Select Year for Visualization",choices=years,selected="Aggregate Across Years")
   })
   
   output$yearGlobalUI <- renderUI({
@@ -269,7 +326,7 @@ shinyServer(function(input, output) {
         df = subset(df,site==input$siteSelection)
         df = subset(df,species==input$speciesSelection)
         years = c("Aggregate Across Years",as.vector(unique(df$year)))
-        selectInput(inputId="yearGlobalSelection","Select Year for Visualization and Analysis",choices=years,selected="Look at All Years")}
+        selectInput(inputId="yearGlobalSelection","Select Year for Visualization and Analysis",choices=years,selected="Aggregate Across Years")}
   })
   
   output$histogram <- renderPlot({
@@ -293,7 +350,7 @@ shinyServer(function(input, output) {
       
       if(input$gearSelection != "Look at All Gear Types") df = subset(df,gear==input$gearSelection)
       if(input$yearSelection != "Look at All Years") df = subset(df,year==input$yearSelection)
-      froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,df$length_cm)
+      froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,df$length_cm)
       print(ggplot(df, aes(x=length_cm)) +
               geom_histogram(position="identity", binwidth=input$binSize,fill="#00ADB7",colour="black") +
               ggtitle(paste(paste("Site: ",input$siteSelection,sep=""),
@@ -320,7 +377,7 @@ shinyServer(function(input, output) {
     if (input$gearSelection == "Aggregate Across Gear Types" & input$yearSelection != "Aggregate Across Years"){
       
       if(input$yearSelection != "Look at All Years") df = subset(df,year==input$yearSelection)
-      froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,df$length_cm)
+      froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,df$length_cm)
       print(ggplot(df, aes(x=length_cm)) +
               geom_histogram(position="identity", binwidth=input$binSize,fill="#00ADB7",colour="black") +
               ggtitle(paste(paste("Site: ",input$siteSelection,sep=""),
@@ -349,7 +406,7 @@ shinyServer(function(input, output) {
     if (input$gearSelection != "Aggregate Across Gear Types" & input$yearSelection == "Aggregate Across Years"){
       
       if(input$gearSelection != "Look at All Gear Types") df = subset(df,gear==input$gearSelection)
-      froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,df$length_cm)
+      froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,df$length_cm)
       print(ggplot(df, aes(x=length_cm)) +
               geom_histogram(position="identity", binwidth=input$binSize,fill="#00ADB7",colour="black") +
               ggtitle(paste(paste("Site: ",input$siteSelection,sep=""),
@@ -376,7 +433,7 @@ shinyServer(function(input, output) {
     }
     
     if (input$gearSelection == "Aggregate Across Gear Types" & input$yearSelection == "Aggregate Across Years"){
-      froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,df$length_cm)
+      froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,df$length_cm)
       print(ggplot(df, aes(x=length_cm)) +
               geom_histogram(position="identity", binwidth=input$binSize,fill="#00ADB7",colour="black") +
               ggtitle(paste(paste("Site: ",input$siteSelection,sep=""),
@@ -758,6 +815,9 @@ shinyServer(function(input, output) {
                  "Green",
                  "Red",
                  input$froese_Result)
+      newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
+      names(newRow) = names(summaryTable)
+      summaryTable = rbind(summaryTable,newRow)}
       #       newRow = c("Froese Sustainability Indicators - Percent Mature",
       #                         FroeseInput()[,c("Site",
       #                                          "Species",
@@ -788,9 +848,37 @@ shinyServer(function(input, output) {
       #                                                       "LRP_Percent_Mega",
       #                                                       "Result_Mega")])
       
-      newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
-      names(newRow) = names(summaryTable)
-      summaryTable = rbind(summaryTable,newRow)}
+      if ("underwaterData" %in% input$checkDataGroup & "Density Ratio (Target Species)" %in% input$indicatorUnderwaterSelection){
+        if (input$DR_PI >= input$DR_TRP) result = "Green" else {
+          if (input$DR_PI < input$DR_TRP & input$DR_PI > input$DR_LRP) result = "Yellow" else result = "Red"}
+        newRow = c("Density Ratio",
+                   input$siteSelection,
+                   input$speciesSelection,
+                   input$DR_PI,
+                   input$DR_TRP,
+                   input$DR_LRP,
+                   result)
+        newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
+        names(newRow) = names(summaryTable)
+        summaryTable = rbind(summaryTable,newRow)}
+        
+        if ("underwaterData" %in% input$checkDataGroup & "Biomass Ratio (aggregated across species)" %in% input$indicatorUnderwaterSelection){
+          if (input$BR_PI >= input$BR_TRP) result = "Green" else {
+            if (input$BR_PI < input$BR_TRP & input$BR_PI > input$BR_LRP) result = "Yellow" else result = "Red"}
+         
+           newRow = c("Biomass Ratio",
+                     input$siteSelection,
+                     input$speciesSelection,
+                     input$BR_PI,
+                     input$BR_TRP,
+                     input$BR_LRP,
+                     result)
+        
+        newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
+        names(newRow) = names(summaryTable)
+        summaryTable = rbind(summaryTable,newRow)}
+      
+
     
     colnames(summaryTable) = c("Assessment",
                                "Site",
@@ -1019,12 +1107,12 @@ shinyServer(function(input, output) {
         lengthData = dfSubset$length_cm[!is.na(dfSubset$length_cm)]
         sampleSize = length(lengthData)
         
-        Lmat = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,lengthData)$Lmat
-        Lopt = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,lengthData)$Lopt
-        Lmega = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,lengthData)$Lmega
-        percentMature = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,lengthData)$percentMature
-        percentOpt = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,lengthData)$percentOpt
-        percentMega = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,lengthData)$percentMega
+        Lmat = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$Lmat
+        Lopt = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$Lopt
+        Lmega = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$Lmega
+        percentMature = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$percentMature
+        percentOpt = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$percentOpt
+        percentMega = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$percentMega
         
         
         if (is.nan(percentMature) | is.infinite(percentMature)) resultMature = "Cannot Interpret" else{
@@ -1225,29 +1313,7 @@ shinyServer(function(input, output) {
     return(LL)
   })
   
-  output$HCRListUI <- renderUI({
-    List = c(input$indicatorLEKSelection,input$indicatorLengthSelection,input$indicatorLandingsSelection,input$indicatorUnderwaterSelection)
-    conMat = expand.grid(rep(list(c("Green","Yellow")),length(List)))
-    for (i in 1:nrow(conMat)){
-      if (length(List) == 1){
-        if (i ==1) newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[1,],".",sep="",collapse="")
-        if (i ==2) newHCR = paste(List," is ",rev(t(apply(conMat, 1, paste0))[1,]),".",sep="",collapse="")
-      } else newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[i,],".",sep="",collapse="")
-      if (i==1) fullList = newHCR else fullList = c(fullList,newHCR)
-    }
-    limits = paste(List," is Red",sep="")
-    fullList = c(fullList,limits)
-    
-    if (is.null(List)) return(NULL)
-    
-    LL <- vector("list",length(fullList))        
-    for(i in 1:length(fullList)){
-      LL[[i]] <- list(h6(paste(i,". ",fullList[i],sep="")),
-                      hr())
-    }
-    return(LL)
-  })
-  
+
   output$HCRTriggerUI <- renderUI({
     List = c(input$indicatorLEKSelection,input$indicatorLengthSelection,input$indicatorLandingsSelection,input$indicatorUnderwaterSelection)
     conMat = expand.grid(rep(list(c("Green","Yellow")),length(List)))
@@ -1303,9 +1369,8 @@ Mode <- function(x) {
   return(ux[which.max(tabulate(match(x, ux)))])
 }
 
-froese = function(l_inf,M,k,t0,wa,wb,m50,lengthData){
+froese = function(l_inf,M,k,t0,wa,wb,m50,m95,lengthData){
   
-  m95 = 1.14 * m50
   n0 = 1000
   lengthVec = seq(1,l_inf)
   ageVec = t0 - log(1-lengthVec/l_inf)/k

@@ -1,0 +1,56 @@
+Country,Family,Species,Common,Local,Code,L_inf,k,t0,M,Wa,Wb,m50,m95
+Philippines,Balistidae,Abalistes stellaris,Starry triggerfish,,ABALST,59.58,0.19,-0.73,0.198393,0.0472,2.76,32.66,37.23
+Philippines,Scombridae,Acanthocybium solandri,Wahoo,,ACANSO,149.9,1.58,-0.17,0.44,0.0014157,3.3034,97.75,111.435
+Philippines,Acanthuridae,Acanthurus nigrofuscus,Brown surgeon fish,,ACANNI,15.8,0.45,-2.26,0.2,0.0264,3.028,11.5,13.11
+Philippines,Anguillidae,Anguilla bicolor bicolor,Shortfin Eel,,ANGUBI,126.1,0.14,-0.77,0.1447,0.00076,3.17,64.3,73.3
+Philippines,Lutjanidae,Aprion virescens,Green Jobfish,Malagono ,APRIVI,65.6,0.307,0,0.11522,0.0077,3.134,45,51.3
+Philippines,Scaridae,Bolbometopon muricatum,Bumphead Parrotfish,,BOLBMU,157.75,0.063,-0.47,0.1,0.0082,3.2,60,68.4
+Philippines,Caesionidae,Caesio cuning,Yellowtail fusilier,"Labayan, Lila ",CAESCU,51.096,0.989,-0.833,1.033,0.0052,3.339,28.07,32
+Philippines,Carangidae,Caranx ignobilis,Giant trevally,,CARAIG,239.75,0.082,-0.173,0.272339,0.0202,3,112.8,128.59
+Philippines,Carangidae,Caranx melampygus,Bluefin Trevally,Mamsa,CARAME,96.68,0.22,0,0.427962,0.0234,2.918,36.94,42.11
+Philippines,Carangidae,Caranx sexfasciatus,Bigeye Trevally,,CARASE,80,0.24,0,0.55,0.0198,2.986,42.34,48.27
+Philippines,Carcharhinidae,Carcharhinus amblyrhynchos,Grey Reef Shark,,CARCMA,229.2,0.05,-7.51,0.15767,0.0030223,3.29,125,142.5
+Philippines,Carcharhinidae,Carcharhinus melanopterus,Blacktip Shark,,CARCME,158.5,0.2519,0,0.1997,0.000325,3.649,96,109.44
+Philippines,Labridae,Cheilinus undulatus,Napoleon Wrasse,"Buntogan, ipus-ipus, mameng",CHEIUN,137.5,0.1,0,0.259,0.0113,3.136,74.75,85.215
+Philippines,Scaridae,Chlorurus sordidus,Daisy Parrotfish,,CHLOSO,21.96,1.1,0,0.3375,0.0243,2.969,14.8,16.87
+Philippines,Pomacentridae,Dascyllus aruanus,Humbug Damselfish,,DASCAR,11,2.9,0,4.81,0.0415,2.989,5,5.7
+Philippines,Carangidae,Elagatis bipinnulata,Rainbow runner,,ELAGBI,93.02,0.214,-0.449,0.4279618,0.0135,2.92,65.7,74.9
+Philippines,Serranidae,Epinephelus coioides,Orange-spotted Grouper,,EPINCO,97.9,0.14,-1.5,0.19,0.0099,3.102,43.5,49.59
+Philippines,Serranidae,Epinephelus polyphekadion,Camouflage Grouper,,EPINPO,44.71,0.251,-0.14,0.144,0.0083,3.074333333,33.95,38.703
+Philippines,Scombridae,Euthynnus affinis,Eastern Little Tuna,,EUTHAF,81.92,0.56,-0.0317,0.93,0.0254,2.889,37.7,42.98
+Philippines,Blenniidae,Exallias brevis,Leopard blenny,,EXALBR,15.4,0.48,-0.41,0.516506,NA,NA,9.7,11.06
+Philippines,Carcharhinidae,Galeocerdo cuvier,Tiger Shark,,GALECU,406.14,0.31,0,0.13314,0.00262,3.357,287,327.18
+Philippines,Exocoetidae,Hirundichthys speculiger,Mirrorwing flyingfish,,HIRUSP,27.68,1.06,0,1.497866,0.0116,3.01,16.2,18.5
+Philippines,Hemiramphidae,Hyporhamphus affinis,Spotted halfbeak needlefish,,HYPOAF,41.57,NA,0,0.554765,0.0007,3.575,23.62,26.93
+Philippines,Istiophoridae,Istiophorus platypterus,Indo-Pacific Sailfish,,ISTIPL,240.4,0.145,-2.781,0.260498,0.004375,2.9775,166,189.24
+Philippines,Scombridae,Katsuwonus pelamis,Skipjack Tuna,,KATSPE,65.1,1.3,0,1.6,0.018695,3.0305,35.5,40.47
+Philippines,Lutjanidae,Lutjanus ehrenbergii,Blackspot Snapper,,LUTJEH,24.2,0.99,-0.05,0.35,0.018,2.97,20.15,22.971
+Philippines,Lutjanidae,Lutjanus fulviflamma,Dory Snapper,Labungan ,LUTJFU,28.87,0.3,0,0.29,0.0205,2.96,17.7,20.18
+Philippines,Lethrinidae,Lethrinus harak,Thumbprint emperor,,LETHHA,28.4,0.509,-0.83,0.79475,0.01195,3.123,19.5,21.1
+Philippines,Lethrinidae,Lethrinus miniatus,Sweetlip/trumpet emperor,,LETHMI,52.7,0.21,-2.07,0.69,0.00747,3.24,28,33.3
+Philippines,Lethrinidae,Lethrinus obsoletus,Orange-striped emperor,,LETHOB,31.3,0.276,-2.78,0.153627,0.0173,3.026,23.7,25.7
+Philippines,Lutjanidae,Lutjanus argentimaculatus,Mangrove red snapper,,LUTJAR,66.11,0.19,0,0.37,0.028,2.844,37.26,42.48
+Philippines,Lutjanidae,Lutjanus bohar,Two-Spot Red Snapper,,LUTJBO,63.06,0.091,-3.94,0.0544679,0.0156,3.059,42.896,48.9
+Philippines,Lutjanidae,Lutjanus gibbus,Humpback Snapper,Taiwan,LUTJGI,34.695,0.233,-2.465,0.906,0.0126812,3.158,20.1,22.9
+Philippines,Acanthuridae,Naso lopezi,Elongate unicornfish,,NASOLO,68.89,NA,NA,NA,NA,NA,NA,NA
+Philippines,Acanthuridae,Naso unicornis,Bluespine unicornfish,"Gangis, Gapas-gapas, Gangis-gangis",NASOUN,43.39,0.489,-0.14,0.051650556,0.0179,3.035,32.8,74.8
+Philippines,Acanthuridae,Naso vlamingii,Bignose unicornfish,,NASOVL,41.96,0.264,-0.26,0.066571828,0.05248,2.843,25.8,29.4
+Philippines,Nemipteridae,Nemipterus peronii,Notched threadfin bream,,NEGAPE,41.9,0.25,-0.74,0.209491767,0.0079,3.251,15,17.1
+Philippines,Octopodidae,Octopus cyanea,Day Octopus,,OCTOCY,1.345,0.006,0,1.997,2.306869,2.4997,10.15,11.571
+Philippines,Octopodidae,Octopus vulgaris,Common Octopus,,OCTOVU,28.3,1.122,0.008,2.5604549,0.3992,2.9246,11.5,13.11
+Philippines,Palinuridae,Panulirus versicolor,Blue or Painted spiny lobster,,PANUVE,14.47,0.27,-0.18,0.265,0.954992586,2.98,8.3,9.462
+Philippines,Leiognathidae,Photopectoralis bindus,Orangefin ponyfish,,PHOTBI,11.4,0.82,0,3.25,0.106,2.19,8.7,9.9
+Philippines,Serranidae,Plectropomus leopardus,Leopard coral grouper,Lapu-lapu,PLECLE,63.013,0.088,-4.4114,0.2,0.0118,3.06,32,36.5
+Philippines,Portunidae,Portunus pelagicus,Blue Swimming Crab,Lambay,PORTPE,15.27,1.5,-0.57,2.2,0.05725,3.158,5.85,6.63
+Philippines,Scombridae,Rastrelliger kanagurta,Indian Mackerel,Anduhaw ,RASTKA,38,0.8,0,1.44,0.0083,3.166,18,20.52
+Philippines,Scaridae,Scarus ghobban,Blue-eyed Parrotfish,,SCARGH,46.87,0.65,-0.07,0.52,0.0165,3.041,29.92,34.12
+Philippines,Nemipteridae,Scolopsis taenioptera,Lattice monocle bream,,SCOLTA,30.5,0.47,0,1.12,0.00542,3.28,18,20.5
+Philippines,Scombridae,Scomberomorus commerson,Narrow-banded Spanish mackerel,,SCOMCO,115.083,0.711,-0.25,0.35,0.0162,2.856,71.85,81.909
+Philippines,Carangidae,Selar crumenophthalmus,Bigeye scad,,SELACR,25.7,2.05,0,1.78,0.0097,3.194,21.5,24.5
+Philippines,Carangidae,Selaroides leptolepis,Yellowstripe Scad,,SELALE,19.49,1.2,0,2.21,0.00745,3.101,10.1,11.5
+Philippines,Siganidae,Siganus argenteus,Streamlined spinefoot,,SIGAAR,31,0.75,0,1.466,0.0109,3.154,18,20.5
+Philippines,Siganidae,Siganus canaliculatus,White spotted spinefoot,Bangkawon ,SIGACA,28.1,1.95,0,2.816,0.01201,3.011,14.2,16.2
+Philippines,Sphyraenidae,Sphyraena flavicauda,Yellowtail Barracuda,Tabangko,SPHYFL,42.73,0.296,-0.82,0.3153402,0.0044,3.083,24.2,27.6
+Philippines,Trichiuridae,Trichiurus lepturus,Largehead hairtail/beltfish,Dahon tubo ,TRICLE,66,0.46,0,0.86,0.0002,3.324,25.5,29.1
+Philippines,Xiphiidae,Xiphias gladius,Swordfish,,XIPHGL,256,0.102,NA,0.285,0.03,2.9395,168.2,191.7
+Philippines,Acanthuridae,Zebrasoma flavescens,Yellow Tang,,ZEBRFL,16.75,0.275,-1.2,0.07306664,0.03738,2.86,14,16
