@@ -240,7 +240,7 @@ shinyServer(function(input, output) {
     if(tierTable()$tier < 2) return()
     #indicatorList = c("Average Length (Fishery Dependent)","Fishing Mortality / Natural Mortality (Catch Curve)","Fishing Mortality / Natural Mortality (LBAR)","Spawning Potential Ratio (SPR)","Froese Sustainability Indicators")
     #indicatorList = c("Average Length (Fishery Dependent)","Fishing Mortality / Natural Mortality (LBAR)","Froese Sustainability Indicators")
-    indicatorList = c("Froese Sustainability Indicators","Fishing Mortality / Natural Mortality (LBAR)")
+    indicatorList = c("Froese Sustainability Indicators","Fishing Mortality / Natural Mortality (LBAR)","Fishing Mortality / Natural Mortality (Catch Curve)","Spawning Potential Ratio (SPR)")
     #checkboxGroupInput(inputId = "indicatorLengthSelection",label = "Select at least one length-based performance indicator:",choices=indicatorList,selected="Average Length (Fishery Dependent)")
     checkboxGroupInput(inputId = "indicatorLengthSelection",label = "Select at least one length-based performance indicator:",choices=indicatorList,selected="Froese Sustainability Indicators")
   })
@@ -685,6 +685,10 @@ shinyServer(function(input, output) {
   
   output$LBAR <- DT::renderDataTable(LBARInput())
   
+  output$CC <- DT::renderDataTable(CCInput())
+  
+  output$SPR <- DT::renderDataTable(SPRInput())
+  
   output$lengthFD <- DT::renderDataTable(lengthFDInput())
   
   output$Froese <- DT::renderDataTable(FroeseInput())
@@ -696,7 +700,13 @@ shinyServer(function(input, output) {
     
     summaryTable = summaryTable[-1,]
     
-    
+    Names <- c("Assessment",
+               "Site",
+               "Species",
+               "PI",
+               "TRP",
+               "LRP",
+               "Result")
     
     if ("dataLEK" %in% input$checkDataGroup & "Presence of Destructive Fishing Gear" %in% input$indicatorLEKSelection){
       if (input$destructive_PI == input$destructive_TRP) result = "Green" else result = "Red"
@@ -709,7 +719,7 @@ shinyServer(function(input, output) {
                  result)
       
       newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
-      names(newRow) = names(summaryTable)
+      colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("dataLEK" %in% input$checkDataGroup & "Changes in Fishing Seasons" %in% input$indicatorLEKSelection){
@@ -723,7 +733,7 @@ shinyServer(function(input, output) {
                  result)
       
       newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
-      names(newRow) = names(summaryTable)
+      colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("dataLEK" %in% input$checkDataGroup & "Changes in Target Species Composition" %in% input$indicatorLEKSelection){
@@ -737,7 +747,7 @@ shinyServer(function(input, output) {
                  result)
       
       newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
-      names(newRow) = names(summaryTable)
+      colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("dataLEK" %in% input$checkDataGroup & "Target Species Vulnerability" %in% input$indicatorLEKSelection){
@@ -751,7 +761,7 @@ shinyServer(function(input, output) {
                  result)
       
       newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
-      names(newRow) = names(summaryTable)
+      colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("landingsData" %in% input$checkDataGroup & "Total Landings" %in% input$indicatorLandingsSelection){
@@ -765,7 +775,7 @@ shinyServer(function(input, output) {
                  result)
       
       newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
-      names(newRow) = names(summaryTable)
+      colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("landingsData" %in% input$checkDataGroup & "CPUE" %in% input$indicatorLandingsSelection){
@@ -779,12 +789,13 @@ shinyServer(function(input, output) {
                  result)
       
       newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
-      names(newRow) = names(summaryTable)
+      colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
     
     
     
     if ("dataLength" %in% input$checkDataGroup & "Fishing Mortality / Natural Mortality (LBAR)" %in% input$indicatorLengthSelection) {
+
       newRow = c("LBAR",
                  LBARInput()[,c("Site",
                                 "Species",
@@ -793,25 +804,26 @@ shinyServer(function(input, output) {
                                 "LRP_FvM",
                                 "Result_FvM")])
       
-      newRow = data.frame(newRow,stringsAsFactors = FALSE)
-      names(newRow) = names(summaryTable)
+      newRow = (data.frame(newRow,stringsAsFactors = FALSE))
+      colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
     
-    if ("dataLength" %in% input$checkDataGroup & "Average Length (Fishery Dependent)" %in% input$indicatorLengthSelection) {
-      newRow = c("Average Length (Fishery Dependent)",
-                 lengthFDInput()[,c("Site",
-                                    "Species",
-                                    "Average_Length_FD",
-                                    "Average_Length_FD_TRP",
-                                    "Average_Length_FD_LRP",
-                                    "Average_Length_FD_Result")])
+    if ("dataLength" %in% input$checkDataGroup & "Fishing Mortality / Natural Mortality (Catch Curve)" %in% input$indicatorLengthSelection) {
       
-      newRow = data.frame(newRow,stringsAsFactors = FALSE)
-      names(newRow) = names(summaryTable)
+      newRow = c("Catch Curve",
+                 CCInput()[,c("Site",
+                                "Species",
+                                "FvM",
+                                "FvMCC_TRP",
+                                "FvMCC_LRP",
+                                "Result_CC")])
+      
+      newRow = (data.frame(newRow,stringsAsFactors = FALSE))
+      colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("dataLength" %in% input$checkDataGroup & "Froese Sustainability Indicators" %in% input$indicatorLengthSelection) {
-      newRow = c("Aggregated Froese Sustainability Indicators",
+      newRow = c("Froese Indicators",
                  input$siteSelection,
                  input$speciesSelection,
                  input$froese_Result,
@@ -819,38 +831,23 @@ shinyServer(function(input, output) {
                  "Red",
                  input$froese_Result)
       newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
-      names(newRow) = names(summaryTable)
+      colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
-      #       newRow = c("Froese Sustainability Indicators - Percent Mature",
-      #                         FroeseInput()[,c("Site",
-      #                                          "Species",
-      #                                          "Percent_Mature",
-      #                                          "TRP_Percent_Mature",
-      #                                          "LRP_Percent_Mature",
-      #                                          "Result_Mature")])
-      #       newRow = data.frame(newRow,stringsAsFactors = FALSE)
-      #       names(newRow) = names(summaryTable)
-      #       summaryTable = rbind(summaryTable,newRow)
-      #       
-      #       newRow = c("Froese Sustainability Indicators - Percent Optimal",
-      #                                      FroeseInput()[,c("Site",
-      #                                                       "Species",
-      #                                                       "Percent_Opt",
-      #                                                       "TRP_Percent_Opt",
-      #                                                       "LRP_Percent_Opt",
-      #                                                       "Result_Opt")])
-      #       newRow = data.frame(newRow,stringsAsFactors = FALSE)
-      #       names(newRow) = names(summaryTable)
-      #       summaryTable = rbind(summaryTable,newRow)
-      #       
-      #       newRow = c("Froese Sustainability Indicators - Percent Megaspawner",
-      #                                      FroeseInput()[,c("Site",
-      #                                                       "Species",
-      #                                                       "PercentMega",
-      #                                                       "TRP_Percent_Mega",
-      #                                                       "LRP_Percent_Mega",
-      #                                                       "Result_Mega")])
+
+    if ("dataLength" %in% input$checkDataGroup & "Spawning Potential Ratio (SPR)" %in% input$indicatorLengthSelection) {
       
+      newRow = c("SPR",
+                 SPRInput()[,c("Site",
+                                "Species",
+                                "SPR",
+                                "TRP_SPR",
+                                "LRP_SPR",
+                                "Result_SPR")])
+      
+      newRow = (data.frame(newRow,stringsAsFactors = FALSE))
+      colnames(newRow) = Names
+      summaryTable = rbind(summaryTable,newRow)}  
+    
       if ("underwaterData" %in% input$checkDataGroup & "Density Ratio (Target Species)" %in% input$indicatorUnderwaterSelection){
         if (input$DR_PI >= input$DR_TRP) result = "Green" else {
           if (input$DR_PI < input$DR_TRP & input$DR_PI > input$DR_LRP) result = "Yellow" else result = "Red"}
@@ -862,7 +859,7 @@ shinyServer(function(input, output) {
                    input$DR_LRP,
                    result)
         newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
-        names(newRow) = names(summaryTable)
+        colnames(newRow) = Names
         summaryTable = rbind(summaryTable,newRow)}
         
         if ("underwaterData" %in% input$checkDataGroup & "Biomass Ratio (aggregated across species)" %in% input$indicatorUnderwaterSelection){
@@ -878,20 +875,63 @@ shinyServer(function(input, output) {
                      result)
         
         newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
-        names(newRow) = names(summaryTable)
+        colnames(newRow) = Names
         summaryTable = rbind(summaryTable,newRow)}
       
 
-    
-    colnames(summaryTable) = c("Assessment",
-                               "Site",
-                               "Species",
-                               "PI",
-                               "TRP",
-                               "LRP",
-                               "Result")
-    
+   
+    colnames(summaryTable) = Names
+
     summaryTable
+  })
+  
+  
+  SPRInput <- reactive({
+    if (is.na(input$FM) | is.na(input$SL50) | is.na(input$SL95)) return(NULL)
+    table = data.frame(matrix(NA,nrow=1,ncol=6))
+    colnames(table) = c("Site",
+                        "Species",
+                        "SPR",
+                        "TRP_SPR",
+                        "LRP_SPR",
+                        "Result_SPR")
+    
+    MyPars <- new("LB_pars")
+    
+    MyPars@Linf <- input$Linf 
+    MyPars@L50 <- input$m50 
+    MyPars@L95 <- input$m95
+    MyPars@MK <- input$M / input$k 
+    MyPars@M <- input$M
+    MyPars@SL50 <- input$SL50
+    MyPars@SL95 <- input$SL95
+    MyPars@FM <- input$FM
+    MyPars@BinWidth <- 1
+    MyPars@BinMax <- input$Linf*1.3
+    MyPars@BinMin <- 0
+    MyPars@L_units <- "cm"
+    MyPars@Walpha_units <- "cm"
+    MyPars@Walpha <- input$w_a
+    MyPars@Wbeta <- input$w_b
+    
+    MySim <- LBSPRsim(MyPars)
+    
+    SPR <- round(MySim@SPR, 2)
+    
+    if (is.nan(SPR) | is.infinite(SPR)) result = "Cannot Interpret" else{
+      if (SPR >= input$SPR_TRP) result = "Green"
+      if (SPR < input$SPR_TRP & SPR >= input$SPR_LRP) result = "Yellow"
+      if (SPR < input$SPR_LRP) result = "Red"
+    }
+    
+    table[1,] = c(input$siteSelection,
+                  input$speciesSelection,
+                  SPR,
+                  input$SPR_TRP,
+                  input$SPR_LRP,
+                  result)
+    
+    return(table)
   })
   
   LBARInput <- reactive({
@@ -969,6 +1009,108 @@ shinyServer(function(input, output) {
                       FvM,
                       input$FvMLBAR_TRP,
                       input$FvMLBAR_LRP,
+                      result)
+      }
+    }
+    
+    if(input$gearGlobalSelection != "Look at All Gear Types") tableSubset = table[table$"gear" == input$gearGlobalSelection,] else tableSubset = table
+    if(input$yearGlobalSelection != "Look at All Years") tableSubset = tableSubset[table$"year" == input$yearGlobalSelection,] else tableSubset = tableSubset
+    
+    tableSubset = tableSubset[rowSums(is.na(tableSubset)) != ncol(tableSubset),]
+    tableSubset
+    
+  })
+  
+  CCInput <- eventReactive(input$goButton,{
+    
+    df <- df_length
+    df = subset(df,site==input$siteSelection)
+    df = subset(df,species==input$speciesSelection)
+    
+    
+    if (input$gearGlobalSelection == "Aggregate Across Gear Types") g = 1 else g = length(as.vector(unique(df$gear)))
+    if (input$yearGlobalSelection == "Aggregate Across Years") y = 1 else y = length(as.vector(unique(df$year)))
+    
+    table = data.frame(matrix(NA,nrow=g*y,ncol=13))
+    
+    colnames(table) = c("Site",
+                        "Species",
+                        "gear",
+                        "year",
+                        "Sample Size",
+                        "Z",
+                        "F",
+                        "FvM",
+                        "FvMCC_TRP",
+                        "FvMCC_LRP",
+                        "S50",
+                        "S95",
+                        "Result_CC")
+    
+    for (i in 1:g){
+      
+      for (j in 1:y){
+        
+        if (input$gearGlobalSelection != "Aggregate Across Gear Types") {
+          dfSubset = subset(df,gear==as.vector(unique(df$gear))[i])
+          gearLabel = as.vector(unique(df$gear))[i]
+        } else {
+          dfSubset = df
+          gearLabel = "Aggregate Across Gear Types"
+        }
+        
+        if (input$yearGlobalSelection != "Aggregate Across Years") {
+          dfSubset = subset(dfSubset,year==as.vector(unique(df$year))[j])
+          yearLabel = as.vector(unique(df$year))[j]
+        } else {
+          dfSubset = dfSubset
+          yearLabel = "Aggregate Across Years"
+        }
+        
+        lengthData = dfSubset$length_cm[!is.na(dfSubset$length_cm)]
+        sampleSize = length(lengthData)
+        dfSubset <- dfSubset %>%
+          mutate(Date = ymd(paste(year,"01","01",sep="-")))
+        
+        lfq_dat <- lfqCreate(dfSubset,Lname = "length_cm", Dname = "Date", aggregate_dates = FALSE,
+                             length_unit = "cm", bin_size = 1, plot=FALSE) %>%
+          lfqModify()
+        
+        lfq_dat$Linf <- input$Linf
+        lfq_dat$K <- input$k
+        lfq_dat$t0 <- input$t0
+        
+        
+        ccOutputs <- catchCurve(lfq_dat,
+                                catch_columns = 1,
+                                calc_ogive = TRUE)
+        
+        Z = ccOutputs$Z
+        F = ccOutputs$Z - input$M
+        FvM = F / input$M
+        S50 = ccOutputs$L50
+        S95 = ccOutputs$L95
+        
+        if (is.nan(FvM) | is.infinite(FvM)) result = "Cannot Interpret" else{
+          if (FvM < input$FvMCC_TRP) result = "Green"
+          if (FvM > input$FvMCC_TRP & FvM<input$FvMCC_LRP) result = "Yellow"
+          if (FvM > input$FvMCC_TRP) result = "Red"
+        }
+        
+        if (i==1 & j ==1) k = 1 else k = k+1
+
+        table[k,] = c(input$siteSelection,
+                      input$speciesSelection,
+                      gearLabel,
+                      yearLabel,
+                      sampleSize,
+                      Z,
+                      F,
+                      FvM,
+                      input$FvMCC_TRP,
+                      input$FvMCC_LRP,
+                      S50,
+                      S95,
                       result)
       }
     }
@@ -1185,6 +1327,22 @@ shinyServer(function(input, output) {
     },
     content = function(file) {
       write.csv(LBARInput(),file)
+    }) 
+  
+  output$downloadCC <- downloadHandler(
+    filename = function(){
+      gsub(" ", "", paste("CC_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
+    },
+    content = function(file) {
+      write.csv(CCInput(),file)
+    }) 
+  
+  output$downloadSPR <- downloadHandler(
+    filename = function(){
+      gsub(" ", "", paste("SPR_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
+    },
+    content = function(file) {
+      write.csv(SPRInput(),file)
     }) 
   
   output$downloadLengthFD <- downloadHandler(

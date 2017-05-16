@@ -93,13 +93,17 @@ cat("\n  ")
 ```
 
 ## Step 5: Perform Assessment Techniques
-```{r, fig.height = 10, fig.width = 7, echo=FALSE,error=FALSE,message=FALSE,warning=FALSE,results='asis'}
+```{r, fig.height = 6, fig.width = 7, echo=FALSE,error=FALSE,message=FALSE,warning=FALSE,results='asis'}
 cat("\n  ")
 cat("Here are the data visualizations you produced:")
 cat("\n  ")
 plotInput()
+```
+
+```{r, fig.height = 9, fig.width = 7, echo=FALSE,error=FALSE,message=FALSE,warning=FALSE,results='asis'}
 cat("\n  ")
 plotCPUE()
+cat("\n  ")
 ```
 
 ## Step 6: Interpret Assessment Results

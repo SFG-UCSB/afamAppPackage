@@ -401,7 +401,7 @@ shinyUI(fluidPage(
                                               ),
                                               mainPanel(
                                                 plotOutput("histogram"),
-                                                tags$head(tags$style("#histogram{height:80vh !important;}"))
+                                                tags$head(tags$style("#histogram{height:60vh !important;}"))
                                               )
                                             )
                                    ),
@@ -418,7 +418,7 @@ shinyUI(fluidPage(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Froese Sustainability Indicators') != -1",
                                                   h2("Froese Model Outputs"),
-                                                  h4("L_Mature, L_Optimal, L_Mega, Percent Mature, Percent Optimal, and Percent Megaspawner have been calculated automatically using the life history information and length data provided."),
+                                                  h4("L_Mature, L_Optimal, L_Mega, Percent Mature, Percent Optimal, and Percent Megaspawner have been calculated"),
                                                   DT::dataTableOutput("Froese"))
                                               )
                                             )
@@ -445,20 +445,64 @@ shinyUI(fluidPage(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Fishing Mortality / Natural Mortality (LBAR)') != -1",
                                                   h4("Instructions: The results for the LBAR method will be automatically calculated using the life history information provided and data visualizations performed."),
-                                                  downloadButton("downloadLBAR",label="Download LBAR Results (CSV)"),
-                                                  downloadButton("downloadLBARPlot",label="Download LBAR Results (Plot)"))
-                                              ),
+                                                  downloadButton("downloadLBAR",label="Download LBAR Results (CSV)")
+                                                  #downloadButton("downloadLBARPlot",label="Download LBAR Results (Plot)"))
+                                              )),
                                               mainPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Fishing Mortality / Natural Mortality (LBAR)') != -1",
                                                   h2("LBAR Model Outputs"),
-                                                  h4("LBAR, Z, F, and F/M have been calculated using the life history information provided in Tab 4 (L_inf, k, and M) along with the length at full selectivity (L_c), which is automatically calculated from the histograms in Tab 5"),
-                                                  DT::dataTableOutput("LBAR"),
-                                                  plotOutput("LBARBox",height=1600))
+                                                  h4("LBAR, Z, F, and F/M have been calculated"),
+                                                  DT::dataTableOutput("LBAR")
+                                                  #plotOutput("LBARBox",height=400,width=400))
+                                              )
+                                            )
+                                   )),
+                                   tabPanel("Fishing Mortality / Natural Mortality (Catch Curve)",
+                                            sidebarLayout(
+                                              sidebarPanel(
+                                                conditionalPanel(
+                                                  condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Fishing Mortality / Natural Mortality (Catch Curve)') != -1",
+                                                  h4("Instructions: Hit the Go! button to begin the analysis. A window should pop up, where you should select the beginning and end points over which the catch curve should be calcualted. The beginning point should be the length at full selectivity. The end point should be the last point in the data set before there are any zero measurements. You may find consulting the length histogram helpful. The results for the catch curve method will then be calculated. You may re-do the analysis by pressing the Go! button again."),
+                                                  actionButton("goButton", "Go!"),
+                                                  downloadButton("downloadCC",label="Download Catch Curve Results (CSV)"),
+                                                  h6("This calculation uses the TropFishR package.")
+                                                  #downloadButton("downloadCCPlot",label="Download LBAR Results (Plot)"))
+                                              )),
+                                              mainPanel(
+                                                conditionalPanel(
+                                                  condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Fishing Mortality / Natural Mortality (Catch Curve)') != -1",
+                                                  h2("Catch Curve Model Outputs"),
+                                                  h4("Z, F, and F/M have been calculated"),
+                                                  DT::dataTableOutput("CC")
+                                                  #plotOutput("LBARBox",height=400,width=400))
+                                                )
+                                              )
+                                            )),
+                                   tabPanel("Spawning Potential Ratio (SPR)",
+                                            sidebarLayout(
+                                              sidebarPanel(
+                                                conditionalPanel(
+                                                  condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Spawning Potential Ratio (SPR)') != -1",
+                                                  h4("Instructions: Enter the 3 parameters below, and SPR will be automatically calcualted. If you did the Catch curve method, you can get SL95 and SL50 from the output table for that. If not, you can use the length histogram. SL95 should be the mode of the histogram. SL50 should be the length that has roughly half the number of counts as the mode."),
+                                                  numericInput(inputId = "FM",label="Enter the F/M ratio calculated from either Catch Curve or LBAR.",min=0,max=10,value=NULL),
+                                                  numericInput(inputId = "SL95",label="Enter the Length at 95% selectivity.",min=0,value=NULL),
+                                                  numericInput(inputId = "SL50",label="Enter the Length at 50% selectivity.",min=0,value=NULL),
+                                                  downloadButton("downloadSPR",label="Download SPR Results (CSV)"),
+                                                  h6("This calculation uses the LBSPR package.")
+                                                  #downloadButton("downloadSPRPlot",label="Download SPR Results (Plot)"))
+                                              )),
+                                              mainPanel(
+                                                conditionalPanel(
+                                                  condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Spawning Potential Ratio (SPR)') != -1",
+                                                  h2("SPR Model Outputs"),
+                                                  h4("SPR been calculated using the provided inputs"),
+                                                  DT::dataTableOutput("SPR")
+                                                  #plotOutput("SPRBox",height=400,width=400))
                                               )
                                             )
                                    )
-                                 )),
+                                 ))),
                         tabPanel("Landings-based Performance Indicators",
                                  tabsetPanel(
                                    tabPanel("Data Visualization",

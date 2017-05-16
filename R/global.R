@@ -7,6 +7,9 @@ library(shiny)
 library(DT)
 library(readxl)
 library(stringr)
+library(LBSPR)
+library(TropFishR)
+library(lubridate)
 
 df_length <- read_csv("data/data_length.csv",progress=TRUE)
 df_catch <- read_csv("data/data_catch.csv",progress=TRUE)
@@ -22,7 +25,7 @@ brazil_lhi_database <- read_xlsx("data/Brazil Life History Database.xlsx",sheet=
 lhi_database <- bind_rows(phils_lhi_database,
                           indo_lhi_database,
                           brazil_lhi_database) %>%
-  select(Country,
+  dplyr::select(Country,
          Species = X__3,
          Common = X__4,
          L_inf = `Needed for Adaptive Fisheries Assessment and Management`,
