@@ -135,9 +135,10 @@ shinyServer(function(input, output) {
   
   LHIInput <- reactive({
     if(is.null(input$siteSelection) | is.null(input$speciesSelection)) return()
-    table = data.frame(matrix(NA,nrow=1,ncol=10))
+    table = data.frame(matrix(NA,nrow=1,ncol=11))
     
-    colnames(table) = c("Site",
+    colnames(table) = c("Country",
+                        "Site",
                         "Species",
                         "Linf",
                         "k",
@@ -148,7 +149,8 @@ shinyServer(function(input, output) {
                         "m50",
                         "m95")
     
-    table[1,] = c(input$siteSelection,
+    table[1,] = c(input$countrySelection,
+                  input$siteSelection,
                   input$speciesSelection,
                   input$Linf,
                   input$k,
@@ -366,12 +368,12 @@ shinyServer(function(input, output) {
               geom_vline(xintercept = froeseTemp$Lmega,color="blue",type=2) +
               xlim(0,input$Linf) +
               theme_bw() +
-              theme(text = element_text(size=20),
-                    plot.title = element_text(size=20),
-                    axis.title = element_text(size=25),
+              theme(text = element_text(size=16),
+                    plot.title = element_text(size=16),
+                    axis.title = element_text(size=16),
                     strip.background = element_rect(fill="#EA883A"),
-                    strip.text.x = element_text(size = 25),
-                    strip.text.y = element_text(size = 25)))
+                    strip.text.x = element_text(size = 16),
+                    strip.text.y = element_text(size = 16)))
     }
     
     if (input$gearSelection == "Aggregate Across Gear Types" & input$yearSelection != "Aggregate Across Years"){
@@ -395,12 +397,12 @@ shinyServer(function(input, output) {
               geom_vline(xintercept = froeseTemp$Lmega,color="blue",type=2) +
               xlim(0,input$Linf) +
               theme_bw() +
-              theme(text = element_text(size=20),
-                    plot.title = element_text(size=20),
-                    axis.title = element_text(size=25),
+              theme(text = element_text(size=16),
+                    plot.title = element_text(size=16),
+                    axis.title = element_text(size=16),
                     strip.background = element_rect(fill="#EA883A"),
-                    strip.text.x = element_text(size = 25),
-                    strip.text.y = element_text(size = 25)))
+                    strip.text.x = element_text(size = 16),
+                    strip.text.y = element_text(size = 16)))
     }
     
     if (input$gearSelection != "Aggregate Across Gear Types" & input$yearSelection == "Aggregate Across Years"){
@@ -424,12 +426,12 @@ shinyServer(function(input, output) {
               ylab("Count") +
               xlim(0,input$Linf) +
               theme_bw() +
-              theme(text = element_text(size=20),
-                    plot.title = element_text(size=20),
-                    axis.title = element_text(size=25),
+              theme(text = element_text(size=16),
+                    plot.title = element_text(size=16),
+                    axis.title = element_text(size=16),
                     strip.background = element_rect(fill="#EA883A"),
-                    strip.text.x = element_text(size = 25),
-                    strip.text.y = element_text(size = 25)))
+                    strip.text.x = element_text(size = 16),
+                    strip.text.y = element_text(size = 16)))
     }
     
     if (input$gearSelection == "Aggregate Across Gear Types" & input$yearSelection == "Aggregate Across Years"){
@@ -450,12 +452,12 @@ shinyServer(function(input, output) {
               geom_vline(xintercept = froeseTemp$Lmega,color="blue",type=2) +
               xlim(0,input$Linf) +
               theme_bw() +
-              theme(text = element_text(size=20),
-                    plot.title = element_text(size=20),
-                    axis.title = element_text(size=25),
+              theme(text = element_text(size=16),
+                    plot.title = element_text(size=16),
+                    axis.title = element_text(size=16),
                     strip.background = element_rect(fill="#EA883A"),
-                    strip.text.x = element_text(size = 25),
-                    strip.text.y = element_text(size = 25)))
+                    strip.text.x = element_text(size = 16),
+                    strip.text.y = element_text(size = 16)))
     }
     
   }
@@ -498,9 +500,9 @@ shinyServer(function(input, output) {
         ylab("Total Annual Effort [hours]") +
         xlab("Year") +
         theme(axis.text.x = element_text(angle = 90, hjust = 1),
-              text = element_text(size=20),
-              plot.title = element_text(size=20),
-              axis.title = element_text(size=25))
+              text = element_text(size=16),
+              plot.title = element_text(size=16),
+              axis.title = element_text(size=16))
       
       landingsPlot = ggplot(dataSubset,aes(year,tripCatch)) +
         stat_summary(fun.y = sum, geom = "point",size=4,colour="#EA883A") +
@@ -509,9 +511,9 @@ shinyServer(function(input, output) {
         ylab("Total Annual Catch [kg]") +
         xlab("Year") +
         theme(axis.text.x = element_text(angle = 90, hjust = 1),
-              text = element_text(size=20),
-              plot.title = element_text(size=20),
-              axis.title = element_text(size=25))
+              text = element_text(size=16),
+              plot.title = element_text(size=16),
+              axis.title = element_text(size=16))
       
       CPUEPlot = ggplot(dataSubset,aes(year,CPUE)) +
         stat_summary(fun.y = median, geom = "point",size=4,colour="#EA883A") +
@@ -520,9 +522,9 @@ shinyServer(function(input, output) {
         ylab("Median CPUE [kg/hour]") +
         xlab("Year") +
         theme(axis.text.x = element_text(angle = 90, hjust = 1),
-              text = element_text(size=20),
-              plot.title = element_text(size=20),
-              axis.title = element_text(size=25))
+              text = element_text(size=16),
+              plot.title = element_text(size=16),
+              axis.title = element_text(size=16))
       
       grid.arrange(landingsPlot,effortPlot,CPUEPlot,nrow=3,top=paste(paste("Site: ",input$siteSelection,sep=""),
                                                                      paste("\nSpecies: ",input$speciesSelection,sep="")))
@@ -570,6 +572,7 @@ shinyServer(function(input, output) {
     #                                                                  paste("\nSpecies: ",input$speciesSelection,sep="")))
     # }
   }
+  
   
   plotLBAR <- function(){
     

@@ -34,6 +34,7 @@ shinyUI(fluidPage(
                               hr()
                             )
                           ),
+                          selectInput("countrySelection",label="Select country",choices=c("Indonesia","Philippines","Brazil")),
                           uiOutput("siteUI"),
                           uiOutput("speciesUI"),
                           uiOutput("gearGlobalUI"),
@@ -369,8 +370,7 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.checkDataGroup.indexOf('dataLength') != -1",
-                                                  h4("Instructions: First select your country. If your species and country is already included in the Fish Forever life history database, the life history parameters will be automatically filled out. Ensure that these parameters look reasonable. If the species and country is not included in the database, you will need to enter these parameters manually. Ensure parameters use consistent length and weight units (i.e., centimeters and grams)."),
-                                                  selectInput("countrySelection",label="Select country",choices=c("Philippines","Indonesia","Brazil")),
+                                                  h4("Instructions: If your species and country is already included in the Fish Forever life history database, the life history parameters will be automatically filled out below. Ensure that these parameters look reasonable. If the species and country is not included in the database, you will need to enter these parameters manually. Ensure parameters use consistent length and weight units (i.e., centimeters and grams)."),
                                                   uiOutput("linfUI"),
                                                   uiOutput("kUI"),
                                                   uiOutput("t0UI"),
@@ -483,6 +483,7 @@ shinyUI(fluidPage(
                                                 uiOutput("landingsUI")
                                               ),
                                               mainPanel(
+
                                               ))),
                                    tabPanel("CPUE Indicator",
                                             sidebarLayout(
@@ -490,6 +491,7 @@ shinyUI(fluidPage(
                                                 uiOutput("CPUEUI")
                                               ),
                                               mainPanel(
+
                                               )))
 
                                  )),
