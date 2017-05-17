@@ -319,11 +319,17 @@ shinyServer(function(input, output) {
   output$indicatorLengthUI <- renderUI({
     if(is.null(tierTable()$tier)) return()
     if(tierTable()$tier < 2) return()
+    df <- lengthData()
+    df = subset(df,site==input$siteSelection)
+    df = subset(df,species==input$speciesSelection)
+    if (nrow(df) < 500) indicatorList = c("Froese Sustainability Indicators") else{
+      indicatorList = c("Froese Sustainability Indicators","Fishing Mortality / Natural Mortality (LBAR)","Fishing Mortality / Natural Mortality (Catch Curve)","Spawning Potential Ratio (SPR)")
+    }
     #indicatorList = c("Average Length (Fishery Dependent)","Fishing Mortality / Natural Mortality (Catch Curve)","Fishing Mortality / Natural Mortality (LBAR)","Spawning Potential Ratio (SPR)","Froese Sustainability Indicators")
     #indicatorList = c("Average Length (Fishery Dependent)","Fishing Mortality / Natural Mortality (LBAR)","Froese Sustainability Indicators")
-    indicatorList = c("Froese Sustainability Indicators","Fishing Mortality / Natural Mortality (LBAR)","Fishing Mortality / Natural Mortality (Catch Curve)","Spawning Potential Ratio (SPR)")
+    
     #checkboxGroupInput(inputId = "indicatorLengthSelection",label = "Select at least one length-based performance indicator:",choices=indicatorList,selected="Average Length (Fishery Dependent)")
-    checkboxGroupInput(inputId = "indicatorLengthSelection",label = "Select at least one length-based performance indicator:",choices=indicatorList,selected="Froese Sustainability Indicators")
+    checkboxGroupInput(inputId = "indicatorLengthSelection",label = "Select at least one length-based performance indicator. Note that if fewer than 500 length samples are available, only Froese indicators are possible:",choices=indicatorList,selected="Froese Sustainability Indicators")
   })
   
   output$indicatorLandingsUI <- renderUI({
