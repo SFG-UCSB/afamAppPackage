@@ -20,14 +20,50 @@ shinyServer(function(input, output) {
     lhiData
   })
   
+  metaDataReactive <- reactive({
+    if(is.null(input$countrySelection) | is.null(input$speciesSelection)) return(NULL)
+    metaDataReactive <- metadata %>%
+      filter(Country == input$countrySelection &
+               Species == input$speciesSelection)
+    metaDataReactive
+  })
+  
+  output$speciesUIText <- renderUI({
+    if (nrow(lhiData()) == 0) valueDefault <- NA else valueDefault <- lhiData()$Species
+    
+    textInput("Code", label = "Scientific Name", value = valueDefault)
+  })
+  
+  output$commonUIText <- renderUI({
+    if (nrow(lhiData()) == 0) valueDefault <- NA else valueDefault <- lhiData()$Common
+    
+    textInput("Common", label = "Common Name", value = valueDefault)
+  })
+  
+  output$codeUI <- renderUI({
+    if (nrow(lhiData()) == 0) valueDefault <- NA else valueDefault <- lhiData()$Code
+    
+    textInput("Code", label = "6-letter speies code", value = valueDefault)
+  })
+  
   output$linfUI <- renderUI({
         if (nrow(lhiData()) == 0) linfDefault <- NA else linfDefault <- lhiData()$L_inf
         numericInput("Linf", label = "L_Infinity (von Bertalannfy growth parameter)", value = linfDefault)
   })
   
+  output$linfMetaUI <- renderUI({
+    if (nrow(lhiData()) == 0) referenceDefault <- NA else referenceDefault <- metaDataReactive()$L_inf
+    textInput("Linf_Reference",label="L_Infinity reference",value = referenceDefault)
+  })
+  
   output$kUI <- renderUI({
     if (nrow(lhiData()) == 0) kDefault <- NA else kDefault <- lhiData()$k
     numericInput("k", label = "k (von Bertalannfy growth parameter)", value = kDefault)
+  })
+
+  output$kMetaUI <- renderUI({
+    if (nrow(lhiData()) == 0) referenceDefault <- NA else referenceDefault <- metaDataReactive()$k
+    textInput("k_Reference",label="k reference",value = referenceDefault)
   })
   
   output$t0UI <- renderUI({
@@ -35,6 +71,11 @@ shinyServer(function(input, output) {
     numericInput("t0", label = "t0 (von Bertalannfy growth parameter, theoretical age at length 0)", value = t0Default)
   })
   
+  output$t0MetaUI <- renderUI({
+    if (nrow(lhiData()) == 0) referenceDefault <- NA else referenceDefault <- metaDataReactive()$t0
+    textInput("t0_Reference",label="t0 reference",value = referenceDefault)
+  })
+  
   output$mUI <- renderUI({
     if (nrow(lhiData()) == 0) mDefault <- NA else mDefault <- lhiData()$M
     numericInput("M", label = "M (Natural Mortality)", value = mDefault)
@@ -43,6 +84,11 @@ shinyServer(function(input, output) {
   output$mUI <- renderUI({
     if (nrow(lhiData()) == 0) mDefault <- NA else mDefault <- lhiData()$M
     numericInput("M", label = "M (Natural Mortality)", value = mDefault)
+  })
+  
+  output$mMetaUI <- renderUI({
+    if (nrow(lhiData()) == 0) referenceDefault <- NA else referenceDefault <- metaDataReactive()$M
+    textInput("M_Reference",label="M reference",value = referenceDefault)
   })
   
   output$waUI <- renderUI({
@@ -50,9 +96,19 @@ shinyServer(function(input, output) {
     numericInput("w_a", label = "w_a (length-weight relationship parameter a)", value = waDefault)
   })
   
+  output$waMetaUI <- renderUI({
+    if (nrow(lhiData()) == 0) referenceDefault <- NA else referenceDefault <- metaDataReactive()$Wa
+    textInput("w_a_Reference",label="w_a reference",value = referenceDefault)
+  })
+  
   output$wbUI <- renderUI({
     if (nrow(lhiData()) == 0) wbDefault <- NA else wbDefault <- lhiData()$Wb
     numericInput("w_b", label = "w_b (length-weight relationship parameter b)", value = wbDefault)
+  })
+  
+  output$wbMetaUI <- renderUI({
+    if (nrow(lhiData()) == 0) referenceDefault <- NA else referenceDefault <- metaDataReactive()$Wb
+    textInput("w_b_Reference",label="w_b reference",value = referenceDefault)
   })
   
   output$m50UI <- renderUI({
@@ -60,12 +116,20 @@ shinyServer(function(input, output) {
     numericInput("m50", label = "m50 (Lengthat which 50% of individuals have reached maturity.)", value = m50Default)
   })
   
+  output$m50MetaUI <- renderUI({
+    if (nrow(lhiData()) == 0) referenceDefault <- NA else referenceDefault <- metaDataReactive()$m50
+    textInput("m50_Reference",label="m50 reference",value = referenceDefault)
+  })
+  
   output$m95UI <- renderUI({
     if (nrow(lhiData()) == 0) m95Default <- NA else m95Default <- lhiData()$m95
     numericInput("m95", label = "m95 (Lengthat which 95% of individuals have reached maturity.)", value = m95Default)
   })
   
-  
+  output$m95MetaUI <- renderUI({
+    if (nrow(lhiData()) == 0) referenceDefault <- NA else referenceDefault <- metaDataReactive()$m95
+    textInput("m95_Reference",label="m95 reference",value = referenceDefault)
+  })
   catchData <- reactive({
     if(is.null(input$dataType)) return(NULL)
     inFile <- input$dataLandings
@@ -135,15 +199,17 @@ shinyServer(function(input, output) {
   
   LHIInput <- reactive({
     if(is.null(input$siteSelection) | is.null(input$speciesSelection)) return()
-    table = data.frame(matrix(NA,nrow=1,ncol=11))
+    table = data.frame(matrix(NA,nrow=1,ncol=13))
     
     colnames(table) = c("Country",
                         "Site",
-                        "Species",
+                        "Scientific Name",
+                        "Common Name",
+                        "Code",
                         "Linf",
                         "k",
-                        "M",
                         "t0",
+                        "M",
                         "w_a",
                         "w_b",
                         "m50",
@@ -152,15 +218,30 @@ shinyServer(function(input, output) {
     table[1,] = c(input$countrySelection,
                   input$siteSelection,
                   input$speciesSelection,
+                  input$Common,
+                  input$Code,
                   input$Linf,
                   input$k,
-                  input$M,
                   input$t0,
+                  input$M,
                   input$w_a,
                   input$w_b,
                   input$m50,
                   input$m95)
-    
+    table[2,] = c(input$countrySelection,
+                  input$siteSelection,
+                  input$speciesSelection,
+                  input$Common,
+                  input$Code,
+                  input$Linf_Reference,
+                  input$k_Reference,
+                  input$t0_Reference,
+                  input$M_Reference,
+                  input$w_a_Reference,
+                  input$w_b_Reference,
+                  input$m50_Reference,
+                  input$m95_Reference)
+    rownames(table) = c("Parameter value","Reference")
     table
   })
   

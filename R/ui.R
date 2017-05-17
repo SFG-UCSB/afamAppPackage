@@ -377,15 +377,26 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.checkDataGroup.indexOf('dataLength') != -1",
-                                                  h4("Instructions: If your species and country is already included in the Fish Forever life history database, the life history parameters will be automatically filled out below. Ensure that these parameters look reasonable. If the species and country is not included in the database, you will need to enter these parameters manually. Ensure parameters use consistent length and weight units (i.e., centimeters and grams)."),
+                                                  h4("Instructions: If your species and country is already included in the Fish Forever life history database, the life history parameters will be automatically populated below. Ensure that these parameters look reasonable, and double-check that the references come from a similar geographic location and ecosystem. If the species and country is not included in the database, or if certain parameters and references aren't appropriate, you will need to enter these parameters manually, along with their references. Ensure parameters use consistent length and weight units that match your data (i.e., centimeters and grams). Once the table on the right has been populated, you may save this for your records using the button below."),
+                                                  uiOutput("speciesUIText"),
+                                                  uiOutput("commonUIText"),
+                                                  uiOutput("codeUI"),
                                                   uiOutput("linfUI"),
+                                                  uiOutput("linfMetaUI"),
                                                   uiOutput("kUI"),
+                                                  uiOutput("kMetaUI"),
                                                   uiOutput("t0UI"),
+                                                  uiOutput("t0MetaUI"),
                                                   uiOutput("mUI"),
+                                                  uiOutput("mMetaUI"),
                                                   uiOutput("waUI"),
+                                                  uiOutput("waMetaUI"),
                                                   uiOutput("wbUI"),
+                                                  uiOutput("wbMetaUI"),
                                                   uiOutput("m50UI"),
+                                                  uiOutput("m50MetaUI"),
                                                   uiOutput("m95UI"),
+                                                  uiOutput("m95MetaUI"),
                                                   downloadButton("downloadLHI",label="Download Life History Information"))
                                               ),
                                               mainPanel(
