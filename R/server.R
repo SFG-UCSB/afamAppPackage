@@ -881,7 +881,7 @@ shinyServer(function(input, output) {
 
    
     colnames(summaryTable) = Names
-
+    rownames(summaryTable) = c()
     summaryTable
   })
   
