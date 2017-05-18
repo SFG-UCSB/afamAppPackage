@@ -3,7 +3,7 @@ shinyUI(fluidPage(
   navbarPage(("AFAM Toolkit Dashboard"),
              tabPanel("Instructions",
                       fluidRow(
-                        includeMarkdown("www/help/1_introduction.md"),
+                        includeMarkdown("www/introduction.md"),
                         helpText(a(h1("Click for help!"), href="_book/toolkit-overview.html",target="_blank"))
                         )
 
