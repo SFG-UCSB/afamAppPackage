@@ -10,6 +10,8 @@ library(stringr)
 library(LBSPR)
 library(TropFishR)
 library(lubridate)
+library(zoo)
+library(shinyBS)
 
 df_length <- read_csv("data/data_length.csv",progress=TRUE)
 df_catch <- read_csv("data/data_catch.csv",progress=TRUE)
@@ -101,3 +103,16 @@ lhi_database <- bind_rows(phils_lhi_database,
          m50 = ifelse(is.na(as.numeric(m50)),str_extract_all(m50,"[-+.e0-9]*\\d")[[1]] %>% as.numeric() %>% mean(),as.numeric(m50)),
          m95 = ifelse(is.na(as.numeric(m95)),str_extract_all(m95,"[-+.e0-9]*\\d")[[1]] %>% as.numeric() %>% mean(),as.numeric(m95)))
 
+button_modal <-function (id, idModal, class = "btn", icon = NULL, label = "") 
+{
+  tags$div(
+    align = "center", 
+    tags$button(
+      id = id, 
+      `data-toggle` = "modal", 
+      `data-target` = paste0("#", idModal), 
+      class = class, 
+      list(icon, label)
+    )
+  )
+}

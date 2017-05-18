@@ -1476,7 +1476,7 @@ shinyServer(function(input, output) {
       #file.copy(src, 'indicatorTable.csv')
       
       library(rmarkdown)
-      out <- render('AFAMSummary.rmd', switch(
+      out <- render('www/AFAMSummary.rmd', switch(
         input$format,
         HTML = html_document(), Word = word_document()
       ))
@@ -1600,6 +1600,23 @@ shinyServer(function(input, output) {
     )
   })
   
+  observeEvent(input$report,
+               tagList(
+                 rmarkdown::render("www/AFAMSummary.rmd"),
+                 inclRmd("AFAMSummary.html")
+               )
+  )
+  
+  #output$helpFile2<-renderUI({getPage("help/2_overview.md")})
+  output$helpFile3<-renderUI({getPage("help/3_Step1.md")})
+  output$helpFile4<-renderUI({getPage("help/4_Step2.html")})
+  output$helpFile5<-renderUI({getPage("help/5_Step3.html")})
+  output$helpFile6<-renderUI({getPage("help/6_Step4.html")})
+  output$helpFile7<-renderUI({getPage("help/7_Step5.html")})
+  output$helpFile8<-renderUI({getPage("help/8_Step6.html")})
+  output$helpFile9<-renderUI({getPage("help/9_Step7.html")})
+  output$helpFile10<-renderUI({getPage("help/10_Step8.html")})
+  
 })
 
 LBAR = function(Lc,Linf,k,M,lfDist){
@@ -1658,4 +1675,8 @@ inclRmd <- function(path) {
     gsub("&lt;!--html_preserve--&gt;","",.) %>%
     HTML %>%
     withMathJax
+}
+
+getPage<-function(name) {
+  return(includeMarkdown(rmarkdown::render(name)))
 }
