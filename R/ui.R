@@ -4,14 +4,14 @@ shinyUI(fluidPage(
              tabPanel("Instructions",
                       fluidRow(
                         includeMarkdown("www/help/1_introduction.md"),
-                        helpText(a(h1("Click for help!"), href="help/2_overview.html",target="_blank"))
+                        helpText(a(h1("Click for help!"), href="_book/toolkit-overview.html",target="_blank"))
                         )
 
              ),
              tabPanel("Step 1 – Upload data, select species, and determine assessment and management tier",
                       sidebarLayout(
                         sidebarPanel(
-                          helpText(a(h1("Click for help!"), href="help/3_Step1.html",target="_blank")),
+                          helpText(a(h1("Click for help!"), href="_book/step-1-determine-assessment-and-management-tier.html",target="_blank")),
                           h4("Instructions: Select available data types, upload data (you may choose either real or dummy data), select site, and select species for analysis. A data summary will be shown on the right. Your assessment and management tier will also be automatically calculated."),
                           checkboxGroupInput("checkDataGroup", label = "Select the available data types", 
                                              choices = list("Local Ecological Knowledge" = "dataLEK", "Length composition data" = "dataLength", "Landings and Effort Data" = "landingsData","Underwater Visual Survey Data" = "underwaterData"),
@@ -70,7 +70,7 @@ shinyUI(fluidPage(
              tabPanel("Step 2 – Select fisheries management control(s)",
                       sidebarLayout(
                         sidebarPanel(
-                          helpText(a(h1("Click for help!"), href="help/4_Step2.html",target="_blank")),
+                          helpText(a(h1("Click for help!"), href="_book/step-2-determine-appropriate-fisheries-management-controls.html",target="_blank")),
                           h4("Instructions: Select your fisheries management control(s). This list is automatically updated based on your assessment and management tier."),
                           uiOutput("fmcUI")
                         ),
@@ -80,7 +80,7 @@ shinyUI(fluidPage(
              tabPanel("Step 3 – Select performance indicators and reference points",
                       sidebarLayout(
                         sidebarPanel(
-                          helpText(a(h1("Click for help!"), href="help/5_Step3.html",target="_blank")),
+                          helpText(a(h1("Click for help!"), href="_book/step-3-select-performance-indicators-reference-points-and-assessment-methods.html",target="_blank")),
                           h4("Instructions: Select at least one performance indicator from each data stream. The list will be automatically populated based on your available data and assessment and management tier. On the right, enter target reference points (TRPs) and limit reference points (LRPs) for each indicator. Default reference points are provided, but you may choose to update these based on species, local ecological knowledge, and community goals."),
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('dataLEK') != -1 &
@@ -319,7 +319,7 @@ shinyUI(fluidPage(
              tabPanel("Step 4: Define Harvest Control Rules",
                       sidebarLayout(
                         sidebarPanel(
-                          helpText(a(h1("Click for help!"), href="help/6_Step4.html",target="_blank")),
+                          helpText(a(h1("Click for help!"), href="_book/step-4-define-harvest-control-rules.html",target="_blank")),
                           h4("Instructions: For each possible assessment result, write out the likely interpretations for what would cause that result, and also specify the harvest control rule that will be triggered if any of the interpretations happen. The harvest control rule should make some adjustment to the fishery management control(s) selected in Step 2.")
                           ),
                         mainPanel(
@@ -335,7 +335,7 @@ shinyUI(fluidPage(
              tabPanel("Step 5: Perform Assessment Techniques",
                       tabsetPanel(
                         tabPanel("Step 5 Instructions",
-                                 helpText(a(h1("Click for help!"), href="help/7_Step5.html",target="_blank")),
+                                 helpText(a(h1("Click for help!"), href="_book/step-5-perform-assessment-methods.html",target="_blank")),
                                  h4("Instructions: There are tabs for each type of performance indicator (sorted by data type). Under each tab, there is a sub-tab for each performance indicator and associated assessment technique. Assessment tabs are left blank if the corresponding performance indicator was not selected during Step 3. If assessment techniques are available, complete them moving left to right.")
                                  ),
                         tabPanel("Local Ecological Knowledge Indicators",
@@ -583,7 +583,7 @@ shinyUI(fluidPage(
              tabPanel("Step 6: Interpret Assessment Results",
                       sidebarLayout(
                         sidebarPanel(
-                          helpText(a(h1("Click for help!"), href="help/8_Step6.html",target="_blank")),
+                          helpText(a(h1("Click for help!"), href="_book/step-6-interpret-assessment-results.html",target="_blank")),
                           h4("Instructions: A summary of all assessment results is provided to the right. Look these over with your stakeholder working group, and record the group's interpretation of how the fishery is doing."),
                           downloadButton("downloadSummary",label="Download Summary of Performance Indicators")
                         ),
@@ -597,7 +597,7 @@ shinyUI(fluidPage(
              tabPanel("Step 7: Adjust fisheries management controls using defined harvest control rules",
                       sidebarLayout(
                         sidebarPanel(
-                          helpText(a(h1("Click for help!"), href="help/9_Step7.html",target="_blank")),
+                          helpText(a(h1("Click for help!"), href="_book/step-7-adjust-fisheries-management-controls-using-defined-harvest-control-rules.html",target="_blank")),
                           h4("Instructions: After interpreting your assessment results in Step 6, select the result below to determine which of your pre-defined harvest control rules should be triggered."),
                           uiOutput("HCRTriggerUI"),
                           verbatimTextOutput("InterpretationTriggerText"),
@@ -611,7 +611,7 @@ shinyUI(fluidPage(
              tabPanel("Step 8: Complete your Fishery Management Plan",
                       sidebarLayout(
                         sidebarPanel(
-                          helpText(a(h1("Click for help!"), href="help/10_Step8.html",target="_blank")),
+                          helpText(a(h1("Click for help!"), href="_book/step-8-complete-your-fishery-management-plan.html",target="_blank")),
                           h5("To get a copy of your AFAM report, first click the Generate Report button. After that, you can click the link below to open the report in a new browser tab."),
                           actionButton("report", "Generate Report"),
                           helpText(a(h2("Click for the report (after generating)"), href="AFAMSummary.html",target="_blank")),
