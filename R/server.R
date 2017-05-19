@@ -1603,7 +1603,7 @@ shinyServer(function(input, output) {
   observeEvent(input$report,
                tagList(
                  rmarkdown::render("www/AFAMSummary.rmd"),
-                 inclRmd("AFAMSummary.html")
+                 inclRmd("www/AFAMSummary.html")
                )
   )
   
