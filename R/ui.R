@@ -483,7 +483,7 @@ shinyUI(fluidPage(
                                                   h4("Instructions: Hit the Go! button to begin the analysis. A window should pop up, where you should select the beginning and end points over which the catch curve should be calcualted. The beginning point should be the length at full selectivity. The end point should be the last point in the data set before there are any zero measurements. You may find consulting the length histogram helpful. The results for the catch curve method will then be calculated. You may re-do the analysis by pressing the Go! button again."),
                                                   actionButton("goButton", "Go!"),
                                                   downloadButton("downloadCC",label="Download Catch Curve Results (CSV)"),
-                                                  h6("This calculation uses the TropFishR package.")
+                                                  h5(a("This calculation uses the TropFishR package.", href="https://github.com/tokami/TropFishR",target="_blank"))
                                                   #downloadButton("downloadCCPlot",label="Download LBAR Results (Plot)"))
                                               )),
                                               mainPanel(
@@ -506,7 +506,7 @@ shinyUI(fluidPage(
                                                   numericInput(inputId = "SL95",label="Enter the Length at 95% selectivity.",min=0,value=NULL),
                                                   numericInput(inputId = "SL50",label="Enter the Length at 50% selectivity.",min=0,value=NULL),
                                                   downloadButton("downloadSPR",label="Download SPR Results (CSV)"),
-                                                  h6("This calculation uses the LBSPR package.")
+                                                  h5(a("This calculation uses the LBSPR package.", href="https://github.com/AdrianHordyk/LBSPR",target="_blank"))
                                                   #downloadButton("downloadSPRPlot",label="Download SPR Results (Plot)"))
                                               )),
                                               mainPanel(
