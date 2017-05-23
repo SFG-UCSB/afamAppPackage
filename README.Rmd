@@ -7,9 +7,11 @@ output:
     toc: yes
 ---
 
-# AFAM app quick-start guide
+# AFAM Dashboard quick-start guide
 
-This will guide you through installing the AFAM App on your computer, and then running the app through R Studio.
+The AFAM Toolkit Dashboard is meant to complement the [AFAM Toolkit Guidance Document](https://sfg-ucsb.github.io/afamGuidanceDocument/), a comprehensive toolkit for assessing and managing data-limited fisheries.
+
+This following steps will guide you through installing the AFAM App on your computer, and then running the app through R Studio. If you do not have R installed on your computer, you should first install R and R Studio on your computer using [these instructions](https://sfg-ucsb.github.io/fishery-manageR/).
 
 ## Step 1 - Install AFAM App Package
 
