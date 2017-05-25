@@ -14,10 +14,24 @@ library(zoo)
 library(shinyBS)
 library(curl)
 
-df_length <- read_csv("data/data_length.csv",progress=TRUE)
+#df_length <- read_csv("data/data_length.csv",progress=TRUE)
+df_length <- read_csv("data/data_catch.csv",progress=TRUE)
 df_catch <- read_csv("data/data_catch.csv",progress=TRUE)
 indicatorTable <- read_csv("data/indicatorTable.csv")
 
+# df_catch <- read_csv("R/data/data_catch.csv",progress=TRUE)
+# df_catch <- df_catch %>%
+#   mutate(days = 1) %>%
+#   mutate(gear = replace(gear, gear=="handline", "Handline")) %>%
+#   mutate(gear = replace(gear, gear=="Gill Net", "Gillnet")) %>%
+#   mutate(gear = replace(gear, gear=="Gill net", "Gillnet")) %>%
+#   mutate(inside_area = replace(inside_area, inside_area=="outside", "Outside")) %>%
+#   mutate(inside_area = replace(inside_area, inside_area=="inside", "Inside"))
+# gearEffortTable <- data.frame(gear = unique(df_catch$gear),fisher_days = c(2,18,1,2,2,1,2))
+# df_catch <- df_catch %>%
+#   left_join(gearEffortTable,by="gear")
+# write_csv(df_catch,"R/data/data_catch.csv")
+  
 phils_lhi_metadata <- read_xlsx("data/Philippines Species Life History.xlsx",sheet=2,na=c("","N/A"))
 colnames(phils_lhi_metadata) = phils_lhi_metadata[1,]
 colnames(phils_lhi_metadata)[1] = "Marker"

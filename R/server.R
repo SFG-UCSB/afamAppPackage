@@ -8,6 +8,8 @@ shinyServer(function(input, output) {
       return(NULL)
 
     if (input$dataType == "Use Dummy Data") df = df_length else df = read_csv(inFile$datapath)
+    if (input$sizeMax != -999) df <- df %>% filter(length_cm<input$sizeMax)
+    if (input$insideArea == TRUE) df <- df %>% filter(inside_area == "Inside")
     df
   })
   
@@ -81,6 +83,49 @@ shinyServer(function(input, output) {
     numericInput("M", label = "M (Natural Mortality)", value = mDefault)
   })
   
+  output$catchReference <- renderUI({
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$gearGlobalSelection) | is.null(input$yearGlobalSelection) | is.null(catchData())) return()
+    df <- catchData()
+    totalFN = function(x,y){
+      if (is.na(y)) total = x else total = y
+      return(total)
+    }
+    
+    catchEffortData=df[,c("personDays","sampled_catch","total_catch")] = lapply(df[,c("personDays","sampled_catch","total_catch")],as.numeric,na.rm=TRUE)
+    df = subset(df,site==input$siteSelection)
+    df = subset(df,species==input$speciesSelection)
+    #df$date <- as.Date(df$date,"%m/%d/%Y")
+    #df$month <- as.Date(cut(df$date, breaks = "month"))
+    dataSubset = subset(df,species==input$speciesSelection)
+    
+    
+    
+    dataSubset = dataSubset %>%
+      group_by(year,permanent_trip_id) %>%
+      summarize(catch = sum(sampled_catch,na.rm=TRUE),
+                fisher_days = mean(fisher_days),
+                CPUE = catch/fisher_days)
+    
+    if (input$tripMax != -999) dataSubset <- dataSubset %>% filter(catch < input$tripMax)
+    
+    dataSubset = dataSubset %>%  
+      group_by(year) %>%
+      mutate(sampling_days = length(unique(permanent_trip_id))) %>%
+      summarize(catch = ifelse(input$totalCatch == TRUE, sum(catch,na.rm=TRUE),sum(catch,na.rm=TRUE)/sampling_days),
+                CPUE = median(CPUE,na.rm=TRUE),
+                fisher_days = ifelse(input$totalCatch == TRUE,sum(fisher_days,na.rm=TRUE),sum(fisher_days,na.rm=TRUE)/sampling_days)) %>%
+      filter(catch>0 & CPUE > 0  & fisher_days > 0)
+    
+    dataSubset <- dataSubset %>%
+      filter(year < max(year))
+    
+    yearList <- dataSubset$year
+    sliderInput("catchReferenceSlider", label = ("Select the reference period over which the catch and/or CPUE reference values should be calculated. This time period should represent a desirable fishery condition. The catch and/or CPUE reference will be calculated as the average value over these years."), min = min(yearList), 
+                max = max(yearList), value = c(min(yearList), max(yearList)),
+                step = 1)
+    
+  })
+  
   output$mUI <- renderUI({
     if (nrow(lhiData()) == 0) mDefault <- NA else mDefault <- lhiData()$M
     numericInput("M", label = "M (Natural Mortality)", value = mDefault)
@@ -138,7 +183,8 @@ shinyServer(function(input, output) {
       return(NULL)
 
     if (input$dataType == "Use Dummy Data") df = df_catch else df = read_csv(inFile$datapath)
-
+    if (input$sizeMax != -999 & "length_cm" %in% colnames(df)) df <- df %>% filter(length_cm<input$sizeMax)
+    if (input$insideArea == TRUE) df <- df %>% filter(inside_area == "Inside")
     df
 
   })
@@ -290,19 +336,7 @@ shinyServer(function(input, output) {
     selectInput(inputId ="composition_PI",label="Instructions: Based on your local ecological knolwedge, enter the value for this performance indicator. The options available are automatically generated based on the TRP and LRP defined in Step 3.",choices=c(TRP,LRP),selected=NULL)
   })
   
-  output$landingsUI <- renderUI({
-    if (!("landingsData" %in% input$checkDataGroup) | !("Total Landings" %in% input$indicatorLandingsSelection)) return()
-    TRP = input$landings_TRP
-    LRP = input$landings_LRP
-    selectInput(inputId ="landings_PI",label="Instructions: Based on the landings data visualization, enter the value for this performance indicator. The options available are automatically generated based on the TRP and LRP defined in Step 3.",choices=c(TRP,LRP),selected=NULL)
-  })
-  
-  output$CPUEUI <- renderUI({
-    if (!("landingsData" %in% input$checkDataGroup) | !("CPUE" %in% input$indicatorLandingsSelection)) return()
-    TRP = input$CPUE_TRP
-    LRP = input$CPUE_LRP
-    selectInput(inputId ="CPUE_PI",label="Instructions: Based on the landings data visualization, enter the value for this performance indicator. The options available are automatically generated based on the TRP and LRP defined in Step 3.",choices=c(TRP,LRP),selected=NULL)
-  })
+
   
   output$vulnerabilityUI <- renderUI({
     if (!("dataLEK" %in% input$checkDataGroup) | !("Target Species Vulnerability" %in% input$indicatorLEKSelection)) return()
@@ -453,7 +487,7 @@ shinyServer(function(input, output) {
               geom_vline(xintercept = froeseTemp$Lmat,color="red",type=2) +
               geom_vline(xintercept = froeseTemp$Lopt,color="green",type=2) +
               geom_vline(xintercept = froeseTemp$Lmega,color="blue",type=2) +
-              xlim(0,input$Linf) +
+              #xlim(0,input$Linf) +
               theme_bw() +
               theme(text = element_text(size=16),
                     plot.title = element_text(size=16),
@@ -482,7 +516,7 @@ shinyServer(function(input, output) {
               geom_vline(xintercept = froeseTemp$Lmat,color="red",type=2) +
               geom_vline(xintercept = froeseTemp$Lopt,color="green",type=2) +
               geom_vline(xintercept = froeseTemp$Lmega,color="blue",type=2) +
-              xlim(0,input$Linf) +
+              #xlim(0,input$Linf) +
               theme_bw() +
               theme(text = element_text(size=16),
                     plot.title = element_text(size=16),
@@ -511,7 +545,7 @@ shinyServer(function(input, output) {
               geom_vline(xintercept = froeseTemp$Lopt,color="green",type=2) +
               geom_vline(xintercept = froeseTemp$Lmega,color="blue",type=2) +
               ylab("Count") +
-              xlim(0,input$Linf) +
+              #xlim(0,input$Linf) +
               theme_bw() +
               theme(text = element_text(size=16),
                     plot.title = element_text(size=16),
@@ -537,7 +571,7 @@ shinyServer(function(input, output) {
               geom_vline(xintercept = froeseTemp$Lmat,color="red",type=2) +
               geom_vline(xintercept = froeseTemp$Lopt,color="green",type=2) +
               geom_vline(xintercept = froeseTemp$Lmega,color="blue",type=2) +
-              xlim(0,input$Linf) +
+              #xlim(0,input$Linf) +
               theme_bw() +
               theme(text = element_text(size=16),
                     plot.title = element_text(size=16),
@@ -554,18 +588,20 @@ shinyServer(function(input, output) {
   })
   
   output$CPUEPlots <- renderPlot({
-    print(plotCPUE())
+    print(plotCPUE()$plots)
   })
   
+  
+  
   plotCPUE <- function(){
-    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$gearSelection) | is.null(input$yearSelection) | is.null(catchData())) return()
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$gearGlobalSelection) | is.null(input$yearGlobalSelection) | is.null(catchData()) | is.null(input$catchReferenceSlider[1])) return()
     df <- catchData()
     totalFN = function(x,y){
       if (is.na(y)) total = x else total = y
       return(total)
     }
     
-    catchEffortData=df[,c("hours","sampled_catch","total_catch")] = lapply(df[,c("hours","sampled_catch","total_catch")],as.numeric,na.rm=TRUE)
+    catchEffortData=df[,c("personDays","sampled_catch","total_catch")] = lapply(df[,c("personDays","sampled_catch","total_catch")],as.numeric,na.rm=TRUE)
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
     #df$date <- as.Date(df$date,"%m/%d/%Y")
@@ -573,91 +609,101 @@ shinyServer(function(input, output) {
     dataSubset = subset(df,species==input$speciesSelection)
     
     
-    dataSubset = dataSubset %>%
-      rowwise() %>% 
-      mutate(tripCatch = totalFN(sampled_catch,total_catch)) %>% 
-      mutate(CPUE = tripCatch/hours)
     
-    #if (input$landingsTiming == "Yearly"){
+    dataSubset = dataSubset %>%
+      group_by(year,permanent_trip_id) %>%
+      summarize(catch = sum(sampled_catch,na.rm=TRUE),
+                fisher_days = mean(fisher_days),
+                CPUE = catch/fisher_days)
+    
+    if (input$tripMax != -999) dataSubset <- dataSubset %>% filter(catch < input$tripMax)
+    
+    
+    dataSubset = dataSubset %>%  
+      group_by(year) %>%
+      mutate(sampling_days = length(unique(permanent_trip_id))) %>%
+      summarize(catch = ifelse(input$totalCatch == TRUE, sum(catch,na.rm=TRUE),sum(catch,na.rm=TRUE)/sampling_days),
+                CPUE = median(CPUE,na.rm=TRUE),
+                fisher_days = ifelse(input$totalCatch == TRUE,sum(fisher_days,na.rm=TRUE),sum(fisher_days,na.rm=TRUE)/sampling_days)) %>%
+      filter(catch>0 & CPUE > 0  & fisher_days > 0)
+    
+
+      catchRP <- dataSubset %>%
+        filter(year %in% input$catchReferenceSlider) %>%
+        summarize(catchRP = mean(catch)) %>%
+        as.numeric()
       
-      effortPlot = ggplot(dataSubset,aes(year,hours)) +
-        stat_summary(fun.y = sum, geom = "point",size=4,colour="#EA883A") +
-        stat_summary(fun.y = sum, geom = "line",linetype=2,colour="#00ADB7") +
+      catchLast <- dataSubset %>%
+        filter(year == max(year)) %>%
+        dplyr::select(catch) %>%
+        as.numeric()
+      
+      catchRelativeFinal <- (catchLast - catchRP) / catchRP * 100
+      
+      cpueRP <- dataSubset %>%
+        filter(year %in% input$catchReferenceSlider) %>%
+        summarize(cpueRP = mean(CPUE)) %>%
+        as.numeric()
+      
+      cpueLast <- dataSubset %>%
+        filter(year == max(year)) %>%
+        dplyr::select(CPUE) %>%
+        as.numeric()
+      
+      cpueRelativeFinal <- (cpueLast - cpueRP) / cpueRP * 100
+      
+
+      catchLabel <- ifelse(input$totalCatch == TRUE, "Total annual catch [kg/year]","Normalized annual catch [kg/year/sampling-day]")
+      effortLabel <- ifelse(input$totalCatch == TRUE, "Total annual effort [fisher-days]","Normalized annual effort [fisher-days/sampling-day]")
+      
+      effortPlot = ggplot(dataSubset,aes(year,fisher_days)) +
         theme_bw() +
-        ylab("Total Annual Effort [hours]") +
+        geom_line(linetype=2,colour="#00ADB7") +
+        geom_point(size=4,colour="#EA883A") +
+        ylab(effortLabel) +
         xlab("Year") +
         theme(axis.text.x = element_text(angle = 90, hjust = 1),
               text = element_text(size=16),
               plot.title = element_text(size=16),
               axis.title = element_text(size=16))
       
-      landingsPlot = ggplot(dataSubset,aes(year,tripCatch)) +
-        stat_summary(fun.y = sum, geom = "point",size=4,colour="#EA883A") +
-        stat_summary(fun.y = sum, geom = "line",linetype=2,colour="#00ADB7") +
+      landingsPlot = ggplot(dataSubset,aes(year,catch)) +
+        geom_line(linetype=2,colour="#00ADB7") +
+        geom_point(size=4,colour="#EA883A") +
+        geom_segment(aes(x = input$catchReferenceSlider[1], y = catchRP, xend = tail(input$catchReferenceSlider,n=1), yend = catchRP, colour = "red"),show.legend=FALSE) +
         theme_bw() +
-        ylab("Total Annual Catch [kg]") +
+        ylab(catchLabel) +
         xlab("Year") +
         theme(axis.text.x = element_text(angle = 90, hjust = 1),
               text = element_text(size=16),
               plot.title = element_text(size=16),
-              axis.title = element_text(size=16))
+              axis.title = element_text(size=16)) +
+        ggtitle(paste("Reference period shown as red line",
+                      "\nAverage catch from ", input$catchReferenceSlider[1], " to ", tail(input$catchReferenceSlider,n=1),": ",round(catchRP,2),
+                      "\nCatch in ",max(dataSubset$year),": ",round(catchLast,2),
+                      "\nPercentage change in catch from reference period to ",max(dataSubset$year),": ",round(catchRelativeFinal,2),"%",sep=""))
       
       CPUEPlot = ggplot(dataSubset,aes(year,CPUE)) +
-        stat_summary(fun.y = median, geom = "point",size=4,colour="#EA883A") +
-        stat_summary(fun.y = median, geom = "line",linetype=2,colour="#00ADB7") +
+        geom_line(linetype=2,colour="#00ADB7") +
+        geom_point(size=4,colour="#EA883A") +
+        geom_segment(aes(x = input$catchReferenceSlider[1], y = cpueRP, xend = tail(input$catchReferenceSlider,n=1), yend = cpueRP, colour = "red"),show.legend=FALSE) +
         theme_bw() +
-        ylab("Median CPUE [kg/hour]") +
+        ylab("Median CPUE [kg/fisher-day]") +
         xlab("Year") +
         theme(axis.text.x = element_text(angle = 90, hjust = 1),
               text = element_text(size=16),
               plot.title = element_text(size=16),
-              axis.title = element_text(size=16))
+              axis.title = element_text(size=16)) +
+        ggtitle(paste("Reference period shown as red line",
+                      "\nAverage CPUE from ", input$catchReferenceSlider[1], " to ", tail(input$catchReferenceSlider,n=1),": ",round(cpueRP,2),
+                      "\nCPUE in ",max(dataSubset$year),": ",round(cpueLast,2),
+                      "\nPercentage change in CPUE from reference period to ",max(dataSubset$year),": ",round(cpueRelativeFinal,2),"%",sep=""))
       
-      grid.arrange(landingsPlot,effortPlot,CPUEPlot,nrow=3,top=paste(paste("Site: ",input$siteSelection,sep=""),
-                                                                     paste("\nSpecies: ",input$speciesSelection,sep="")))
-    # }
-    # 
-    # if (input$landingsTiming == "Monthly"){
-    #   
-    #   effortPlot = ggplot(dataSubset,aes(month,hours)) +
-    #     stat_summary(fun.y = sum, geom = "point",size=3,colour="#EA883A") +
-    #     stat_summary(fun.y = sum, geom = "line",linetype=2,colour="#00ADB7") +
-    #     scale_x_date(labels = date_format("%Y-%m"),breaks = date_breaks("month")) +
-    #     theme_bw() +
-    #     ylab("Total Monthly Effort [hours]") +
-    #     xlab("Month") +
-    #     theme(axis.text.x = element_text(angle = 90, hjust = 1),
-    #           text = element_text(size=20),
-    #           plot.title = element_text(size=20),
-    #           axis.title = element_text(size=25))
-    #   
-    #   landingsPlot = ggplot(dataSubset,aes(month,tripCatch)) +
-    #     stat_summary(fun.y = sum, geom = "point",size=3,colour="#EA883A") +
-    #     stat_summary(fun.y = sum, geom = "line",linetype=2,colour="#00ADB7") +
-    #     scale_x_date(labels = date_format("%Y-%m"),breaks = date_breaks("month")) +
-    #     theme_bw() +
-    #     ylab("Total Monthly Catch [kg]") +
-    #     xlab("Month") +
-    #     theme(axis.text.x = element_text(angle = 90, hjust = 1),
-    #           text = element_text(size=20),
-    #           plot.title = element_text(size=20),
-    #           axis.title = element_text(size=25))
-    #   
-    #   CPUEPlot = ggplot(dataSubset,aes(month,CPUE)) +
-    #     stat_summary(fun.y = median, geom = "point",size=3,colour="#EA883A") +
-    #     stat_summary(fun.y = median, geom = "line",linetype=2,colour="#00ADB7") +
-    #     scale_x_date(labels = date_format("%Y-%m"),breaks = date_breaks("month")) +
-    #     theme_bw() +
-    #     ylab("Median Monthly CPUE [kg/hour]") +
-    #     xlab("Month") +
-    #     theme(axis.text.x = element_text(angle = 90, hjust = 1),
-    #           text = element_text(size=20),
-    #           plot.title = element_text(size=20),
-    #           axis.title = element_text(size=25))
-    #   
-    #   grid.arrange(landingsPlot,effortPlot,CPUEPlot,nrow=3,top=paste(paste("Site: ",input$siteSelection,sep=""),
-    #                                                                  paste("\nSpecies: ",input$speciesSelection,sep="")))
-    # }
+      return(list(plots = grid.arrange(landingsPlot,effortPlot,CPUEPlot,nrow=3,top=paste(paste("Site: ",input$siteSelection,sep=""),
+                                                                     paste("\nSpecies: ",input$speciesSelection,sep=""))),
+           catchRelativeFinal = catchRelativeFinal,
+           cpueRelativeFinal = cpueRelativeFinal))
+           
   }
   
   
@@ -774,6 +820,10 @@ shinyServer(function(input, output) {
   
   output$CC <- DT::renderDataTable(CCInput())
   
+  output$Landings <- DT::renderDataTable(landingsInput())
+  
+  output$CPUE <- DT::renderDataTable(cpueInput())
+  
   output$SPR <- DT::renderDataTable(SPRInput())
   
   output$lengthFD <- DT::renderDataTable(lengthFDInput())
@@ -852,29 +902,28 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("landingsData" %in% input$checkDataGroup & "Total Landings" %in% input$indicatorLandingsSelection){
-      if (input$landings_PI == input$landings_TRP) result = "Green" else result = "Red"
       newRow = c("Total Landings",
                  input$siteSelection,
                  input$speciesSelection,
-                 input$landings_PI,
+                 levels(droplevels(landingsInput()$Change_In_Landings)),
                  input$landings_TRP,
                  input$landings_LRP,
-                 result)
-      
+                 levels(droplevels(landingsInput()$Result_Landings)))
+
       newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
       colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("landingsData" %in% input$checkDataGroup & "CPUE" %in% input$indicatorLandingsSelection){
-      if (input$CPUE_PI == input$CPUE_TRP) result = "Green" else result = "Red"
+      
       newRow = c("CPUE",
                  input$siteSelection,
                  input$speciesSelection,
-                 input$CPUE_PI,
+                 levels(droplevels(cpueInput()$Change_In_CPUE)),
                  input$CPUE_TRP,
                  input$CPUE_LRP,
-                 result)
-      
+                 levels(droplevels(cpueInput()$Result_CPUE)))
+
       newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
       colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
@@ -1023,7 +1072,7 @@ shinyServer(function(input, output) {
   
   LBARInput <- reactive({
     
-    df <- df_length
+    df <- lengthData()
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
     
@@ -1110,7 +1159,7 @@ shinyServer(function(input, output) {
   
   CCInput <- eventReactive(input$goButton,{
     
-    df <- df_length
+    df <- lengthData()
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
     
@@ -1212,7 +1261,7 @@ shinyServer(function(input, output) {
   
   lengthFDInput <- reactive({
     
-    df <- df_length
+    df <- lengthData()
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
     
@@ -1286,7 +1335,7 @@ shinyServer(function(input, output) {
   
   FroeseInput <- reactive({
     
-    df <- df_length
+    df <- lengthData()
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
     
@@ -1398,6 +1447,72 @@ shinyServer(function(input, output) {
     
   })
   
+  landingsInput <- reactive({
+    
+    table = data.frame(matrix(NA,nrow=1,ncol=6))
+    table <- table[-1,]
+    
+    
+    catchRelative <- plotCPUE()$catchRelativeFinal
+
+        if (is.nan(catchRelative) | is.infinite(catchRelative)) result = "Cannot Interpret" else{
+          if (catchRelative > input$landings_TRP) result = "Green"
+          if (catchRelative < input$landings_TRP & catchRelative>input$landings_LRP) result = "Yellow"
+          if (catchRelative < input$landings_LRP) result = "Red"
+        }
+        
+       
+        
+        newRow = c(input$siteSelection,
+                      input$speciesSelection,
+                      catchRelative,
+                      input$landings_TRP,
+                      input$landings_LRP,
+                      result)
+        
+        table <- rbind(table,newRow)
+        colnames(table) <- c("Site",
+                             "Species",
+                             "Change_In_Landings",
+                             "landings_TRP",
+                             "landings_LRP",
+                             "Result_Landings")
+        table
+      })
+  
+  cpueInput <- reactive({
+    
+    table = data.frame(matrix(NA,nrow=1,ncol=6))
+    table <- table[-1,]
+    
+    
+    cpueRelative <- plotCPUE()$cpueRelativeFinal
+    
+    if (is.nan(cpueRelative) | is.infinite(cpueRelative)) result = "Cannot Interpret" else{
+      if (cpueRelative > input$CPUE_TRP) result = "Green"
+      if (cpueRelative < input$CPUE_TRP & cpueRelative>input$CPUE_LRP) result = "Yellow"
+      if (cpueRelative < input$CPUE_LRP) result = "Red"
+    }
+    
+    
+    
+    newRow = c(input$siteSelection,
+               input$speciesSelection,
+               cpueRelative,
+               input$CPUE_TRP,
+               input$CPUE_LRP,
+               result)
+    
+    table <- rbind(table,newRow)
+    colnames(table) <- c("Site",
+                         "Species",
+                         "Change_In_CPUE",
+                         "CPUE_TRP",
+                         "CPUE_LRP",
+                         "Result_CPUE")
+    table
+  })
+  
   output$downloadPlot <- downloadHandler(
     filename = function(){
       gsub(" ", "", paste("LF_Plot_",input$siteSelection,"_",input$speciesSelection,"_",input$gearSelection,"_",input$yearSelection,".pdf", sep=""))
@@ -1491,7 +1606,7 @@ shinyServer(function(input, output) {
     },
     content = function(file) {
       pdf(file)
-      print(plotCPUE())
+      print(plotCPUE()$plots)
       dev.off()
     }) 
   

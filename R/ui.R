@@ -19,16 +19,29 @@ shinyUI(fluidPage(
                                              selected = "dataLEK"),
                           hr(),
                           conditionalPanel(
+                            condition = "input.checkDataGroup.indexOf('dataLength')!=-1 | input.checkDataGroup.indexOf('landingsData')!=-1",
+                            checkboxInput("insideArea",label="Only include data inside designated area, such as a TURF?",value=TRUE)
+                          ),
+                          conditionalPanel(
+                            condition = "input.checkDataGroup.indexOf('dataLength')!=-1",
+                            numericInput("sizeMax",label="Enter the largest feasible size that should be observed in the catch. Sizes above this will be removed as outliers. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999)
+                          ),
+                          conditionalPanel(
+                            condition = "input.checkDataGroup.indexOf('landingsData')!=-1",
+                            numericInput("tripMax",label="Enter the largest feasible catch for a single trip. Catches in a single trip above this will be removed as outliers. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999),
+                            checkboxInput("totalCatch",label="Does the catch and effort data represent the total landings in the fishery? If so, check this box. If the data is only a sub-sample, leave this box is un-checked, and the dashboard will normalize catch and effort by the number of sampling days.",value=FALSE)
+                          ),
+                          conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('dataLength') != -1 | input.checkDataGroup.indexOf('landingsData') != -1 | input.checkDataGroup.indexOf('underwaterData') != -1",
                             selectInput("dataType",label="Do you wish to use a real data set or a dummy data set?",choices=c("Use Dummy Data","Use Real Data"),selected="Use Dummy Data"),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('dataLength') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: site, year, species, gear, length_cm"),
+                              fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: site, year, species, gear, length_cm,inside_area,"),
                               hr()
                             ),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('landingsData') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: site, year, date, annual_trip_id, hours, permanent_trip_id, gear, inside_TURF, species, sampled_catch, total_catch"),
+                              fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: site, year, date, fisher_days, inside_area, permanent_trip_id, gear, species, sampled_catch, total_catch"),
                               hr()
                             ),
                             conditionalPanel(
@@ -260,25 +273,25 @@ shinyUI(fluidPage(
                             condition = "input.checkDataGroup && input.indicatorLandingsSelection && input.checkDataGroup.indexOf('landingsData') != -1 && input.indicatorLandingsSelection.indexOf('Total Landings') != -1",
                             fixedRow(
                               column(4,
-                                     h4("Total Landings")
+                                     h4("Percentage change in Total Landings from reference period (0% represents stable)")
                               ),
                               column(4,
-                                     textInput("landings_TRP", label = NULL, value = "Increasing or stabilized total landings")
+                                     numericInput("landings_TRP", label = NULL, value = 0)
                               ),
                               column(4,
-                                     textInput("landings_LRP", label = NULL, value = "Rapidly decreasing total landings"))
+                                     numericInput("landings_LRP", label = NULL, value = -50))
                             ),hr()),
                           conditionalPanel(
                             condition = "input.checkDataGroup && input.indicatorLandingsSelection && input.checkDataGroup.indexOf('landingsData') != -1 && input.indicatorLandingsSelection.indexOf('CPUE') != -1",
                             fixedRow(
                               column(4,
-                                     h4("CPUE")
+                                     h4("Percentage change in CPUE from reference period (0% represents stable)")
                               ),
                               column(4,
-                                     textInput("CPUE_TRP", label = NULL, value = "Increasing or stabilized CPUE")
+                                     numericInput("CPUE_TRP", label = NULL, value = 0)
                               ),
                               column(4,
-                                     textInput("CPUE_LRP", label = NULL, value = "Rapidly decreasing CPUE"))
+                                     numericInput("CPUE_LRP", label = NULL, value = -50))
                             ),hr()),
                           conditionalPanel(
                             condition = "input.checkDataGroup && input.indicatorUnderwaterSelection && input.checkDataGroup.indexOf('underwaterData') != -1 && input.indicatorUnderwaterSelection.indexOf('Density Ratio (Target Species)') != -1",
@@ -528,7 +541,7 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.checkDataGroup.indexOf('landingsData') != -1",
-                                                  #selectInput("landingsTiming", "Select the time interval over which to plot catch, effort, and CPUE data", choices=c("Monthly","Yearly"), selected = "Yearly"),
+                                                 uiOutput("catchReference"),
                                                   downloadButton("downloadLandingsPlot",label="Download landings, effort, and CPUE Results (Plot)"))
                                               ),
                                               mainPanel(
@@ -542,18 +555,20 @@ shinyUI(fluidPage(
                                    tabPanel("Total Landings Indicator",
                                             sidebarLayout(
                                               sidebarPanel(
-                                                uiOutput("landingsUI")
+
                                               ),
                                               mainPanel(
-
+                                                h3("Below are the results of the landings assessment."),
+                                                DT::dataTableOutput("Landings")
                                               ))),
                                    tabPanel("CPUE Indicator",
                                             sidebarLayout(
                                               sidebarPanel(
-                                                uiOutput("CPUEUI")
+
                                               ),
                                               mainPanel(
-
+                                                h3("Below are the results of the CPUE assessment."),
+                                                DT::dataTableOutput("CPUE")
                                               )))
 
                                  )),
