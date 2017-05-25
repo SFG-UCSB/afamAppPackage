@@ -1077,9 +1077,10 @@ shinyServer(function(input, output) {
     df = subset(df,species==input$speciesSelection)
     
     
-    if (input$gearGlobalSelection == "Aggregate Across Gear Types") g = 1 else g = length(as.vector(unique(df$gear)))
-    if (input$yearGlobalSelection == "Aggregate Across Years") y = 1 else y = length(as.vector(unique(df$year)))
-    
+    #if (input$gearGlobalSelection == "Aggregate Across Gear Types") g = 1 else g = length(as.vector(unique(df$gear)))
+    #if (input$yearGlobalSelection == "Aggregate Across Years") y = 1 else y = length(as.vector(unique(df$year)))
+    g = 1
+    y = 1
     table = data.frame(matrix(NA,nrow=g*y,ncol=13))
     
     colnames(table) = c("Site",
@@ -1101,16 +1102,16 @@ shinyServer(function(input, output) {
       for (j in 1:y){
         
         if (input$gearGlobalSelection != "Aggregate Across Gear Types") {
-          dfSubset = subset(df,gear==as.vector(unique(df$gear))[i])
-          gearLabel = as.vector(unique(df$gear))[i]
+          dfSubset = subset(df,gear==input$gearGlobalSelection)
+          gearLabel = input$gearGlobalSelection
         } else {
           dfSubset = df
           gearLabel = "Aggregate Across Gear Types"
         }
         
         if (input$yearGlobalSelection != "Aggregate Across Years") {
-          dfSubset = subset(dfSubset,year==as.vector(unique(df$year))[j])
-          yearLabel = as.vector(unique(df$year))[j]
+          dfSubset = subset(dfSubset,year==input$yearGlobalSelection)
+          yearLabel = input$yearGlobalSelection
         } else {
           dfSubset = dfSubset
           yearLabel = "Aggregate Across Years"
@@ -1164,9 +1165,10 @@ shinyServer(function(input, output) {
     df = subset(df,species==input$speciesSelection)
     
     
-    if (input$gearGlobalSelection == "Aggregate Across Gear Types") g = 1 else g = length(as.vector(unique(df$gear)))
-    if (input$yearGlobalSelection == "Aggregate Across Years") y = 1 else y = length(as.vector(unique(df$year)))
-    
+    #if (input$gearGlobalSelection == "Aggregate Across Gear Types") g = 1 else g = length(as.vector(unique(df$gear)))
+    #if (input$yearGlobalSelection == "Aggregate Across Years") y = 1 else y = length(as.vector(unique(df$year)))
+    g = 1
+    y = 1
     table = data.frame(matrix(NA,nrow=g*y,ncol=13))
     
     colnames(table) = c("Site",
@@ -1188,16 +1190,16 @@ shinyServer(function(input, output) {
       for (j in 1:y){
         
         if (input$gearGlobalSelection != "Aggregate Across Gear Types") {
-          dfSubset = subset(df,gear==as.vector(unique(df$gear))[i])
-          gearLabel = as.vector(unique(df$gear))[i]
+          dfSubset = subset(df,gear==input$gearGlobalSelection)
+          gearLabel = input$gearGlobalSelection
         } else {
           dfSubset = df
           gearLabel = "Aggregate Across Gear Types"
         }
         
         if (input$yearGlobalSelection != "Aggregate Across Years") {
-          dfSubset = subset(dfSubset,year==as.vector(unique(df$year))[j])
-          yearLabel = as.vector(unique(df$year))[j]
+          dfSubset = subset(dfSubset,year==input$yearGlobalSelection)
+          yearLabel = input$yearGlobalSelection
         } else {
           dfSubset = dfSubset
           yearLabel = "Aggregate Across Years"
@@ -1266,9 +1268,10 @@ shinyServer(function(input, output) {
     df = subset(df,species==input$speciesSelection)
     
     
-    if (input$gearGlobalSelection == "Aggregate Across Gear Types") g = 1 else g = length(as.vector(unique(df$gear)))
-    if (input$yearGlobalSelection == "Aggregate Across Years") y = 1 else y = length(as.vector(unique(df$year)))
-    
+    #if (input$gearGlobalSelection == "Aggregate Across Gear Types") g = 1 else g = length(as.vector(unique(df$gear)))
+    #if (input$yearGlobalSelection == "Aggregate Across Years") y = 1 else y = length(as.vector(unique(df$year)))
+    g = 1
+    y = 1
     table = data.frame(matrix(NA,nrow=g*y,ncol=9))
     
     colnames(table) = c("Site",
@@ -1286,16 +1289,16 @@ shinyServer(function(input, output) {
       for (j in 1:y){
         
         if (input$gearGlobalSelection != "Aggregate Across Gear Types") {
-          dfSubset = subset(df,gear==as.vector(unique(df$gear))[i])
-          gearLabel = as.vector(unique(df$gear))[i]
+          dfSubset = subset(df,gear==input$gearGlobalSelection)
+          gearLabel = input$gearGlobalSelection
         } else {
           dfSubset = df
           gearLabel = "Aggregate Across Gear Types"
         }
         
         if (input$yearGlobalSelection != "Aggregate Across Years") {
-          dfSubset = subset(dfSubset,year==as.vector(unique(df$year))[j])
-          yearLabel = as.vector(unique(df$year))[j]
+          dfSubset = subset(dfSubset,year==input$yearGlobalSelection)
+          yearLabel = input$yearGlobalSelection
         } else {
           dfSubset = dfSubset
           yearLabel = "Aggregate Across Years"
@@ -1339,9 +1342,10 @@ shinyServer(function(input, output) {
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
     
-    if (input$gearGlobalSelection == "Aggregate Across Gear Types") g = 1 else g = length(as.vector(unique(df$gear)))
-    if (input$yearGlobalSelection == "Aggregate Across Years") y = 1 else y = length(as.vector(unique(df$year)))
-    
+    #if (input$gearGlobalSelection == "Aggregate Across Gear Types") g = 1 else g = length(as.vector(unique(df$gear)))
+    #if (input$yearGlobalSelection == "Aggregate Across Years") y = 1 else y = length(as.vector(unique(df$year)))
+    g = 1
+    y = 1
     table = data.frame(matrix(NA,nrow=g*y,ncol=20))
     
     colnames(table) = c("Site",
@@ -1370,16 +1374,16 @@ shinyServer(function(input, output) {
       for (j in 1:y){
         
         if (input$gearGlobalSelection != "Aggregate Across Gear Types") {
-          dfSubset = subset(df,gear==as.vector(unique(df$gear))[i])
-          gearLabel = as.vector(unique(df$gear))[i]
+          dfSubset = subset(df,gear==input$gearGlobalSelection[i])
+          gearLabel = input$gearGlobalSelection
         } else {
           dfSubset = df
           gearLabel = "Aggregate Across Gear Types"
         }
         
         if (input$yearGlobalSelection != "Aggregate Across Years") {
-          dfSubset = subset(dfSubset,year==as.vector(unique(df$year))[j])
-          yearLabel = as.vector(unique(df$year))[j]
+          dfSubset = subset(dfSubset,year==input$yearGlobalSelection)
+          yearLabel = input$yearGlobalSelection
         } else {
           dfSubset = dfSubset
           yearLabel = "Aggregate Across Years"
@@ -1398,20 +1402,20 @@ shinyServer(function(input, output) {
         
         if (is.nan(percentMature) | is.infinite(percentMature)) resultMature = "Cannot Interpret" else{
           if (percentMature < input$percentMature_TRP & percentMature>input$FvMLBAR_LRP) resultMature = "Yellow"
-          if (percentMature < input$percentMature_LRP) resultMature = "Red"
-          if (percentMature > input$percentMature_TRP) resultMature = "Green"
+          if (percentMature <= input$percentMature_LRP) resultMature = "Red"
+          if (percentMature >= input$percentMature_TRP) resultMature = "Green"
         }
         
         if (is.nan(percentOpt) | is.infinite(percentOpt)) resultOpt = "Cannot Interpret" else{
           if (percentOpt < input$percentOptimal_TRP & percentOpt>input$percentOptimal_LRP) resultOpt = "Yellow"
-          if (percentOpt < input$percentOptimal_LRP) resultOpt = "Red"
-          if (percentOpt > input$percentOptimal_TRP) resultOpt = "Green"
+          if (percentOpt <= input$percentOptimal_LRP) resultOpt = "Red"
+          if (percentOpt >= input$percentOptimal_TRP) resultOpt = "Green"
         }
         
         if (is.nan(percentMega) | is.infinite(percentMega)) resultMega = "Cannot Interpret" else{
           if (percentMega < input$percentMega_TRP & percentMega>input$percentMega_LRP) resultMega = "Yellow"
-          if (percentMega < input$percentMega_LRP) resultMega = "Red"
-          if (percentMega > input$percentMega_TRP) resultMega = "Green"
+          if (percentMega <= input$percentMega_LRP) resultMega = "Red"
+          if (percentMega >= input$percentMega_TRP) resultMega = "Green"
         }
         
         if (i==1 & j ==1) k = 1 else k = k+1
