@@ -4,10 +4,10 @@ shinyServer(function(input, output) {
     if(is.null(input$dataType)) return(NULL)
     inFile <- input$data
     #
-    if (is.null(inFile) & input$dataType != "Use Dummy Data")
+    if (is.null(inFile) & input$dataType != "Use sample Data")
       return(NULL)
 
-    if (input$dataType == "Use Dummy Data") df = df_length else df = read_csv(inFile$datapath)
+    if (input$dataType == "Use sample Data") df = df_length else df = read_csv(inFile$datapath)
     if (input$sizeMax != -999) df <- df %>% filter(length_cm<input$sizeMax)
     if (input$insideArea == TRUE) df <- df %>% filter(inside_area == "Inside")
     df
@@ -179,10 +179,10 @@ shinyServer(function(input, output) {
     if(is.null(input$dataType)) return(NULL)
     inFile <- input$dataLandings
 
-    if (is.null(inFile) & input$dataType != "Use Dummy Data")
+    if (is.null(inFile) & input$dataType != "Use sample Data")
       return(NULL)
 
-    if (input$dataType == "Use Dummy Data") df = df_catch else df = read_csv(inFile$datapath)
+    if (input$dataType == "Use sample Data") df = df_catch else df = read_csv(inFile$datapath)
     if (input$sizeMax != -999 & "length_cm" %in% colnames(df)) df <- df %>% filter(length_cm<input$sizeMax)
     if (input$insideArea == TRUE) df <- df %>% filter(inside_area == "Inside")
     df
@@ -207,14 +207,14 @@ shinyServer(function(input, output) {
    
     if(dataAvailable[1]) yearsLEK = 1 else yearsLEK = 0
     if(!dataAvailable[2]) yearsLength = 0 else{
-      if (is.null(lengthData()) & input$dataType != "Use Dummy Data")  yearsLength = 0 else {
+      if (is.null(lengthData()) & input$dataType != "Use sample Data")  yearsLength = 0 else {
         df = lengthData()
         yearsLength = length(unique(df$year))}}
     
     df<-catchData()
     yearsLandings = length(unique(df$year))
     if(!dataAvailable[3]) yearsLandings = 0 else{
-      if (is.null(catchData()) & input$dataType != "Use Dummy Data")  yearsLandings = 0 else {
+      if (is.null(catchData()) & input$dataType != "Use sample Data")  yearsLandings = 0 else {
         df = catchData()
         yearsLandings = length(unique(df$year))}}
     
@@ -292,6 +292,30 @@ shinyServer(function(input, output) {
   })
   
   
+  output$indicatorLengthChecks <- renderUI({
+    listLength <- c("Does the length frequency data represent the size structure of the entire population?",
+                    "Is the fishery currently in equilibrium (i.e., relatively stable environmental conditions, fishing pressure, stock status, etc.)?",
+                    "Does the fishery experience relatively stable recruitment over time?",
+                    "Is the species relatively slow growing and long-lived?",
+                    "Please look at the length-frequency histogram in the Assessment tab (Step 5). Does the histogram look complete, and is there a single uni-modal peak?")
+    checkboxGroupInput("lengthChecks",label="Please answer the following questions about your length data.",choices = listLength)
+  })
+  
+  output$indicatorLandingsChecks <- renderUI({
+    listLandings <-c("Has management been relatively stable over the last several years?",
+                     "Has the use of specific gears been relatively stable over the last several years?")
+    checkboxGroupInput("landingsChecks",label="Please answer the following questions about your landings data.",choices = listLandings)
+  
+  })
+  
+  output$indicatorUnderwaterChecks <- renderUI({
+    listUnderwater <- c("Is the no-take zone well enforced?",
+                        "Has the no-take zone been in place long enough for the population living inside the zone to be a proxy for an un-fished population?",
+                        "Are the no-take zone placed in a similar habitat to the fished area?",
+                        "Is the species sedentary or only moderately mobile?")
+    checkboxGroupInput("underwaterChecks",label="Please answer the following questions about your underwater visual survey data.",choices = listUnderwater)
+  })
+  
   output$fmcUI <- renderUI({
     
     
@@ -356,7 +380,7 @@ shinyServer(function(input, output) {
     df <- lengthData()
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
-    if (nrow(df) < 500) indicatorList = c("Froese Sustainability Indicators") else{
+    if (nrow(df) < 500 | length(input$lengthChecks)<5) indicatorList = c("Froese Sustainability Indicators") else{
       indicatorList = c("Froese Sustainability Indicators","Fishing Mortality / Natural Mortality (LBAR)","Fishing Mortality / Natural Mortality (Catch Curve)","Spawning Potential Ratio (SPR)")
     }
     #indicatorList = c("Average Length (Fishery Dependent)","Fishing Mortality / Natural Mortality (Catch Curve)","Fishing Mortality / Natural Mortality (LBAR)","Spawning Potential Ratio (SPR)","Froese Sustainability Indicators")
@@ -368,14 +392,14 @@ shinyServer(function(input, output) {
   
   output$indicatorLandingsUI <- renderUI({
     if(is.null(tierTable()$tier)) return()
-    if(tierTable()$tier < 3) return()
+    if(tierTable()$tier < 3 | length(input$landingsChecks)<2) return()
     indicatorList = c("Total Landings","CPUE")
     checkboxGroupInput(inputId = "indicatorLandingsSelection",label = "Select at least one landings-based performance indicator:",choices=indicatorList,selected="Total Landings")
   })
   
   output$indicatorUnderwaterUI <- renderUI({
     if(is.null(tierTable()$tier)) return()
-    if(tierTable()$tier < 2) return()
+    if(tierTable()$tier < 2 |length(input$underwaterChecks)<2) return()
     indicatorList = c("Biomass Ratio (aggregated across species)","Density Ratio (Target Species)")
     checkboxGroupInput(inputId = "indicatorUnderwaterSelection",label = "Select at least one underwater-survey-based performance indicator:",choices=indicatorList,selected="Biomass Ratio (aggregated across species)")
   })
@@ -392,7 +416,7 @@ shinyServer(function(input, output) {
   
   output$gearGlobalUI <- renderUI({
     if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(lengthData())) return()
-    if (is.null(lengthData()) & input$dataType != "Use Dummy Data") {
+    if (is.null(lengthData()) & input$dataType != "Use sample Data") {
       textInput(inputId="gearGlobalSelection","Enter Gear Type for Analysis")} else{
         
         df <- lengthData()
@@ -428,7 +452,7 @@ shinyServer(function(input, output) {
   output$yearUI <- renderUI({
     if(is.null(input$speciesSelection) | is.null(input$siteSelection)) return()
     
-    if (is.null(lengthData()) & input$dataType != "Use Dummy Data") return()
+    if (is.null(lengthData()) & input$dataType != "Use sample Data") return()
     
     df <- lengthData()
     
@@ -441,7 +465,7 @@ shinyServer(function(input, output) {
   output$yearGlobalUI <- renderUI({
     if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(lengthData())) return()
     
-    if (is.null(lengthData()) & input$dataType != "Use Dummy Data") {
+    if (is.null(lengthData()) & input$dataType != "Use sample Data") {
       textInput(inputId="yearGlobalSelection","Enter Year for Analysis") } else {
         
         df <- lengthData()
@@ -460,10 +484,10 @@ shinyServer(function(input, output) {
     if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$gearSelection) | is.null(input$yearSelection) | is.null(lengthData())) return()
     # inFile <- input$data
     # 
-    # if (is.null(inFile) & input$dataType != "Use Dummy Data")
+    # if (is.null(inFile) & input$dataType != "Use sample Data")
     #   return(NULL)
     # 
-    # if (input$dataType == "Use Dummy Data") df = df_length else df = read.csv(inFile$datapath,header=TRUE)
+    # if (input$dataType == "Use sample Data") df = df_length else df = read.csv(inFile$datapath,header=TRUE)
     df <- lengthData()
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)

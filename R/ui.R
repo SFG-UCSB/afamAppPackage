@@ -13,7 +13,7 @@ shinyUI(fluidPage(
                         sidebarPanel(
                           #helpText(a(h1("Click for help!"), href="_book/Step1.html",target="_blank")),
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step1.html",sep=""),target="_blank")),
-                          h4("Instructions: Select available data types, upload data (you may choose either real or dummy data), select site, and select species for analysis. A data summary will be shown on the right. Your assessment and management tier will also be automatically calculated."),
+                          h4("Instructions: Select available data types, upload data (you may choose either real or sample data), select site, and select species for analysis. A data summary will be shown on the right. Your assessment and management tier will also be automatically calculated."),
                           checkboxGroupInput("checkDataGroup", label = "Select the available data types", 
                                              choices = list("Local Ecological Knowledge" = "dataLEK", "Length composition data" = "dataLength", "Landings and Effort Data" = "landingsData","Underwater Visual Survey Data" = "underwaterData"),
                                              selected = "dataLEK"),
@@ -33,7 +33,7 @@ shinyUI(fluidPage(
                           ),
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('dataLength') != -1 | input.checkDataGroup.indexOf('landingsData') != -1 | input.checkDataGroup.indexOf('underwaterData') != -1",
-                            selectInput("dataType",label="Do you wish to use a real data set or a dummy data set?",choices=c("Use Dummy Data","Use Real Data"),selected="Use Dummy Data"),
+                            selectInput("dataType",label="Do you wish to use a real data set or a sample data set?",choices=c("Use sample Data","Use Real Data"),selected="Use sample Data"),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('dataLength') != -1 & input.dataType == 'Use Real Data'",
                               fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: site, year, species, gear, length_cm,inside_area,"),
@@ -50,6 +50,11 @@ shinyUI(fluidPage(
                               hr()
                             )
                           ),
+                          conditionalPanel(
+                            condition = "(input.checkDataGroup.indexOf('dataLength') != -1 | input.checkDataGroup.indexOf('landingsData') != -1 | input.checkDataGroup.indexOf('underwaterData') != -1) & input.dataType == 'Use sample Data'",
+                            ("We would like to thank Wildlife Conservation Society and Karimunjawa National Park, Indonesia for providing the sample data included in the dashboard. We encourage you to use the data to better learn the functionality of the dashboard, but please contact Gavin McDonald (gmcdonald@bren.ucsb.edu) before using the data for any other purposes."),
+                            hr()
+                          ),
                           selectInput("countrySelection",label="Select country",choices=c("Indonesia","Philippines","Brazil")),
                           uiOutput("siteUI"),
                           uiOutput("speciesUI"),
@@ -57,7 +62,7 @@ shinyUI(fluidPage(
                           uiOutput("yearGlobalUI")
                         ),
                         mainPanel(
-                          h3("Below is a summary of your available data, your assessment and management tier (automatically calculated based on the available data), and tables of raw data (either dummy data or real data)"),
+                          h3("Below is a summary of your available data, your assessment and management tier (automatically calculated based on the available data), and tables of raw data (either sample data or real data)"),
                           h1("Data Summary"),
                           DT::dataTableOutput("renderTierTable"),
                           hr(),
@@ -95,7 +100,17 @@ shinyUI(fluidPage(
                       sidebarLayout(
                         sidebarPanel(
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step3.html",sep=""),target="_blank")),
-                          h4("Instructions: Select at least one performance indicator from each data stream. The list will be automatically populated based on your available data and assessment and management tier. On the right, enter target reference points (TRPs) and limit reference points (LRPs) for each indicator. Default reference points are provided, but you may choose to update these based on species, local ecological knowledge, and community goals."),
+                          h4("Instructions: First, if you have any length, landings, or underwwater visual survey data, please answer the following questions. The answers will help determine what assessment options are available. Once you've answered these questions, you will select your assessments below."),
+                          conditionalPanel(
+                            condition = "input.checkDataGroup.indexOf('dataLength') != -1",
+                            uiOutput("indicatorLengthChecks")),
+                          conditionalPanel(
+                            condition = "input.checkDataGroup.indexOf('landingsData') != -1",
+                            uiOutput("indicatorLandingsChecks")),
+                          conditionalPanel(
+                            condition = "input.checkDataGroup.indexOf('underwaterData') != -1",
+                            uiOutput("indicatorUnderwaterChecks")),
+                          h4("Next, select at least one performance indicator from each data stream. The list will be automatically populated based on your available data, assessment and management tier, and the answers to the above questions. On the right, enter target reference points (TRPs) and limit reference points (LRPs) for each indicator. Default reference points are provided, but you may choose to update these based on species, local ecological knowledge, and community goals."),
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('dataLEK') != -1 &
                             (input.checkDataGroup.indexOf('dataLength') == -1 &
