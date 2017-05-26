@@ -644,7 +644,7 @@ shinyUI(fluidPage(
                       sidebarLayout(
                         sidebarPanel(
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step8.html",sep=""),target="_blank")),
-                          h5("To get a copy of your AFAM report, first click the Generate Report button. After that, you can click the link below to open the report in a new browser tab."),
+                          h5("Once you have completed all steps, you are ready to create your Fishery Management Plan. To get a copy of your AFAM report, first click the Generate Report button. After that, you can click the link below to open the report in a new browser tab."),
                           actionButton("report", "Generate Report"),
                           helpText(a(h2("Click for the report (after generating)"), href="AFAMSummary.html",target="_blank")),
                           hr(),

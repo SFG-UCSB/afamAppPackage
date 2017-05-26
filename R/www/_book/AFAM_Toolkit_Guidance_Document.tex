@@ -124,7 +124,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2017-05-23}
+  \date{2017-05-26}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -149,8 +149,9 @@ Welcome to the Adaptive Fisheries Assessment and Management (AFAM)
 Toolkit Guidance Document!
 
 We've tried to make using the AFAM Toolkit Guidance Document simple and
-intuitive. This document is meant to be accompanied by the AFAM Toolkit
-Dashboard, which will help you work through each step and perform the
+intuitive. This document is meant to be accompanied by the
+\href{https://github.com/SFG-UCSB/afamAppPackage}{AFAM Toolkit
+Dashboard}, which will help you work through each step and perform the
 appropriate assessment methods for your fishery.
 
 This toolkit was developed by the Fish Forever partnership, but can
@@ -820,14 +821,12 @@ The ability of the selected FMCs to meet the stated community objectives
 should be discussed will all relevant stakeholders, along with any
 potential tradeoffs of implementing the selected FMC(s).
 
-Additionally, prior to implementing FMC(s), any existing KAP and social
-Impact Survey data should be reviewed. KAP data can be used to provide
+Additionally, prior to implementing FMC(s), any existing social survey
+data should be reviewed. Social survey data can be used to provide
 insight into individual attitudes towards fishery management in your
-community. Social Impact Survey data can be used to provide context as
-to how dependent the community is on the fishery and how changes in FMCs
-may affect their livelihoods. Any information on enforcement should also
-be reviewed to gain a better understanding of the likelihood of
-compliance with implementation of new FMCs.
+community. Any information on enforcement should also be reviewed to
+gain a better understanding of the likelihood of compliance with
+implementation of new FMCs.
 
 \section{Step 2e -- General Guidance for Setting Effective FMCs for the
 First Time}\label{Step2e}
@@ -1879,6 +1878,13 @@ practices:
   discuss reference points with them to determine if they are
   appropriate for your fishery and adjust values as necessary.
 \end{itemize}
+
+Additionally, you should ensure that for each performance indicator and
+assessment type that all assumptions are valid (these are listed in the
+table below). The dashboard has a series of questions that will help
+ensure that assumptions associated with each performance indicator and
+assessment method aren't violated. Only assessment techniques that are
+appropriate for your fishery will be available as options.
 
 \section{Step 3c -- Select Assessment Methods}\label{Step3c}
 
@@ -5768,8 +5774,16 @@ method descriptions under \protect\hyperlink{Step3}{Step 3} for detailed
 descriptions of the assessment methods. To do the calculations, you may
 use the AFAM Toolkit dashboard.
 
-If you do not have the AFAM Toolkit dashboard installed on your
-computer, you should first install R and R Studio on your computer using
+The dashboard currently comes pre-loaded with the necessary life history
+information for many species commonly found in the Philippines,
+Indonesia, and Brazil. If your species is currently included, you should
+ensure the life history parameters look reasonable for your particular
+site. If they are not included, you will need to find these parameters
+by looking through the literature and using resources such as
+\href{www.fishbase.org}{FishBase}
+
+If you do not have R installed on your computer, you should first
+install R and R Studio on your computer using
 \href{https://sfg-ucsb.github.io/fishery-manageR/}{these instructions}.
 
 Next you will install the AFAM package onto your computer so that you
@@ -5818,7 +5832,7 @@ the working directory to the location where you have the app file.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{## Specify packages that are required for AFAM app. Install them if they're not installed already}
-\NormalTok{list.of.packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"gridExtra"}\NormalTok{, }\StringTok{"pander"}\NormalTok{, }\StringTok{"shiny"}\NormalTok{, }\StringTok{"DT"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{)}
+\NormalTok{list.of.packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"gridExtra"}\NormalTok{, }\StringTok{"pander"}\NormalTok{, }\StringTok{"shiny"}\NormalTok{, }\StringTok{"DT"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{,}\StringTok{"readxl"}\NormalTok{,}\StringTok{"stringr"}\NormalTok{,}\StringTok{"LBSPR"}\NormalTok{,}\StringTok{"TropFishR"}\NormalTok{,}\StringTok{"lubridate"}\NormalTok{,}\StringTok{"zoo"}\NormalTok{,}\StringTok{"curl"}\NormalTok{)}
 \NormalTok{new.packages <-}\StringTok{ }\NormalTok{list.of.packages[}\OperatorTok{!}\NormalTok{(list.of.packages }\OperatorTok{%in%}\StringTok{ }\KeywordTok{installed.packages}\NormalTok{()[,}\StringTok{"Package"}\NormalTok{])]}
 \ControlFlowTok{if}\NormalTok{(}\KeywordTok{length}\NormalTok{(new.packages) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{ ) }\KeywordTok{install.packages}\NormalTok{(new.packages)}
 

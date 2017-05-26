@@ -25,7 +25,7 @@ If you choose this option, simply copy and paste the following code into your R 
 
 ```{r setup, echo=TRUE,eval=FALSE}
 ## Specify packages that are required for AFAM app. Install them if they're not installed already
-list.of.packages <- c("tidyverse", "gridExtra", "pander", "shiny", "DT","devtools")
+list.of.packages <- c("tidyverse", "gridExtra", "pander", "shiny", "DT","devtools","readxl","stringr","LBSPR","TropFishR","lubridate","zoo","curl")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages) > 0 ) install.packages(new.packages)
 
