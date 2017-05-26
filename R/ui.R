@@ -24,7 +24,7 @@ shinyUI(fluidPage(
                           ),
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('dataLength')!=-1",
-                            numericInput("sizeMax",label="Enter the largest feasible size that should be observed in the catch. Sizes above this will be removed as outliers. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999)
+                            numericInput("sizeMax",label="Enter the largest feasible fish length that should be observed in the catch. Lengths above this will be removed as outliers. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999)
                           ),
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('landingsData')!=-1",
