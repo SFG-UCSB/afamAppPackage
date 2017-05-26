@@ -4,7 +4,8 @@ shinyUI(fluidPage(
              tabPanel("Instructions",
                       fluidRow(
                         includeMarkdown("www/introduction.md"),
-                        helpText(a(h1("Click for help!"), href=paste(savedURL,"toolkit-overview.html",sep=""),target="_blank"))
+                        helpText(a(h1("Click for help!"), href=paste(savedURL,"toolkit-overview.html",sep=""),target="_blank")),
+                        img(src = "_book/myMediaFolder/media/2_image1.png")
                         )
 
              ),
@@ -94,7 +95,7 @@ shinyUI(fluidPage(
                           uiOutput("fmcUI")
                         ),
                         mainPanel(
-
+                          img(src = "_book/myMediaFolder/media/FMCs.png")
                         ))),
              tabPanel("Step 3 – Select performance indicators and reference points",
                       sidebarLayout(
