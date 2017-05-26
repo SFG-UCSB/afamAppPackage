@@ -13,24 +13,11 @@ shinyUI(fluidPage(
                         sidebarPanel(
                           #helpText(a(h1("Click for help!"), href="_book/Step1.html",target="_blank")),
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step1.html",sep=""),target="_blank")),
-                          h4("Instructions: Select available data types, upload data (you may choose either real or sample data), select site, and select species for analysis. A data summary will be shown on the right. Your assessment and management tier will also be automatically calculated."),
+                          h4("Instructions: Select available data types, upload data (you may choose either real or sample data), and enter additional information for the analysis such as the target species. A data summary will be shown on the right. Your assessment and management tier will also be automatically calculated."),
                           checkboxGroupInput("checkDataGroup", label = "Select the available data types", 
                                              choices = list("Local Ecological Knowledge" = "dataLEK", "Length composition data" = "dataLength", "Landings and Effort Data" = "landingsData","Underwater Visual Survey Data" = "underwaterData"),
                                              selected = "dataLEK"),
                           hr(),
-                          conditionalPanel(
-                            condition = "input.checkDataGroup.indexOf('dataLength')!=-1 | input.checkDataGroup.indexOf('landingsData')!=-1",
-                            checkboxInput("insideArea",label="Only include data inside designated area, such as a TURF?",value=TRUE)
-                          ),
-                          conditionalPanel(
-                            condition = "input.checkDataGroup.indexOf('dataLength')!=-1",
-                            numericInput("sizeMax",label="Enter the largest feasible fish length that should be observed in the catch. Lengths above this will be removed as outliers. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999)
-                          ),
-                          conditionalPanel(
-                            condition = "input.checkDataGroup.indexOf('landingsData')!=-1",
-                            numericInput("tripMax",label="Enter the largest feasible catch for a single trip. Catches in a single trip above this will be removed as outliers. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999),
-                            checkboxInput("totalCatch",label="Does the catch and effort data represent the total landings in the fishery? If so, check this box. If the data is only a sub-sample, leave this box is un-checked, and the dashboard will normalize catch and effort by the number of sampling days.",value=FALSE)
-                          ),
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('dataLength') != -1 | input.checkDataGroup.indexOf('landingsData') != -1 | input.checkDataGroup.indexOf('underwaterData') != -1",
                             selectInput("dataType",label="Do you wish to use a real data set or a sample data set?",choices=c("Use sample Data","Use Real Data"),selected="Use sample Data"),
@@ -59,7 +46,20 @@ shinyUI(fluidPage(
                           uiOutput("siteUI"),
                           uiOutput("speciesUI"),
                           uiOutput("gearGlobalUI"),
-                          uiOutput("yearGlobalUI")
+                          uiOutput("yearGlobalUI"),
+                          conditionalPanel(
+                            condition = "input.checkDataGroup.indexOf('dataLength')!=-1 | input.checkDataGroup.indexOf('landingsData')!=-1",
+                            checkboxInput("insideArea",label="Only include data inside designated area, such as a TURF?",value=TRUE)
+                          ),
+                          conditionalPanel(
+                            condition = "input.checkDataGroup.indexOf('dataLength')!=-1",
+                            numericInput("sizeMax",label="Enter the largest feasible fish length that should be observed in the catch. Lengths above this will be removed as outliers. A good starting point is 1.3 * L_Infinity. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999)
+                          ),
+                          conditionalPanel(
+                            condition = "input.checkDataGroup.indexOf('landingsData')!=-1",
+                            numericInput("tripMax",label="Enter the largest feasible catch for a single trip. Catches in a single trip above this will be removed as outliers. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999),
+                            checkboxInput("totalCatch",label="Does the catch and effort data represent the total landings in the fishery? If so, check this box. If the data is only a sub-sample, leave this box is un-checked, and the dashboard will normalize catch and effort by the number of sampling days.",value=FALSE)
+                          )
                         ),
                         mainPanel(
                           h3("Below is a summary of your available data, your assessment and management tier (automatically calculated based on the available data), and tables of raw data (either sample data or real data)"),
