@@ -28,7 +28,11 @@ library(curl)
 # df_catch <- read_csv("data/data_catch.csv",progress=TRUE) %>%
 #   mutate(species=replace(species, species=="caesio cuning", "Caesio cuning"),
 #          species=replace(species, species=="Bolbometopon Muricatum", "Bolbometopon muricatum"))
-df_length <- read_csv("data/data_catch.csv",progress=TRUE)
+# df_length <- read_csv("R/data/data_catch.csv",progress=TRUE) %>%
+#   filter(!is.na(length_cm)) %>%
+#   dplyr::select(site,year,date,gear,inside_area,species,length_cm)
+# write_csv(df_length,"R/data/df_length.csv")
+df_length <- read_csv("data/data_length.csv",progress=TRUE)
 df_catch <- read_csv("data/data_catch.csv",progress=TRUE)
 df_biomass <- read_csv("data/data_biomass.csv",progress=TRUE)
 df_density <- read_csv("data/data_density.csv",progress=TRUE)
