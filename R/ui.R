@@ -24,12 +24,12 @@ shinyUI(fluidPage(
                             selectInput("dataType",label="Do you wish to use a real data set or a sample data set?",choices=c("Use sample Data","Use Real Data"),selected="Use sample Data"),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('dataLength') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: site, year, species, gear, length_cm,inside_area,"),
+                              fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: site, year, species, gear, length_cm,inside_area. Each row should represent an individual length measurement."),
                               hr()
                             ),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('landingsData') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: Year, Reserve (a column of 0s or 1s), and Biomass (a column of biomass aggregated across all species). Each row should represent a single transect."),
+                              fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: site, year, species, gear, inside_area, fisher_days, sampled_catch, total_catch. Each row should represent an individual catch sample."),
                               hr()
                             ),
                             conditionalPanel(
@@ -562,13 +562,13 @@ shinyUI(fluidPage(
                                             sidebarLayout(
                                               sidebarPanel(
                                                 conditionalPanel(
-                                                  condition = "input.checkDataGroup && input.checkDataGroup.indexOf('landingsData') != -1",
+                                                  condition = "input.checkDataGroup && input.indicatorLandingsSelection && input.checkDataGroup.indexOf('landingsData') != -1",
                                                  uiOutput("catchReference"),
                                                   downloadButton("downloadLandingsPlot",label="Download landings, effort, and CPUE Results (Plot)"))
                                               ),
                                               mainPanel(
                                                 conditionalPanel(
-                                                  condition = "input.checkDataGroup && input.checkDataGroup.indexOf('landingsData') != -1",
+                                                  condition = "input.checkDataGroup && input.indicatorLandingsSelection && input.checkDataGroup.indexOf('landingsData') != -1",
                                                   h2("Trends in catch, effort, and CPUE"),
                                                   plotOutput("CPUEPlots",height=1600))
                                               )
@@ -581,7 +581,7 @@ shinyUI(fluidPage(
                                               ),
                                               mainPanel(
                                                 conditionalPanel(
-                                                  condition = "input.checkDataGroup && input.checkDataGroup.indexOf('landingsData') != -1 && input.indicatorLandingsSelection.indexOf('Total Landings') != -1",
+                                                  condition = "input.checkDataGroup && input.indicatorLandingsSelection && input.checkDataGroup.indexOf('landingsData') != -1 && input.indicatorLandingsSelection.indexOf('Total Landings') != -1",
                                                   h3("Below are the results of the landings assessment."),
                                                   DT::dataTableOutput("Landings"))
                                               ))),
@@ -592,7 +592,7 @@ shinyUI(fluidPage(
                                               ),
                                               mainPanel(
                                                 conditionalPanel(
-                                                  condition = "input.checkDataGroup && input.checkDataGroup.indexOf('landingsData') != -1 && input.indicatorLandingsSelection.indexOf('CPUE') != -1",
+                                                  condition = "input.checkDataGroup && input.indicatorLandingsSelection && input.checkDataGroup.indexOf('landingsData') != -1 && input.indicatorLandingsSelection.indexOf('CPUE') != -1",
                                                 h3("Below are the results of the CPUE assessment."),
                                                 DT::dataTableOutput("CPUE"))
                                               )))

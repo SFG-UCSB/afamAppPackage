@@ -13,6 +13,20 @@ shinyServer(function(input, output) {
     df
   })
   
+  catchData <- reactive({
+    if(is.null(input$dataType)) return(NULL)
+    inFile <- input$dataLandings
+    
+    if (is.null(inFile) & input$dataType != "Use sample Data")
+      return(NULL)
+    
+    if (input$dataType == "Use sample Data") df = df_catch else df = read_csv(inFile$datapath)
+    if (input$sizeMax != -999 & "length_cm" %in% colnames(df)) df <- df %>% filter(length_cm<input$sizeMax)
+    if (input$insideArea == TRUE) df <- df %>% filter(inside_area == "Inside")
+    df
+    
+  })
+  
   biomassData <- reactive({
     if(is.null(input$dataType)) return(NULL)
     inFile <- input$dataBiomass
@@ -116,7 +130,7 @@ shinyServer(function(input, output) {
       return(total)
     }
     
-    catchEffortData=df[,c("personDays","sampled_catch","total_catch")] = lapply(df[,c("personDays","sampled_catch","total_catch")],as.numeric,na.rm=TRUE)
+    catchEffortData=df[,c("fisher_days","sampled_catch","total_catch")] = lapply(df[,c("fisher_days","sampled_catch","total_catch")],as.numeric,na.rm=TRUE)
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
     #df$date <- as.Date(df$date,"%m/%d/%Y")
@@ -200,19 +214,6 @@ shinyServer(function(input, output) {
     if (nrow(lhiData()) == 0) referenceDefault <- NA else referenceDefault <- metaDataReactive()$m95
     textInput("m95_Reference",label="m95 reference",value = referenceDefault)
   })
-  catchData <- reactive({
-    if(is.null(input$dataType)) return(NULL)
-    inFile <- input$dataLandings
-
-    if (is.null(inFile) & input$dataType != "Use sample Data")
-      return(NULL)
-
-    if (input$dataType == "Use sample Data") df = df_catch else df = read_csv(inFile$datapath)
-    if (input$sizeMax != -999 & "length_cm" %in% colnames(df)) df <- df %>% filter(length_cm<input$sizeMax)
-    if (input$insideArea == TRUE) df <- df %>% filter(inside_area == "Inside")
-    df
-
-  })
 
   output$inputDataBiomass <- DT::renderDataTable(
     biomassData()
@@ -242,15 +243,15 @@ shinyServer(function(input, output) {
     if(dataAvailable[1]) yearsLEK = 1 else yearsLEK = 0
     if(!dataAvailable[2]) yearsLength = 0 else{
       if (is.null(lengthData()) & input$dataType != "Use sample Data")  yearsLength = 0 else {
-        df = lengthData()
-        yearsLength = length(unique(df$year))}}
+        #df = lengthData()
+        yearsLength = length(unique(lengthData()$year))}}
     
-    df<-catchData()
-    yearsLandings = length(unique(df$year))
+    #df<-catchData()
+    #yearsLandings = length(unique(catchData()))
     if(!dataAvailable[3]) yearsLandings = 0 else{
       if (is.null(catchData()) & input$dataType != "Use sample Data")  yearsLandings = 0 else {
-        df = catchData()
-        yearsLandings = length(unique(df$year))}}
+        #df = catchData()
+        yearsLandings = length(unique(catchData()$year))}}
 
     if(!dataAvailable[4]) yearsUnderwater = 0 else{
     if ((is.null(densityData()) | is.null(biomassData())) & input$dataType != "Use sample Data")  yearsUnderwater = 0 else {
@@ -721,7 +722,7 @@ shinyServer(function(input, output) {
       return(total)
     }
     
-    catchEffortData=df[,c("personDays","sampled_catch","total_catch")] = lapply(df[,c("personDays","sampled_catch","total_catch")],as.numeric,na.rm=TRUE)
+    catchEffortData=df[,c("fisher_days","sampled_catch","total_catch")] = lapply(df[,c("fisher_days","sampled_catch","total_catch")],as.numeric,na.rm=TRUE)
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
     #df$date <- as.Date(df$date,"%m/%d/%Y")
