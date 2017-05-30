@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AFAM Toolkit Guidance Document</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This is the AFAM Guidance Document.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="AFAM Toolkit Guidance Document" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is the AFAM Guidance Document." />
+  <meta name="github-repo" content="SFG-UCSB/afamGuidanceDocument" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="AFAM Toolkit Guidance Document" />
+  
+  <meta name="twitter:description" content="This is the AFAM Guidance Document." />
+  
+
+<meta name="author" content="Gavin McDonald">
+
+
+<meta name="date" content="2017-05-26">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="Step3.html">
+<link rel="next" href="Step5.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">AFAM Toolkit Guidance Document</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="toolkit-overview.html"><a href="toolkit-overview.html"><i class="fa fa-check"></i>Toolkit Overview</a><ul>
+<li class="chapter" data-level="0.1" data-path="toolkit-overview.html"><a href="toolkit-overview.html#purpose-statement"><i class="fa fa-check"></i><b>0.1</b> Purpose Statement</a></li>
+<li class="chapter" data-level="0.2" data-path="toolkit-overview.html"><a href="toolkit-overview.html#suggested-audience"><i class="fa fa-check"></i><b>0.2</b> Suggested Audience</a></li>
+<li class="chapter" data-level="0.3" data-path="toolkit-overview.html"><a href="toolkit-overview.html#skills-necessary-to-use-toolkit"><i class="fa fa-check"></i><b>0.3</b> Skills Necessary to Use Toolkit</a></li>
+<li class="chapter" data-level="0.4" data-path="toolkit-overview.html"><a href="toolkit-overview.html#toolkit-objectives"><i class="fa fa-check"></i><b>0.4</b> Toolkit Objectives</a></li>
+<li class="chapter" data-level="0.5" data-path="toolkit-overview.html"><a href="toolkit-overview.html#when-to-use-the-toolkit"><i class="fa fa-check"></i><b>0.5</b> When to Use the Toolkit</a></li>
+<li class="chapter" data-level="0.6" data-path="toolkit-overview.html"><a href="toolkit-overview.html#data-necessary-to-use-the-toolkit"><i class="fa fa-check"></i><b>0.6</b> Data Necessary to Use the Toolkit</a></li>
+<li class="chapter" data-level="0.7" data-path="toolkit-overview.html"><a href="toolkit-overview.html#supporting-documents"><i class="fa fa-check"></i><b>0.7</b> Supporting Documents</a></li>
+<li class="chapter" data-level="0.8" data-path="toolkit-overview.html"><a href="toolkit-overview.html#how-this-toolkit-was-developed"><i class="fa fa-check"></i><b>0.8</b> How this Toolkit was Developed</a></li>
+<li class="chapter" data-level="0.9" data-path="toolkit-overview.html"><a href="toolkit-overview.html#how-to-use-this-toolkit"><i class="fa fa-check"></i><b>0.9</b> How to use this toolkit</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="Step1.html"><a href="Step1.html"><i class="fa fa-check"></i><b>1</b> Step 1 – Determine Assessment and Management Tier</a><ul>
+<li class="chapter" data-level="1.1" data-path="Step1.html"><a href="Step1.html#step-1a-fill-out-your-data-inventory"><i class="fa fa-check"></i><b>1.1</b> Step 1a – Fill out your Data Inventory</a></li>
+<li class="chapter" data-level="1.2" data-path="Step1.html"><a href="Step1.html#step-1b-using-your-data-inventory-determine-assessment-and-management-tier"><i class="fa fa-check"></i><b>1.2</b> Step 1b – Using your Data Inventory, Determine Assessment and Management Tier</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="Step2.html"><a href="Step2.html"><i class="fa fa-check"></i><b>2</b> Step 2 – Determine Appropriate Fisheries Management Controls</a><ul>
+<li class="chapter" data-level="2.1" data-path="Step2.html"><a href="Step2.html#Step2a"><i class="fa fa-check"></i><b>2.1</b> Step 2a – Summarize and Qualitatively Assess Any Existing Fisheries Management Controls</a></li>
+<li class="chapter" data-level="2.2" data-path="Step2.html"><a href="Step2.html#Step2b"><i class="fa fa-check"></i><b>2.2</b> Step 2b – Preliminary Selection of New Fisheries Management Controls</a></li>
+<li class="chapter" data-level="2.3" data-path="Step2.html"><a href="Step2.html#Step2c"><i class="fa fa-check"></i><b>2.3</b> Step 2c – Consider Applying Additional Fisheries Management Controls to Better Meet Goals</a></li>
+<li class="chapter" data-level="2.4" data-path="Step2.html"><a href="Step2.html#Step2d"><i class="fa fa-check"></i><b>2.4</b> Step 2d – Consider Implications with Relevant Stakeholders</a></li>
+<li class="chapter" data-level="2.5" data-path="Step2.html"><a href="Step2.html#Step2e"><i class="fa fa-check"></i><b>2.5</b> Step 2e – General Guidance for Setting Effective FMCs for the First Time</a></li>
+<li class="chapter" data-level="2.6" data-path="Step2.html"><a href="Step2.html#case-studies"><i class="fa fa-check"></i><b>2.6</b> Fisheries Management Control Case Studies</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Step3.html"><a href="Step3.html"><i class="fa fa-check"></i><b>3</b> Step 3 – Select Performance Indicators, Reference Points, and Assessment Methods</a><ul>
+<li class="chapter" data-level="3.1" data-path="Step3.html"><a href="Step3.html#Step3a"><i class="fa fa-check"></i><b>3.1</b> Step 3a – Select Performance Indicators</a></li>
+<li class="chapter" data-level="3.2" data-path="Step3.html"><a href="Step3.html#Step3b"><i class="fa fa-check"></i><b>3.2</b> Step 3b – Select Reference Points</a></li>
+<li class="chapter" data-level="3.3" data-path="Step3.html"><a href="Step3.html#Step3c"><i class="fa fa-check"></i><b>3.3</b> Step 3c – Select Assessment Methods</a></li>
+<li class="chapter" data-level="3.4" data-path="Step3.html"><a href="Step3.html#assessment-method-descriptions"><i class="fa fa-check"></i><b>3.4</b> Assessment Method Descriptions</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="Step4.html"><a href="Step4.html"><i class="fa fa-check"></i><b>4</b> Step 4 – Define Harvest Control Rules</a><ul>
+<li class="chapter" data-level="4.1" data-path="Step4.html"><a href="Step4.html#step-4a-define-general-harvest-control-rules-for-all-possible-interpretations"><i class="fa fa-check"></i><b>4.1</b> Step 4a – Define General Harvest Control Rules for All Possible Interpretations</a></li>
+<li class="chapter" data-level="4.2" data-path="Step4.html"><a href="Step4.html#step-4b-add-specificity-to-harvest-control-rules"><i class="fa fa-check"></i><b>4.2</b> Step 4b – Add Specificity to Harvest Control Rules</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="Step5.html"><a href="Step5.html"><i class="fa fa-check"></i><b>5</b> Step 5 - Perform Assessment Methods</a><ul>
+<li class="chapter" data-level="5.1" data-path="Step5.html"><a href="Step5.html#installling-the-dashboard-from-the-internet"><i class="fa fa-check"></i><b>5.1</b> Installling the dashboard from the internet</a></li>
+<li class="chapter" data-level="5.2" data-path="Step5.html"><a href="Step5.html#installling-the-dashboard-from-a-local-file-on-your-computer"><i class="fa fa-check"></i><b>5.2</b> Installling the dashboard from a local file on your computer</a></li>
+<li class="chapter" data-level="5.3" data-path="Step5.html"><a href="Step5.html#running-the-afam-toolkit-dashboard-does-not-require-internet"><i class="fa fa-check"></i><b>5.3</b> Running the AFAM Toolkit Dashboard (does not require internet)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="Step6.html"><a href="Step6.html"><i class="fa fa-check"></i><b>6</b> Step 6 – Interpret assessment results</a><ul>
+<li class="chapter" data-level="6.1" data-path="Step6.html"><a href="Step6.html#step-6a---determine-the-most-likely-possible-interpretation-for-each-performance-indicator"><i class="fa fa-check"></i><b>6.1</b> Step 6a - Determine the Most Likely Possible Interpretation for Each Performance Indicator</a></li>
+<li class="chapter" data-level="6.2" data-path="Step6.html"><a href="Step6.html#step-6b-verify-assessment-result-and-interpretation"><i class="fa fa-check"></i><b>6.2</b> Step 6b – Verify Assessment Result and Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Step7.html"><a href="Step7.html"><i class="fa fa-check"></i><b>7</b> Step 7 – Adjust Fisheries Management Controls Using Defined Harvest Control Rules</a></li>
+<li class="chapter" data-level="8" data-path="Step8.html"><a href="Step8.html"><i class="fa fa-check"></i><b>8</b> Step 8 – Complete Your Fishery Management Plan</a><ul>
+<li class="chapter" data-level="8.1" data-path="Step8.html"><a href="Step8.html#fishery-management-plan-template"><i class="fa fa-check"></i><b>8.1</b> Fishery Management Plan Template</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="Glossary.html"><a href="Glossary.html"><i class="fa fa-check"></i><b>9</b> Glossary</a></li>
+<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">AFAM Toolkit Guidance Document</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Step4" class="section level1">
+<h1><span class="header-section-number">4</span> Step 4 – Define Harvest Control Rules</h1>
+<p><em>How should FMCs be adjusted according to the performance indicators of the fishery?</em></p>
+<div class="figure"><span id="fig:Step4"></span>
+<img src="myMediaFolder/media/Step4.png" alt="Step 4" />
+<p class="caption">Figure 4.1: Step 4</p>
+</div>
+<p><em>Harvest Control Rules (HCRs)</em> will be used to adjust FMCs according to where the fishery’s performance indicators fall relative to their reference points. The HCR may specify some combination of adjustments to the FMCs that is expected to move the performance indicator towards the target reference point, and away from the <em>limit reference point</em><strong>,</strong> therefore improving the performance of the fishery. While we provide guidance to define HCRs, it should be noted that HCRs should be based on realistic compliance and enforcement concerns and address community goals for your fishery (more guidance is provided in Step 4b).</p>
+<p>It is important for stakeholders and managers to agree on the suite of HCRs in a safe and neutral setting before any management decisions need to be made. This can help improve compliance by ensuring management responses are objective, consistent, transparent, and appropriate. Therefore, it is important to identify all foreseeable possible scenarios that could occur in the fishery and create corresponding HCRs for each scenario.</p>
+<div id="step-4a-define-general-harvest-control-rules-for-all-possible-interpretations" class="section level2">
+<h2><span class="header-section-number">4.1</span> Step 4a – Define General Harvest Control Rules for All Possible Interpretations</h2>
+<p>During this step, you will define general harvest control rules (for example, if the performance indicator is below the target reference point, reduce the total allowable catch). In the following step, you will add specificity to your harvest control rules (for example, if the performance indicator is 20% below the target reference point, reduce the total allowable catch by 20%). It is important that you define a HCR for every foreseeable interpretation so that management responses can be transparent and objective when the time comes to implement them.</p>
+<p>Use Tabls <a href="Step4.html#tab:hcrs-1">4.1</a>, <a href="Step4.html#tab:hcrs-2">4.2</a>, and <a href="Step4.html#tab:hcrs-3">4.3</a> as the framework for defining your general HCRs. The three tables contain the performance indicators that are associated with each tier and suggest HCRs from the literature. For each performance indicator and assessment result, the table lists a number of potential interpretations and corresponding HCRs. This table provides some examples, but is by no means comprehensive or prescriptive – it is illustrative only.</p>
+<p>Each row also has a traffic light indicator that describes if a management response is necessary:</p>
+<ul>
+<li><p>Green indicates that either no management response is necessary, or management could be even less restrictive.</p></li>
+<li><p>Yellow indicates that a precautionary or more restrictive management response should be implemented.</p></li>
+<li><p>Red indicates that the fishery should be closed and a fishery recovery plan implemented.</p></li>
+</ul>
+</div>
+<div id="step-4b-add-specificity-to-harvest-control-rules" class="section level2">
+<h2><span class="header-section-number">4.2</span> Step 4b – Add Specificity to Harvest Control Rules</h2>
+<p>During this step, you will add specificity to your HCRs (for example, if the performance indicator is 20% below the target reference point, reduce the total allowable catch by 20%). Be as specific as possible when defining the magnitude to which FMCs should be adjusted given the fishery’s performance indicator.</p>
+<p>The magnitude that a HCR should adjust your FMC(s) will depend on:</p>
+<ol style="list-style-type: decimal">
+<li><p>Productivity (life history) of the target species</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Productivity of key target species is an output of the FLAGS toolkit. This information may either come from a PSA result or a more data-limited qualitative approach for assessing species productivity.</p></li>
+<li><p>Species with low productivity will require higher, more restrictive levels of response when changes are necessary; species with higher productivity will require lower levels of response when changes are necessary</p></li>
+</ol></li>
+<li><p>Likelihood of compliance</p></li>
+<li><p>Social and political feasibility</p></li>
+<li><p>Enforcement capacity</p></li>
+<li><p>Level of uncertainty with data and the estimation of performance indicators,</p>
+<ol style="list-style-type: lower-alpha">
+<li>The more uncertain you are, the more precautionary you may want to make your management</li>
+</ol></li>
+<li><p>Risk tolerance.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Communities with higher risk tolerance may choose to be more lenient when choosing HCRs, while communities with lower risk tolerance may choose more restrictive HCRs to be more precautionary in the face of changing and uncertain conditions.</li>
+</ol></li>
+</ol>
+<p>You should consult any existing social survey data when setting HCRs. KAP data will provide an indication as to individual attitudes towards fishery management in your community. Social survey data will provide context as to how dependent the community is on the fishery and how changes in fisheries management controls may affect their livelihoods. Additionally, any existing enforcement data should be consulted to gain a better sense for the likelihood of compliance with any new regulations.</p>
+<p>You should also consider the size of any NTZ when setting HCRs. Sites with a small NTZ relative to the size of the fishery may wish the exercise more precaution by setting more restrictive HCRs (i.e., if indicators are interpreted to mean poor fisheries performance, make more drastic adjustments to the FMCs). Sites with an NTZ that is not placed explicitly in areas that protect critical habitat may also wish to exercise more precaution with stricter HCRs. Sites with larger NTZs that protect a significant portion of critical habitat could be more lenient in their HCRs. Often, large and well-placed NTZs can act as a buffer against uncertainty and variability. By completely restricting access to a certain portion of the stock, marine reserves are analogous to an emergency savings account. Protecting a fraction of a fish stock in reserves reduces the risk of overfishing and the chance of stock collapse in the long term. Displaced fishing effort and unintended consequences resulting after implementation of a reserve can be mitigated when effective FMCs are in place outside of the reserve. When harvest levels are appropriately controlled a spillover of biomass from marine reserves to the adjacent fishery may occur that can benefit fisheries.</p>
+<table style="width:97%;">
+<caption><span id="tab:hcrs-1">Table 4.1: </span> Indicators for Tier 1: Possible interpretations, management implications, and suggested harvest control rules</caption>
+<colgroup>
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Performan ce Indicator</strong></th>
+<th><strong>Assessmen t Result</strong></th>
+<th><strong>Interpret ation</strong></th>
+<th><strong>Result</strong></th>
+<th><strong>Managemen t Response</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Fishing Gear</p></td>
+<td><p>Destructive fishing practices being used</p></td>
+<td><p>Non-destruc tive fishing practices are no longer able to efficiently catch fish and/or destructive fishing practices have not yet been banned</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Ban destruc tive fishing practic es</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>No destructive fishing practices being used</p></td>
+<td><p>Non-destruc tive fishing practices are able to efficiently catch fish and/or destructive fishing practices have been banned</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>If there is no reason to believe precaut ionary managem ent is necessa ry, make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><p>Fishing Season</p></td>
+<td><p>Increased variability in fishing season, or decreased fishing season</p></td>
+<td><p>Ecosystem likely not healthy enough to support historical fishing season</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>No changes in the fishing season</p></td>
+<td><p>Ecosystem may be healthy enough to support historical fishing season</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>If there is no reason to believe precaut ionary managem ent is necessa ry, make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><p>Target Species Composition</p></td>
+<td><p>Change in composition of caught species (fewer species, more pelagics)</p></td>
+<td><p>Ecosystem likely not healthy enough to support historical target species</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>No change in composition of caught species</p></td>
+<td><p>Ecosystem may be healthy enough to support historical target species</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>If there is no reason to believe precaut ionary managem ent is necessa ry, make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><p>Species Vulnerabili ty</p></td>
+<td><p>Target species have high vulnerabili ty</p></td>
+<td><p>Target species have high susceptibil ity and/or low productivit y</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Target species have medium vulnerabili ty</p></td>
+<td><p>Target species have medium susceptibil ity medium productivit y</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>Target species have low vulnerabili ty</p></td>
+<td><p>Target species have low susceptibil ity and/or high productivit y</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>If there is no reason to believe precaut ionary managem ent is necessa ry, make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td><p>Fished:unfi shed density ratio (for key target species)</p></td>
+<td><p>Indicator &gt;= Target</p></td>
+<td><p>Fishing pressure appropriate for maintaining or improving the health of the ecosystem</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e effort cap, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low density and does not represent a healthy virgin area (significan t illegal fishing is occurring within the NTZ)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Conside r improve d enforce ment of NTZ <strong><em>and</em> </strong></p></li>
+<li><p>Conside r targete d social marketi ng to improve complia nce with NTZ <strong><em>and</em> </strong></p></li>
+<li><p>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</p></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low density and does not represent a healthy virgin area (NTZ is new and has not yet led to substantial improvement s in ecosystem health)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low density and does not represent a healthy virgin area (NTZ is small with large amounts of species movement between fished and unfished areas)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Conside r expansi on or relocat ion of NTZ <strong><em>and</em> </strong></p></li>
+<li><p>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</p></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Target &gt; Indicator &gt; Limit</p></td>
+<td><p>High fishing pressure putting ecosystem at risk for impending state change</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Environment al stochastici ty putting ecosystem at risk for impending state change</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low density and does not represent a healthy virgin area (significan t illegal fishing is occurring within the NTZ)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Conside r improve d enforce ment of NTZ <strong><em>and</em> </strong></p></li>
+<li><p>Conside r targete d social marketi ng to improve complia nce with NTZ <strong><em>and</em> </strong></p></li>
+<li><p>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low density and does not represent a healthy virgin area (NTZ is new and has not yet led to substantial improvement s in ecosystem health)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low density and does not represent a healthy virgin area (NTZ is small with large amounts of species movement between fished and unfished areas)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Conside r expansi on or relocat ion of NTZ <strong><em>and</em> </strong></p></li>
+<li><p>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>Limit &gt;= Indicator</p></td>
+<td><p>High fishing pressure has caused an ecosystem state change; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Extreme environment al stochastici ty has caused an ecosystem state change; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><p>Coral Reef Thresholds (aggregated across species)</p></td>
+<td><p>Unfished biomass Indicator &gt;= Target</p>
+<p><strong><em>And</em></strong></p>
+<p>fished:unfi shed biomass ratio &gt;= Target</p></td>
+<td><p>Fishing pressure appropriate for maintaining or improving the health of the ecosystem</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e effort cap, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low biomass and does not represent a healthy virgin area (significan t illegal fishing is occurring within the NTZ)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Conside r improve d enforce ment of NTZ <strong><em>and</em> </strong></p></li>
+<li><p>Conside r targete d social marketi ng to improve complia nce with NTZ <strong><em>and</em> </strong></p></li>
+<li><p>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low biomass and does not represent a healthy virgin area (NTZ is new and has not yet led to substantial improvement s in ecosystem health)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low biomass and does not represent a healthy virgin area (NTZ is small with large amounts of species movement between fished and unfished areas)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r expansi on or relocat ion of NTZ <strong><em>and</em> </strong></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Unfished area does not have comparable habitat to fished area (unfished area habitat not as healthy as fished area)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r expansi on or relocat ion of NTZ <strong><em>and</em> </strong></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Limit &lt;= Unfished biomass Indicator &lt;= Target</p>
+<p><strong><em>And</em></strong></p>
+<p>Limit &lt;= fished:unfi shed biomass ratio &lt;= Target</p></td>
+<td><p>High fishing pressure putting ecosystem at risk for impending state change</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Environment al stochastici ty putting ecosystem at risk for impending state change</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low density and does not represent a healthy virgin area (significan t illegal fishing is occurring within the NTZ)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Conside r improve d enforce ment of NTZ <strong><em>and</em> </strong></p></li>
+<li><p>Conside r targete d social marketi ng to improve complia nce with NTZ <strong><em>and</em> </strong></p></li>
+<li><p>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low density and does not represent a healthy virgin area (NTZ is new and has not yet led to substantial improvement s in ecosystem health)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Unfished area has a low density and does not represent a healthy virgin area (NTZ is small with large amounts of species movement between fished and unfished areas)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r expansi on or relocat ion of NTZ <strong><em>and</em> </strong></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Unfished area does not have comparable habitat to fished area (unfished area habitat not as healthy as fished area)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r expansi on or relocat ion of NTZ <strong><em>and</em> </strong></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Limit &gt;= Unfished biomass Indicator</p>
+<p><strong><em>Or</em></strong></p>
+<p>Limit &gt;= fished:unfi shed biomass ratio</p></td>
+<td><p>High fishing pressure has caused an ecosystem state change; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Close fishery <strong><em>and</em> </strong></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>Impleme nt fishery recover y plan</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Extreme environment al stochastici ty has caused an ecosystem state change; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Close fishery <strong><em>and</em> </strong></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>Impleme nt fishery recover y plan</li>
+</ol></td>
+</tr>
+</tbody>
+</table>
+<table style="width:97%;">
+<caption><span id="tab:hcrs-2">Table 4.2: </span> Indicators for Tiers 2 and 3: Possible interpretations, management implications, and suggested harvest control rules</caption>
+<colgroup>
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Performan ce Indicator</strong></th>
+<th><strong>Assessmen t Result</strong></th>
+<th><strong>Interpret ation</strong></th>
+<th><strong>Result</strong></th>
+<th><strong>Managemen t Response</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Fishing Mortality (F)</p></td>
+<td><p>Indicator &gt;= Limit</p></td>
+<td><p>High fishing pressure negatively affecting size structure and spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Extreme environment al stochastici ty negatively affecting size structure and spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>Limit &gt; Indicator &gt; Target</p></td>
+<td><p>High fishing pressure affecting size structure and spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Fishers targeting nursery grounds</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Gear shift towards less selective gear (more small individuals in catch)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Conside r impleme nting a gear restric tion on less selecti ve gear <strong><em>and/ or</em></strong></p></li>
+<li><p>Conside r impleme nting a minimum size limit (if one does not already exist)</p></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Strong recruitment pulse (more small individuals entering the catch)</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Market selectivity for smaller individuals</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r impleme nting a minimum size limit (if one does not already exist)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Emigration of large individuals from fishing area</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Environment al stochastici ty affecting size structure and spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Target &gt;= Indicator</p></td>
+<td><p>Fishing pressure appropriate for maintaining or improving size structure of population</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Gear shift towards more selective gear (fewer small individuals in catch)</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Market selectivity for larger individuals</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r impleme nting a maximum size limit (if one does not already exist)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Weak recruitment pulse (fewer small individuals entering the catch)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Immigration of large individuals to fishing area</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><p>Average Length</p></td>
+<td><p>Indicator &lt;= Limit</p></td>
+<td><p>High fishing pressure negatively affecting size structure and spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Close fishery <strong><em>and</em> </strong></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>Impleme nt fishery recover y plan</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Extreme environment al stochastici ty negatively affecting size structure and spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>Limit &lt; Indicator &lt; Target</p></td>
+<td><p>High fishing pressure affecting size structure and spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Fishers targeting nursery grounds</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Gear shift towards less selective gear (more small individuals in catch)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r impleme nting a gear restric tion on less selecti ve gear <strong><em>and/ or</em></strong></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>Conside r impleme nting a minimum size limit (if one does not already exist)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Strong recruitment pulse (more small individuals entering the catch)</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Market selectivity for smaller individuals</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r impleme nting a minimum size limit (if one does not already exist) *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Emigration of large individuals from fishing area</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Environment al stochastici ty affecting size structure and spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Target &lt;= Indicator</p></td>
+<td><p>Fishing pressure appropriate for maintaining or improving size structure of population</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Gear shift towards more selective gear (fewer small individuals in catch)</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Market selectivity for larger individuals</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r impleme nting a maximum size limit (if one does not already exist) *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Weak recruitment pulse (fewer small individuals entering the catch)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Immigration of large individuals to fishing area</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><p>Spawning Potential Ratio</p></td>
+<td><p>Indicator &lt;= Limit</p></td>
+<td><p>High fishing pressure affecting size structure and spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Extreme environment al stochastici ty affecting size structure and spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>Limit &gt; Indicator &lt; Target</p></td>
+<td><p>High fishing pressure affecting size structure and spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Fishers targeting nursery grounds</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Gear shift towards less selective gear (more small individuals in catch)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Conside r impleme nting a gear restric tion on less selecti ve gear <strong><em>and/ or</em></strong></p></li>
+<li><p>Conside r impleme nting a minimum size limit (if one does not already exist)</p></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Strong recruitment pulse (more small individuals entering the catch)</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e effort cap, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Market selectivity for smaller individuals</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r impleme nting a minimum size limit (if one does not already exist) *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Emigration of large individuals from fishing area</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Environment al stochastici ty affecting size structure and spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Target &lt;= Indicator</p></td>
+<td><p>Fishing pressure appropriate for maintaining or improving size structure of population and spawning stock biomass</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e effort cap, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Gear shift towards more selective gear (fewer small individuals in catch)</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e effort cap, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Market selectivity for larger individuals</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r impleme nting a maximum size limit (if one does not already exist) *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Weak recruitment pulse (fewer small individuals entering the catch)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Immigration of large individuals to fishing area</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><p>Froese Indicators</p></td>
+<td><p>All Indicators at or better than Target (Lopt=100%, Lmat&gt;90% , Lmega&lt;30 %)</p></td>
+<td><p>Fishing pressure appropriate for maintaining or improving size structure of population and spawning stock biomass</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e effort cap, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Gear shift towards more or less selective gear</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Change in recruitment</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Change in spatial distributio n of stock</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>Target &gt; Lopt &gt; Limit</p>
+<p><em><strong>And/or</strong> </em></p>
+<p>Target &gt; Lmat &gt; Limit</p></td>
+<td><p>Market selectivity for smaller individuals</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r impleme nting a minimum size limit (if one does not already exist) *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>High fishing pressure affecting size structure and spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Fishers targeting nursery grounds</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Strong recruitment pulse (more small individuals entering the catch)</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Emigration of large individuals from fishing area</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Environment al stochastici ty affecting size structure and spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>Limit &gt; Lmega &gt; Target</p></td>
+<td><p>Market selectivity for larger individuals</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r impleme nting a maximum size limit (if one does not already exist) *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>High fishing pressure affecting size structure and spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Weak recruitment pulse (fewer small individuals entering the catch)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Immigration of large individuals to fishing area</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>Lopt &lt; Limit (Lopt&lt;80 %)</p></td>
+<td><p>High fishing pressure affecting size structure and spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Lmat &lt; Limit (Lmat&lt;50 %)</p></td>
+<td><p>High fishing pressure affecting size structure and spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>Lmega &lt; Limit (Lmega &lt; 20%)</p></td>
+<td><p>High fishing pressure affecting size structure and spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+</tbody>
+</table>
+<table style="width:97%;">
+<caption><span id="tab:hcrs-3">Table 4.3: </span> Indicators for Tier 3: Possible interpretations, management implications, and suggested harvest control rules</caption>
+<colgroup>
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Performan ce Indicator</strong></th>
+<th><strong>Assessmen t Result</strong></th>
+<th><strong>Interpret ation</strong></th>
+<th><strong>Result</strong></th>
+<th><strong>Managemen t Response</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>CPUE</p></td>
+<td><p>Indicator &gt;= Target</p></td>
+<td><p>Fishing pressure appropriate for maintaining or improving spawning stock biomass</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Change to more efficient gear type</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Conside r impleme nting a gear restric tion on less selecti ve gear <strong><em>and/ or</em></strong></p></li>
+<li><p>Conside r impleme nting a minimum size limit (if one does not already exist)</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Serial depletion (fishers have moved from depleted fishing grounds to less depleted fishing grounds, such as offshore areas)</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Misreportin g of effort; reported effort too low</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Modify catch reporti ng protoco ls <strong><em>and/ or</em></strong></p></li>
+<li><p>Perform social marketi ng dedicat ed towards increas ing catch reporti ng complia nce <strong><em>and</em> </strong></p></li>
+<li><p>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e allowab le effort, add or modify certain control s, etc.)</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Fishing of spawning aggregation s / hyperstabil ity</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Ban fishing of spawnin g aggrega tions</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Target &gt; Indicator &gt; Limit</p></td>
+<td><p>Environment al stochastici ty negatively affecting spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Change to less efficient gear type</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Misreportin g of effort; reported effort too high</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Modify catch reporti ng protoco ls <strong><em>and/ or</em></strong></p></li>
+<li><p>Perform social marketi ng dedicat ed towards increas ing catch reporti ng complia nce <strong><em>and</em> </strong></p></li>
+<li><p>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e allowab le effort, add or modify certain control s, etc.)</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>High fishing pressure negatively affecting spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Limit &gt;= Indicator</p></td>
+<td><p>High fishing pressure negatively affecting spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><p>Previous Year’s Total Landings</p></td>
+<td><p>Indicator &gt;= Target</p></td>
+<td><p>Fishing pressure appropriate for maintaining or improving spawning stock biomass</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Fishing effort increased last year</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., increas e TAC, increas e allowab le effort, add or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Misreportin g of landings; reported catch too high</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Modify catch reporti ng protoco ls <strong><em>and/ or</em></strong></p></li>
+<li><p>Perform social marketi ng dedicat ed towards increas ing catch reporti ng complia nce <strong><em>and</em> </strong></p></li>
+<li><p>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</p></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>Target &gt; Indicator &gt; Limit</p></td>
+<td><p>High fishing pressure negatively affecting spawning stock biomass</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e effort cap, add or modify certain control s, expand NTZ, etc.)</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td><p>Fishing effort decreased last year</p></td>
+<td><p>Green</p></td>
+<td><ol style="list-style-type: decimal">
+<li>Make no changes to fisheri es managem ent control s *<strong>or</strong></li>
+</ol>
+<ul>
+<li></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>If trends have persist ed for more than one year and there is no reason to believe precaut ionary managem ent is necessa ry, make fisheri es managem ent control s less restric tive (i.e., increas e TAC, increas e allowab le effort, remove or modify certain control s, etc.)</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><p>Misreportin g of landings; reported catch too low</p></td>
+<td><p>Yellow</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Modify catch reporti ng protoco ls <strong><em>and/ or</em></strong></p></li>
+<li><p>Perform social marketi ng dedicat ed towards increas ing catch reporti ng complia nce <strong><em>and</em> </strong></p></li>
+<li><p>Conside r precaut ionary managem ent by making fisheri es managem ent control s more restric tive (i.e., decreas e TAC, decreas e allowab le effort, add or modify certain control s, etc.)</p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>Limit &gt;= Indicator</p></td>
+<td><p>High fishing pressure negatively affecting spawning stock biomass; fishery in danger of collapse</p></td>
+<td><p>Red</p></td>
+<td><ol style="list-style-type: decimal">
+<li><p>Close fishery <strong><em>and</em> </strong></p></li>
+<li><p>Impleme nt fishery recover y plan</p></li>
+</ol></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Step3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Step5.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-Step4.rmd",
+"text": "Edit"
+},
+"download": ["AFAM_Toolkit_Guidance_Document.pdf", "AFAM_Toolkit_Guidance_Document.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
