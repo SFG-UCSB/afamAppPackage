@@ -13,6 +13,31 @@ shinyServer(function(input, output) {
     df
   })
   
+  biomassData <- reactive({
+    if(is.null(input$dataType)) return(NULL)
+    inFile <- input$dataBiomass
+    #
+    if (is.null(inFile) & input$dataType != "Use sample Data")
+      return(NULL)
+    
+    if (input$dataType == "Use sample Data") df = df_biomass else df = read_csv(inFile$datapath)
+
+    df
+  })
+  
+  densityData <- reactive({
+    if(is.null(input$dataType)) return(NULL)
+    inFile <- input$dataDensity
+    #
+    if (is.null(inFile) & input$dataType != "Use sample Data")
+      return(NULL)
+    
+    if (input$dataType == "Use sample Data") df = df_density else df = read_csv(inFile$datapath)
+    
+    
+    df
+  })
+  
 
   lhiData <- reactive({
     if(is.null(input$countrySelection) | is.null(input$speciesSelection)) return(NULL)
@@ -189,6 +214,15 @@ shinyServer(function(input, output) {
 
   })
 
+  output$inputDataBiomass <- DT::renderDataTable(
+    biomassData()
+  )
+  
+  output$inputDataDensity <- DT::renderDataTable(
+    densityData()
+  )
+  
+  
   output$inputData <- DT::renderDataTable(
     lengthData()
   )
@@ -217,8 +251,11 @@ shinyServer(function(input, output) {
       if (is.null(catchData()) & input$dataType != "Use sample Data")  yearsLandings = 0 else {
         df = catchData()
         yearsLandings = length(unique(df$year))}}
-    
-    yearsUnderwater = 0
+
+    if(!dataAvailable[4]) yearsUnderwater = 0 else{
+    if ((is.null(densityData()) | is.null(biomassData())) & input$dataType != "Use sample Data")  yearsUnderwater = 0 else {
+
+      yearsUnderwater = length(unique(c(densityData()$Year,biomassData()$Year)))}}
     
     
     
@@ -399,7 +436,7 @@ shinyServer(function(input, output) {
   
   output$indicatorUnderwaterUI <- renderUI({
     if(is.null(tierTable()$tier)) return()
-    if(tierTable()$tier < 2 |length(input$underwaterChecks)<2) return()
+    if(tierTable()$tier < 2 |length(input$underwaterChecks)<4) return()
     indicatorList = c("Biomass Ratio (aggregated across species)","Density Ratio (Target Species)")
     checkboxGroupInput(inputId = "indicatorUnderwaterSelection",label = "Select at least one underwater-survey-based performance indicator:",choices=indicatorList,selected="Biomass Ratio (aggregated across species)")
   })
@@ -429,13 +466,15 @@ shinyServer(function(input, output) {
   
   output$speciesUI <- renderUI({
     
-    if (is.null(lengthData()) | is.null(input$dataType)) {
+    if (is.null(input$dataType)) {
        textInput(inputId="speciesSelection","Enter Species for Analysis") } else{
         
-        df <- lengthData()
+        if(is.null(lengthData())) speciesLength <- NA else speciesLength <- as.vector(unique(lengthData()$species))
+        if(is.null(catchData())) speciesCatch <- NA else speciesCatch <- as.vector(unique(catchData()$species))
+        if(is.null(densityData())) speciesDensity <- NA else speciesDensity <- as.vector(unique(densityData()$Species))
+
         
-        
-        species = as.vector(unique(df$species))
+        species = unique(na.trim(c(speciesLength,speciesCatch,speciesDensity)))
         selectInput(inputId="speciesSelection","Select Species for Analysis",choices=species)}
   })
   
@@ -513,12 +552,12 @@ shinyServer(function(input, output) {
               geom_vline(xintercept = froeseTemp$Lmega,color="blue",type=2) +
               #xlim(0,input$Linf) +
               theme_bw() +
-              theme(text = element_text(size=16),
-                    plot.title = element_text(size=16),
-                    axis.title = element_text(size=16),
+              theme(text = element_text(size=12),
+                    plot.title = element_text(size=12),
+                    axis.title = element_text(size=12),
                     strip.background = element_rect(fill="#EA883A"),
-                    strip.text.x = element_text(size = 16),
-                    strip.text.y = element_text(size = 16)))
+                    strip.text.x = element_text(size = 12),
+                    strip.text.y = element_text(size = 12)))
     }
     
     if (input$gearSelection == "Aggregate Across Gear Types" & input$yearSelection != "Aggregate Across Years"){
@@ -542,12 +581,12 @@ shinyServer(function(input, output) {
               geom_vline(xintercept = froeseTemp$Lmega,color="blue",type=2) +
               #xlim(0,input$Linf) +
               theme_bw() +
-              theme(text = element_text(size=16),
-                    plot.title = element_text(size=16),
-                    axis.title = element_text(size=16),
+              theme(text = element_text(size=12),
+                    plot.title = element_text(size=12),
+                    axis.title = element_text(size=12),
                     strip.background = element_rect(fill="#EA883A"),
-                    strip.text.x = element_text(size = 16),
-                    strip.text.y = element_text(size = 16)))
+                    strip.text.x = element_text(size = 12),
+                    strip.text.y = element_text(size = 12)))
     }
     
     if (input$gearSelection != "Aggregate Across Gear Types" & input$yearSelection == "Aggregate Across Years"){
@@ -571,12 +610,12 @@ shinyServer(function(input, output) {
               ylab("Count") +
               #xlim(0,input$Linf) +
               theme_bw() +
-              theme(text = element_text(size=16),
-                    plot.title = element_text(size=16),
-                    axis.title = element_text(size=16),
+              theme(text = element_text(size=12),
+                    plot.title = element_text(size=12),
+                    axis.title = element_text(size=12),
                     strip.background = element_rect(fill="#EA883A"),
-                    strip.text.x = element_text(size = 16),
-                    strip.text.y = element_text(size = 16)))
+                    strip.text.x = element_text(size = 12),
+                    strip.text.y = element_text(size = 12)))
     }
     
     if (input$gearSelection == "Aggregate Across Gear Types" & input$yearSelection == "Aggregate Across Years"){
@@ -597,12 +636,12 @@ shinyServer(function(input, output) {
               geom_vline(xintercept = froeseTemp$Lmega,color="blue",type=2) +
               #xlim(0,input$Linf) +
               theme_bw() +
-              theme(text = element_text(size=16),
-                    plot.title = element_text(size=16),
-                    axis.title = element_text(size=16),
+              theme(text = element_text(size=12),
+                    plot.title = element_text(size=12),
+                    axis.title = element_text(size=12),
                     strip.background = element_rect(fill="#EA883A"),
-                    strip.text.x = element_text(size = 16),
-                    strip.text.y = element_text(size = 16)))
+                    strip.text.x = element_text(size = 12),
+                    strip.text.y = element_text(size = 12)))
     }
     
   }
@@ -615,7 +654,64 @@ shinyServer(function(input, output) {
     print(plotCPUE()$plots)
   })
   
+  output$UVCPlots <- renderPlot({
+    print(plotUVC())
+  })
   
+  
+  plotUVC <- function(){
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearGlobalSelection) | is.null(biomassData()) | is.null(densityData())) return()
+    densityDF <- densityData()
+    density_processed <- densityDF %>%
+      group_by(Year,Species,Reserve) %>%
+      summarize(Density = mean(Density)) %>%
+      spread(key=Reserve,value=Density) %>%
+      rename(Density_Fished = `0`,
+             Density_Unfished = `1`) %>%
+      mutate(Density_Ratio = Density_Fished/Density_Unfished)
+    
+    biomassDF <- biomassData()
+    
+    biomass_processed <- biomassDF %>%
+      group_by(Year,Reserve) %>%
+      summarize(Biomass = mean(Biomass))  %>%
+      spread(key=Reserve,value=Biomass) %>%
+      rename(Biomass_Fished = `0`,
+             Biomass_Unfished =`1`) %>%
+      mutate(Biomass_Ratio = Biomass_Fished/Biomass_Unfished)
+    
+    
+    biomass_plot <- biomass_processed %>%
+      ggplot(aes(x=Year,y=Biomass_Ratio)) +
+      theme_bw() +
+      geom_line(linetype=2,colour="#00ADB7") +
+      geom_point(size=4,colour="#EA883A") +
+      geom_hline(yintercept = input$BR_LRP,color="red") +
+      geom_hline(yintercept = input$BR_TRP,color="green") +
+      ggtitle("Green line: Target reference point\nRed line: Limit reference point") +
+      ylab("Fished:Unfished Multispecies Biomass Ratio\n(Aggregated ecosystem-level)") +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1),
+            text = element_text(size=12),
+            plot.title = element_text(size=12),
+            axis.title = element_text(size=12))
+    
+    density_plot <- density_processed %>%
+      filter(Species == input$speciesSelection) %>%
+      ggplot(aes(x=Year,y=Density_Ratio)) +
+      theme_bw() +
+      geom_line(linetype=2,colour="#00ADB7") +
+      geom_point(size=4,colour="#EA883A") +
+      geom_hline(yintercept = input$DR_LRP,color="red") +
+      geom_hline(yintercept = input$DR_TRP,color="green") +
+      ggtitle("Green line: Target reference point\nRed line: Limit reference point") +
+      ylab("Fished:Unfished Density Ratio\n(Single Species)") +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1),
+            text = element_text(size=12),
+            plot.title = element_text(size=12),
+            axis.title = element_text(size=12))
+     grid.arrange(biomass_plot,density_plot,nrow=2,top=paste(paste("Site: ",input$siteSelection,sep=""),
+                                                                   paste("\nSpecies: ",input$speciesSelection,sep="")))
+  }
   
   plotCPUE <- function(){
     if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$gearGlobalSelection) | is.null(input$yearGlobalSelection) | is.null(catchData()) | is.null(input$catchReferenceSlider[1])) return()
@@ -687,9 +783,9 @@ shinyServer(function(input, output) {
         ylab(effortLabel) +
         xlab("Year") +
         theme(axis.text.x = element_text(angle = 90, hjust = 1),
-              text = element_text(size=16),
-              plot.title = element_text(size=16),
-              axis.title = element_text(size=16))
+              text = element_text(size=12),
+              plot.title = element_text(size=12),
+              axis.title = element_text(size=12))
       
       landingsPlot = ggplot(dataSubset,aes(year,catch)) +
         geom_line(linetype=2,colour="#00ADB7") +
@@ -699,9 +795,9 @@ shinyServer(function(input, output) {
         ylab(catchLabel) +
         xlab("Year") +
         theme(axis.text.x = element_text(angle = 90, hjust = 1),
-              text = element_text(size=16),
-              plot.title = element_text(size=16),
-              axis.title = element_text(size=16)) +
+              text = element_text(size=12),
+              plot.title = element_text(size=12),
+              axis.title = element_text(size=12)) +
         ggtitle(paste("Reference period shown as red line",
                       "\nAverage catch from ", input$catchReferenceSlider[1], " to ", tail(input$catchReferenceSlider,n=1),": ",round(catchRP,2),
                       "\nCatch in ",max(dataSubset$year),": ",round(catchLast,2),
@@ -715,9 +811,9 @@ shinyServer(function(input, output) {
         ylab("Median CPUE [kg/fisher-day]") +
         xlab("Year") +
         theme(axis.text.x = element_text(angle = 90, hjust = 1),
-              text = element_text(size=16),
-              plot.title = element_text(size=16),
-              axis.title = element_text(size=16)) +
+              text = element_text(size=12),
+              plot.title = element_text(size=12),
+              axis.title = element_text(size=12)) +
         ggtitle(paste("Reference period shown as red line",
                       "\nAverage CPUE from ", input$catchReferenceSlider[1], " to ", tail(input$catchReferenceSlider,n=1),": ",round(cpueRP,2),
                       "\nCPUE in ",max(dataSubset$year),": ",round(cpueLast,2),
@@ -853,6 +949,10 @@ shinyServer(function(input, output) {
   output$lengthFD <- DT::renderDataTable(lengthFDInput())
   
   output$Froese <- DT::renderDataTable(FroeseInput())
+  
+  output$BR <- DT::renderDataTable(brInput())
+  
+  output$DR <- DT::renderDataTable(drInput())
   
   output$summary <-DT::renderDataTable(summaryInput())
   
@@ -1009,33 +1109,34 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}  
     
       if ("underwaterData" %in% input$checkDataGroup & "Density Ratio (Target Species)" %in% input$indicatorUnderwaterSelection){
-        if (input$DR_PI >= input$DR_TRP) result = "Green" else {
-          if (input$DR_PI < input$DR_TRP & input$DR_PI > input$DR_LRP) result = "Yellow" else result = "Red"}
+
         newRow = c("Density Ratio",
                    input$siteSelection,
                    input$speciesSelection,
-                   input$DR_PI,
+                   drInput()$Density_Ratio,
                    input$DR_TRP,
                    input$DR_LRP,
-                   result)
+                   drInput()$Result_Density_Ratio)
+
         newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
         colnames(newRow) = Names
+
         summaryTable = rbind(summaryTable,newRow)}
         
         if ("underwaterData" %in% input$checkDataGroup & "Biomass Ratio (aggregated across species)" %in% input$indicatorUnderwaterSelection){
-          if (input$BR_PI >= input$BR_TRP) result = "Green" else {
-            if (input$BR_PI < input$BR_TRP & input$BR_PI > input$BR_LRP) result = "Yellow" else result = "Red"}
+          
          
            newRow = c("Biomass Ratio",
                      input$siteSelection,
                      input$speciesSelection,
-                     input$BR_PI,
+                     brInput()$Biomass_Ratio,
                      input$BR_TRP,
                      input$BR_LRP,
-                     result)
+                     brInput()$Result_Biomass_Ratio)
         
         newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
         colnames(newRow) = Names
+        
         summaryTable = rbind(summaryTable,newRow)}
       
 
@@ -1092,6 +1193,90 @@ shinyServer(function(input, output) {
                   result)
     
     return(table)
+  })
+  
+  brInput <- reactive({
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearGlobalSelection) | is.null(biomassData()) | is.null(densityData())) return()
+    
+    biomassDF <- biomassData()
+
+    BR <- biomassDF %>%
+      group_by(Year,Reserve) %>%
+      summarize(Biomass = mean(Biomass))  %>%
+      spread(key=Reserve,value=Biomass) %>%
+      rename(Biomass_Fished = `0`,
+             Biomass_Unfished =`1`) %>%
+      mutate(Biomass_Ratio = Biomass_Fished/Biomass_Unfished) %>%
+      filter(Year == max(.$Year))
+    
+    BR <- BR$Biomass_Ratio
+    
+    if (is.nan(BR) | is.infinite(BR)) result = "Cannot Interpret" else{
+      if (BR > input$BR_TRP) result = "Green"
+      if (BR > input$BR_LRP & BR<input$BR_TRP) result = "Yellow"
+      if (BR < input$BR_LRP) result = "Red"
+    }
+    table = data.frame(matrix(NA,nrow=1,ncol=7))
+    
+    colnames(table) = c("Site",
+                        "Species",
+                        "year",
+                        "Biomass_Ratio",
+                        "TRP_Biomass_Ratio",
+                        "LRP_Biomass_Ratio",
+                        "Result_Biomass_Ratio")
+
+    table[1,] <- c(input$siteSelection,
+                   input$speciesSelection,
+                   max(biomassDF$Year),
+                   BR,
+                   input$BR_TRP,
+                   input$BR_LRP,
+                   result)
+    table
+    
+  })
+  
+  drInput <- reactive({
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearGlobalSelection) | is.null(biomassData()) | is.null(densityData())) return()
+    
+    densityDF <- densityData()%>%
+      filter(Species == input$speciesSelection)
+    DR <- densityDF %>%
+      group_by(Year,Species,Reserve) %>%
+      summarize(Density = mean(Density)) %>%
+      spread(key=Reserve,value=Density) %>%
+      rename(Density_Fished = `0`,
+             Density_Unfished = `1`) %>%
+      mutate(Density_Ratio = Density_Fished/Density_Unfished) %>% 
+      filter(Year == max(.$Year))
+    
+    DR <- DR$Density_Ratio
+    
+    if (is.nan(DR) | is.infinite(DR)) result = "Cannot Interpret" else{
+      if (DR > input$DR_TRP) result = "Green"
+      if (DR > input$DR_LRP & DR<input$DR_TRP) result = "Yellow"
+      if (DR < input$DR_LRP) result = "Red"
+    }
+    table = data.frame(matrix(NA,nrow=1,ncol=7))
+    
+    colnames(table) = c("Site",
+                        "Species",
+                        "year",
+                        "Density_Ratio",
+                        "TRP_Density_Ratio",
+                        "LRP_Density_Ratio",
+                        "Result_Density_Ratio")
+
+    table[1,] <- c(input$siteSelection,
+                   input$speciesSelection,
+                   max(densityDF$Year),
+                   DR,
+                   input$DR_TRP,
+                   input$DR_LRP,
+                   result)
+    table
+    
   })
   
   LBARInput <- reactive({

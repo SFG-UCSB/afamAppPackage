@@ -29,12 +29,14 @@ shinyUI(fluidPage(
                             ),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('landingsData') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: site, year, date, fisher_days, inside_area, permanent_trip_id, gear, species, sampled_catch, total_catch"),
+                              fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: Year, Reserve (a column of 0s or 1s), and Biomass (a column of biomass aggregated across all species). Each row should represent a single transect."),
                               hr()
                             ),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('underwaterData') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("dataUnderwater",label = "Upload Underwater Visual Survey Data. Make sure your landings input *.csv has the following column headers: site, year, date,species,length,count"),
+                              fileInput("dataBiomass",label = "Upload Underwater Visual Survey ecosystem-level biomass data. Make sure your input *.csv has the following column headers: Year, Reserve (a column of 0s or 1s), and Biomass (aggregated ecosystem-level biomass across all species). Each row should represent 1 transect."),
+                              hr(),
+                              fileInput("dataDensity",label = "Upload Underwater Visual Survey species-level density data. Make sure your input *.csv has the following column headers: Year, Reserve (a column of 0s or 1s), and Density (for each species). Each row should represent 1 transect."),
                               hr()
                             )
                           ),
@@ -85,6 +87,10 @@ shinyUI(fluidPage(
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('underwaterData') != -1",
                             h1("Raw Underwater Visual Survey Data"),
+                            h2("Ecosystem-level aggregated biomass data"),
+                            dataTableOutput("inputDataBiomass"),
+                            h2("Species-level density data"),
+                            dataTableOutput("inputDataDensity"),
                             hr())
                         ))),
              tabPanel("Step 2 – Select fisheries management control(s)",
@@ -574,8 +580,10 @@ shinyUI(fluidPage(
 
                                               ),
                                               mainPanel(
-                                                h3("Below are the results of the landings assessment."),
-                                                DT::dataTableOutput("Landings")
+                                                conditionalPanel(
+                                                  condition = "input.checkDataGroup && input.checkDataGroup.indexOf('landingsData') != -1 && input.indicatorLandingsSelection.indexOf('Total Landings') != -1",
+                                                  h3("Below are the results of the landings assessment."),
+                                                  DT::dataTableOutput("Landings"))
                                               ))),
                                    tabPanel("CPUE Indicator",
                                             sidebarLayout(
@@ -583,32 +591,45 @@ shinyUI(fluidPage(
 
                                               ),
                                               mainPanel(
+                                                conditionalPanel(
+                                                  condition = "input.checkDataGroup && input.checkDataGroup.indexOf('landingsData') != -1 && input.indicatorLandingsSelection.indexOf('CPUE') != -1",
                                                 h3("Below are the results of the CPUE assessment."),
-                                                DT::dataTableOutput("CPUE")
+                                                DT::dataTableOutput("CPUE"))
                                               )))
 
                                  )),
                         tabPanel("Underwater Visual Survey Performance Indicators",
                                  tabsetPanel(
+                                   tabPanel("Data Visualization",
+                                            sidebarLayout(
+                                              sidebarPanel(
+
+                                              ),
+                                              mainPanel(
+                                                conditionalPanel(
+                                                  condition = "input.checkDataGroup && input.checkDataGroup.indexOf('underwaterData') != -1",
+                                                plotOutput("UVCPlots",height=1000))
+                                              )
+                                            )),
                                    tabPanel("Biomass Ratio (aggregated across species)",
                                             sidebarLayout(
                                               sidebarPanel(
+                                                ),
+                                              mainPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorUnderwaterSelection && input.checkDataGroup.indexOf('underwaterData') != -1 && input.indicatorUnderwaterSelection.indexOf('Biomass Ratio (aggregated across species)') != -1",
-                                                  numericInput(inputId="BR_PI",min=0,max=10,value=NULL,label="Instructions: Enter the aggregated biomass-ratio from the underwater visual survey data. This is the ratio of the total biomass (aggregated across all species) inside the no-take zone divided by the total biomass outside the no-take zone.")
-                                                )),
-                                              mainPanel(
-                                                
+                                                h3("Below are the results of the Biomass Ratio assessment."),
+                                                DT::dataTableOutput("BR"))
                                               ))),
                                    tabPanel("Density Ratio (Target Species)",
                                             sidebarLayout(
                                               sidebarPanel(
-                                              conditionalPanel(
-                                                condition = "input.checkDataGroup && input.indicatorUnderwaterSelection && input.checkDataGroup.indexOf('underwaterData') != -1 && input.indicatorUnderwaterSelection.indexOf('Density Ratio (Target Species)') != -1",
-                                                numericInput(inputId="DR_PI",min=0,max=10,value=NULL,label="Instructions: Enter the target species density-ratio from the underwater visual survey data. This is the ratio of the density (only for the target species) inside the no-take zone divided by the total density outside the no-take zone.")
-                                              )),
+                                              ),
                                               mainPanel(
-
+                                                conditionalPanel(
+                                                  condition = "input.checkDataGroup && input.indicatorUnderwaterSelection && input.checkDataGroup.indexOf('underwaterData') != -1 && input.indicatorUnderwaterSelection.indexOf('Density Ratio (Target Species)') != -1",
+                                                h3("Below are the results of the Density Ratio assessment."),
+                                                DT::dataTableOutput("DR"))
                                               )))
 
                                  )))),
