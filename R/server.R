@@ -1580,7 +1580,7 @@ shinyServer(function(input, output) {
         if (is.nan(FvM) | is.infinite(FvM)) result = "Cannot Interpret" else{
           if (FvM < input$FvMCC_TRP) result = "Green"
           if (FvM > input$FvMCC_TRP & FvM<input$FvMCC_LRP) result = "Yellow"
-          if (FvM > input$FvMCC_TRP) result = "Red"
+          if (FvM > input$FvMCC_LRP) result = "Red"
         }
         
         if (i==1 & j ==1) k = 1 else k = k+1

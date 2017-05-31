@@ -550,7 +550,7 @@ shinyUI(fluidPage(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Spawning Potential Ratio (SPR)') != -1",
                                                   h2("SPR Model Outputs"),
-                                                  h4("SPR been calculated using the provided inputs"),
+                                                  h4("SPR has been calculated using the provided inputs"),
                                                   DT::dataTableOutput("SPR"),
                                                   plotOutput("SPRPlot",height=800,width=800)
                                                   #plotOutput("SPRBox",height=400,width=400))
