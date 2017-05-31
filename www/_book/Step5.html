@@ -26,7 +26,7 @@
 <meta name="author" content="Gavin McDonald">
 
 
-<meta name="date" content="2017-05-26">
+<meta name="date" content="2017-05-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -189,7 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This is the best option and should be chosen if you have internet connectivity. This will install the AFAM package onto your computer from an online file sharing service (“Github”). This will ensure that your version of the app is the most up-to-date as possible. Note that this step requires internet connection.</p>
 <p>If you choose this option, simply copy and paste the following code into your R Studio console and run the code.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Specify packages that are required for AFAM app. Install them if they&#39;re not installed already
-list.of.packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;gridExtra&quot;</span>, <span class="st">&quot;pander&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;DT&quot;</span>,<span class="st">&quot;devtools&quot;</span>)
+list.of.packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;gridExtra&quot;</span>, <span class="st">&quot;pander&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;DT&quot;</span>,<span class="st">&quot;devtools&quot;</span>,<span class="st">&quot;readxl&quot;</span>,<span class="st">&quot;stringr&quot;</span>,<span class="st">&quot;LBSPR&quot;</span>,<span class="st">&quot;TropFishR&quot;</span>,<span class="st">&quot;lubridate&quot;</span>,<span class="st">&quot;zoo&quot;</span>,<span class="st">&quot;curl&quot;</span>)
 new.packages &lt;-<span class="st"> </span>list.of.packages[<span class="op">!</span>(list.of.packages <span class="op">%in%</span><span class="st"> </span><span class="kw">installed.packages</span>()[,<span class="st">&quot;Package&quot;</span>])]
 <span class="cf">if</span>(<span class="kw">length</span>(new.packages) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> ) <span class="kw">install.packages</span>(new.packages)
 
@@ -219,7 +219,9 @@ new.packages &lt;-<span class="st"> </span>list.of.packages[<span class="op">!</
 <div id="running-the-afam-toolkit-dashboard-does-not-require-internet" class="section level2">
 <h2><span class="header-section-number">5.3</span> Running the AFAM Toolkit Dashboard (does not require internet)</h2>
 <p>You now have the AFAM App Package installed on your computer! To use it, simply load the package, and run the app. You may copy and paste the following code into your R Studio console. Note that once the package is installed during the step above, you no longer need internet connectivity to run the app!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Load AFAM Package
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## load Shiny package
+<span class="kw">library</span>(shiny)
+## Load AFAM Package
 <span class="kw">library</span>(afamAppPackage)
 
 ## Run AFAM App
