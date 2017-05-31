@@ -48,22 +48,10 @@ shinyUI(fluidPage(
                           selectInput("countrySelection",label="Select country",choices=c("Indonesia","Philippines","Brazil")),
                           uiOutput("siteUI"),
                           uiOutput("speciesUI"),
-                          uiOutput("gearGlobalUI"),
-                          uiOutput("yearGlobalUI"),
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('dataLength')!=-1 | input.checkDataGroup.indexOf('landingsData')!=-1",
                             checkboxInput("insideArea",label="Only include data inside designated area, such as a TURF?",value=TRUE)
-                          ),
-                          conditionalPanel(
-                            condition = "input.checkDataGroup.indexOf('dataLength')!=-1",
-                            numericInput("sizeMax",label="Enter the largest feasible fish length that should be observed in the catch. Lengths above this will be removed as outliers. A good starting point is 1.3 * L_Infinity. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999)
-                          ),
-                          conditionalPanel(
-                            condition = "input.checkDataGroup.indexOf('landingsData')!=-1",
-                            numericInput("tripMax",label="Enter the largest feasible catch for a single trip. Catches in a single trip above this will be removed as outliers. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999),
-                            checkboxInput("totalCatch",label="Does the catch and effort data represent the total landings in the fishery? If so, check this box. If the data is only a sub-sample, leave this box is un-checked, and the dashboard will normalize catch and effort by the number of sampling days.",value=FALSE)
-                          )
-                        ),
+                          )),
                         mainPanel(
                           h3("Below is a summary of your available data, your assessment and management tier (automatically calculated based on the available data), and tables of raw data (either sample data or real data)"),
                           h1("Data Summary"),
@@ -376,6 +364,13 @@ shinyUI(fluidPage(
                                  ),
                         tabPanel("Local Ecological Knowledge Indicators",
                                  tabsetPanel(
+                                   tabPanel("Setup",
+                                            sidebarLayout(
+                                              sidebarPanel(
+                                                numericInput("yearLEKSelection",label="Enter year for LEK analysis",value=as.numeric(format(Sys.Date(), "%Y")))
+                                              ),
+                                              mainPanel(
+                                              ))),
                                    tabPanel("Presence of Destructive Fishing Gear Indicator",
                                             sidebarLayout(
                                               sidebarPanel(
@@ -448,8 +443,11 @@ shinyUI(fluidPage(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.checkDataGroup.indexOf('dataLength') != -1",
                                                   sliderInput("binSize",label="Select Bin Size (cm)",min=1,max=10,value=1,width=200),
-                                                  uiOutput("gearUI"),
-                                                  uiOutput("yearUI"),
+                                                  uiOutput("gearGlobalUI"),
+                                                  uiOutput("yearGlobalUI"),
+                                                  numericInput("sizeMax",label="Enter the largest feasible fish length that should be observed in the catch. Lengths above this will be removed as outliers. A good starting point is 1.3 * L_Infinity. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999),
+                                                  #uiOutput("gearUI"),
+                                                  #uiOutput("yearUI"),
                                                   downloadButton("downloadPlot",label="Download Plot"))
                                               ),
                                               mainPanel(
@@ -563,7 +561,10 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLandingsSelection && input.checkDataGroup.indexOf('landingsData') != -1",
-                                                 uiOutput("catchReference"),
+                                                  uiOutput("yearLandingsUI"),
+                                                  uiOutput("catchReference"),
+                                                  numericInput("tripMax",label="Enter the largest feasible catch for a single trip. Catches in a single trip above this will be removed as outliers. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999),
+                                                  checkboxInput("totalCatch",label="Does the catch and effort data represent the total landings in the fishery? If so, check this box. If the data is only a sub-sample, leave this box is un-checked, and the dashboard will normalize catch and effort by the number of sampling days.",value=FALSE),
                                                   downloadButton("downloadLandingsPlot",label="Download landings, effort, and CPUE Results (Plot)"))
                                               ),
                                               mainPanel(
@@ -603,7 +604,7 @@ shinyUI(fluidPage(
                                    tabPanel("Data Visualization",
                                             sidebarLayout(
                                               sidebarPanel(
-
+                                                uiOutput("yearUnderwaterUI")
                                               ),
                                               mainPanel(
                                                 conditionalPanel(

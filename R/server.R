@@ -123,7 +123,7 @@ shinyServer(function(input, output) {
   })
   
   output$catchReference <- renderUI({
-    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$gearGlobalSelection) | is.null(input$yearGlobalSelection) | is.null(catchData())) return()
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearLandingsSelection) | is.null(catchData())) return()
     df <- catchData()
     totalFN = function(x,y){
       if (is.na(y)) total = x else total = y
@@ -156,7 +156,7 @@ shinyServer(function(input, output) {
       filter(catch>0 & CPUE > 0  & fisher_days > 0)
     
     dataSubset <- dataSubset %>%
-      filter(year < max(year))
+      filter(year < input$yearLandingsSelection)
     
     yearList <- dataSubset$year
     sliderInput("catchReferenceSlider", label = ("Select the reference period over which the catch and/or CPUE reference values should be calculated. This time period should represent a desirable fishery condition. The catch and/or CPUE reference will be calculated as the average value over these years."), min = min(yearList), 
@@ -462,7 +462,7 @@ shinyServer(function(input, output) {
         df = subset(df,species==input$speciesSelection)
         df = subset(df,site==input$siteSelection)
         gears = c("Aggregate Across Gear Types",as.vector(unique(df$gear)))
-        selectInput(inputId="gearGlobalSelection","Select Gear Type for Visualization and Analysis",choices=gears,selected="Aggregate Across Gear Types")}
+        selectInput(inputId="gearGlobalSelection","Select Gear Type for Length-Based Analysis",choices=gears,selected="Aggregate Across Gear Types")}
   })
   
   output$speciesUI <- renderUI({
@@ -506,14 +506,44 @@ shinyServer(function(input, output) {
     if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(lengthData())) return()
     
     if (is.null(lengthData()) & input$dataType != "Use sample Data") {
-      textInput(inputId="yearGlobalSelection","Enter Year for Analysis") } else {
+      textInput(inputId="yearGlobalSelection","Enter Year for Length-Based Analysis") } else {
         
         df <- lengthData()
         
         df = subset(df,site==input$siteSelection)
         df = subset(df,species==input$speciesSelection)
         years = c("Aggregate Across Years",as.vector(unique(df$year)))
-        selectInput(inputId="yearGlobalSelection","Select Year for Visualization and Analysis",choices=years,selected="Aggregate Across Years")}
+        selectInput(inputId="yearGlobalSelection","Select Year for Length-Based Analysis",choices=years,selected="Aggregate Across Years")}
+  })
+  
+  
+  
+  output$yearLandingsUI <- renderUI({
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(catchData())) return()
+    
+    if (is.null(catchData()) & input$dataType != "Use sample Data") {
+      textInput(inputId="yearLandingsSelection","Enter Year for Landings Data Analysis") } else {
+        
+        df <- catchData()
+
+        df = subset(df,site==input$siteSelection)
+        df = subset(df,species==input$speciesSelection)
+        years = c(as.vector(unique(df$year)))
+        selectInput(inputId="yearLandingsSelection","Select Year for Landings Data Analysis",choices=years,selected=max(years))}
+  })
+  
+  output$yearUnderwaterUI <- renderUI({
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(biomassData()) | is.null(densityData())) return()
+    
+    if ((is.null(biomassData()) | is.null(densityData())) & input$dataType != "Use sample Data") {
+      textInput(inputId="yearUnderwaterSelection","Enter Year for Underwater Visual Survey Data Analysis") } else {
+        
+        df1 <-  densityData() %>%
+          filter(Species == input$speciesSelection)
+        df2 <- biomassData()
+        
+        years <- unique(c(df1$Year,df2$Year))
+        selectInput(inputId="yearUnderwaterSelection","Enter Year for Underwater Visual Survey Data Analysis",choices=years,selected=max(years))}
   })
   
   output$histogram <- renderPlot({
@@ -521,7 +551,7 @@ shinyServer(function(input, output) {
   })
   
   plotInput <- function(){
-    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$gearSelection) | is.null(input$yearSelection) | is.null(lengthData())) return()
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$gearGlobalSelection) | is.null(input$yearGlobalSelection) | is.null(lengthData())) return()
     # inFile <- input$data
     # 
     # if (is.null(inFile) & input$dataType != "Use sample Data")
@@ -533,10 +563,10 @@ shinyServer(function(input, output) {
     df = subset(df,species==input$speciesSelection)
     #froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,df$length_cm)
     
-    if (input$gearSelection != "Aggregate Across Gear Types" & input$yearSelection != "Aggregate Across Years"){
+    if (input$gearGlobalSelection != "Aggregate Across Gear Types" & input$yearGlobalSelection != "Aggregate Across Years"){
       
-      if(input$gearSelection != "Look at All Gear Types") df = subset(df,gear==input$gearSelection)
-      if(input$yearSelection != "Look at All Years") df = subset(df,year==input$yearSelection)
+      if(input$gearGlobalSelection != "Look at All Gear Types") df = subset(df,gear==input$gearGlobalSelection)
+      if(input$yearGlobalSelection != "Look at All Years") df = subset(df,year==input$yearGlobalSelection)
       froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,df$length_cm)
       print(ggplot(df, aes(x=length_cm)) +
               geom_histogram(position="identity", binwidth=input$binSize,fill="#00ADB7",colour="black") +
@@ -561,16 +591,16 @@ shinyServer(function(input, output) {
                     strip.text.y = element_text(size = 12)))
     }
     
-    if (input$gearSelection == "Aggregate Across Gear Types" & input$yearSelection != "Aggregate Across Years"){
+    if (input$gearGlobalSelection == "Aggregate Across Gear Types" & input$yearGlobalSelection != "Aggregate Across Years"){
       
-      if(input$yearSelection != "Look at All Years") df = subset(df,year==input$yearSelection)
+      if(input$yearGlobalSelection != "Look at All Years") df = subset(df,year==input$yearGlobalSelection)
       froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,df$length_cm)
       print(ggplot(df, aes(x=length_cm)) +
               geom_histogram(position="identity", binwidth=input$binSize,fill="#00ADB7",colour="black") +
               ggtitle(paste(paste("Site: ",input$siteSelection,sep=""),
                             paste("\nSpecies: ",input$speciesSelection,sep=""),
-                            paste("\nGear Type: ",input$gearSelection,sep=""),      
-                            paste("\nYear: ",input$yearSelection,sep=""),
+                            paste("\nGear Type: ",input$gearGlobalSelection,sep=""),      
+                            paste("\nYear: ",input$yearGlobalSelection,sep=""),
                             paste("\nSize at maturity (red line): ",round(froeseTemp$Lmat,2),"; Percent mature in this figure: ",round(froeseTemp$percentMature,2),"%",sep=""),
                             paste("\nOptimal size (green line): ",round(froeseTemp$Lopt,2),"; Percent optimal in this figure: ",round(froeseTemp$percentOpt,2),"%",sep=""),
                             paste("\nMegaspawner size (blue line): ",round(froeseTemp$Lmega,2),"; Percent megaspawner in this figure: ",round(froeseTemp$percentMega,2),"%",sep=""))) +
@@ -590,16 +620,16 @@ shinyServer(function(input, output) {
                     strip.text.y = element_text(size = 12)))
     }
     
-    if (input$gearSelection != "Aggregate Across Gear Types" & input$yearSelection == "Aggregate Across Years"){
+    if (input$gearGlobalSelection != "Aggregate Across Gear Types" & input$yearGlobalSelection == "Aggregate Across Years"){
       
-      if(input$gearSelection != "Look at All Gear Types") df = subset(df,gear==input$gearSelection)
+      if(input$gearGlobalSelection != "Look at All Gear Types") df = subset(df,gear==input$gearGlobalSelection)
       froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,df$length_cm)
       print(ggplot(df, aes(x=length_cm)) +
               geom_histogram(position="identity", binwidth=input$binSize,fill="#00ADB7",colour="black") +
               ggtitle(paste(paste("Site: ",input$siteSelection,sep=""),
                             paste("\nSpecies: ",input$speciesSelection,sep=""),
-                            paste("\nGear Type: ",input$gearSelection,sep=""),      
-                            paste("\nYear: ",input$yearSelection,sep=""),
+                            paste("\nGear Type: ",input$gearGlobalSelection,sep=""),      
+                            paste("\nYear: ",input$yearGlobalSelection,sep=""),
                             paste("\nSize at maturity (red line): ",round(froeseTemp$Lmat,2),"; Percent mature in this figure: ",round(froeseTemp$percentMature,2),"%",sep=""),
                             paste("\nOptimal size (green line): ",round(froeseTemp$Lopt,2),"; Percent optimal in this figure: ",round(froeseTemp$percentOpt,2),"%",sep=""),
                             paste("\nMegaspawner size (blue line): ",round(froeseTemp$Lmega,2),"; Percent megaspawner in this figure: ",round(froeseTemp$percentMega,2),"%",sep=""))) +
@@ -619,14 +649,14 @@ shinyServer(function(input, output) {
                     strip.text.y = element_text(size = 12)))
     }
     
-    if (input$gearSelection == "Aggregate Across Gear Types" & input$yearSelection == "Aggregate Across Years"){
+    if (input$gearGlobalSelection == "Aggregate Across Gear Types" & input$yearGlobalSelection == "Aggregate Across Years"){
       froeseTemp = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,df$length_cm)
       print(ggplot(df, aes(x=length_cm)) +
               geom_histogram(position="identity", binwidth=input$binSize,fill="#00ADB7",colour="black") +
               ggtitle(paste(paste("Site: ",input$siteSelection,sep=""),
                             paste("\nSpecies: ",input$speciesSelection,sep=""),
-                            paste("\nGear Type: ",input$gearSelection,sep=""),      
-                            paste("\nYear: ",input$yearSelection,sep=""),
+                            paste("\nGear Type: ",input$gearGlobalSelection,sep=""),      
+                            paste("\nYear: ",input$yearGlobalSelection,sep=""),
                             paste("\nSize at maturity (red line): ",round(froeseTemp$Lmat,2),"; Percent mature in this figure: ",round(froeseTemp$percentMature,2),"%",sep=""),
                             paste("\nOptimal size (green line): ",round(froeseTemp$Lopt,2),"; Percent optimal in this figure: ",round(froeseTemp$percentOpt,2),"%",sep=""),
                             paste("\nMegaspawner size (blue line): ",round(froeseTemp$Lmega,2),"; Percent megaspawner in this figure: ",round(froeseTemp$percentMega,2),"%",sep=""))) +
@@ -661,8 +691,9 @@ shinyServer(function(input, output) {
   
   
   plotUVC <- function(){
-    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearGlobalSelection) | is.null(biomassData()) | is.null(densityData())) return()
-    densityDF <- densityData()
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearUnderwaterSelection) | is.null(biomassData()) | is.null(densityData())) return()
+    densityDF <- densityData() %>%
+      filter(Year <= input$yearUnderwaterSelection)
     density_processed <- densityDF %>%
       group_by(Year,Species,Reserve) %>%
       summarize(Density = mean(Density)) %>%
@@ -671,7 +702,8 @@ shinyServer(function(input, output) {
              Density_Unfished = `1`) %>%
       mutate(Density_Ratio = Density_Fished/Density_Unfished)
     
-    biomassDF <- biomassData()
+    biomassDF <- biomassData()%>%
+      filter(Year <= input$yearUnderwaterSelection)
     
     biomass_processed <- biomassDF %>%
       group_by(Year,Reserve) %>%
@@ -715,7 +747,7 @@ shinyServer(function(input, output) {
   }
   
   plotCPUE <- function(){
-    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$gearGlobalSelection) | is.null(input$yearGlobalSelection) | is.null(catchData()) | is.null(input$catchReferenceSlider[1])) return()
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearLandingsSelection) | is.null(catchData()) | is.null(input$catchReferenceSlider[1])) return()
     df <- catchData()
     totalFN = function(x,y){
       if (is.na(y)) total = x else total = y
@@ -840,7 +872,7 @@ shinyServer(function(input, output) {
     if (input$gearGlobalSelection != "Aggregate Across Gear Types" & input$yearGlobalSelection != "Aggregate Across Years"){
       
       if(input$gearGlobalSelection != "Look at All Gear Types") df = subset(df,gear==input$gearGlobalSelection)
-      if(input$yearGlobalSelection != "Look at All Years") df = subset(df,year==input$yearSelection)
+      if(input$yearGlobalSelection != "Look at All Years") df = subset(df,year==input$yearGlobalSelection)
       
       print(ggplot(df, aes(x="",y=FvM)) +
               geom_boxplot(position="identity", binwidth=input$binSize,fill="#00ADB7",colour="black") +
@@ -963,6 +995,7 @@ shinyServer(function(input, output) {
     summaryTable = summaryTable[-1,]
     
     Names <- c("Assessment",
+               "Year",
                "Site",
                "Species",
                "PI",
@@ -973,6 +1006,7 @@ shinyServer(function(input, output) {
     if ("dataLEK" %in% input$checkDataGroup & "Presence of Destructive Fishing Gear" %in% input$indicatorLEKSelection){
       if (input$destructive_PI == input$destructive_TRP) result = "Green" else result = "Red"
       newRow = c("Presence of Destructive Fishing Gear",
+                 input$yearLEKSelection,
                  input$siteSelection,
                  input$speciesSelection,
                  input$destructive_PI,
@@ -987,6 +1021,7 @@ shinyServer(function(input, output) {
     if ("dataLEK" %in% input$checkDataGroup & "Changes in Fishing Seasons" %in% input$indicatorLEKSelection){
       if (input$seasons_PI == input$season_TRP) result = "Green" else result = "Red"
       newRow = c("Changes in Fishing Seasons",
+                 input$yearLEKSelection,
                  input$siteSelection,
                  input$speciesSelection,
                  input$seasons_PI,
@@ -1001,6 +1036,7 @@ shinyServer(function(input, output) {
     if ("dataLEK" %in% input$checkDataGroup & "Changes in Target Species Composition" %in% input$indicatorLEKSelection){
       if (input$composition_PI == input$composition_TRP) result = "Green" else result = "Red"
       newRow = c("Changes in Target Species Composition",
+                 input$yearLEKSelection,
                  input$siteSelection,
                  input$speciesSelection,
                  input$composition_PI,
@@ -1015,6 +1051,7 @@ shinyServer(function(input, output) {
     if ("dataLEK" %in% input$checkDataGroup & "Target Species Vulnerability" %in% input$indicatorLEKSelection){
       if (input$vulnerability_PI == input$vulnerability_TRP) result = "Green" else result = "Red"
       newRow = c("Target Species Vulnerability",
+                 input$yearLEKSelection,
                  input$siteSelection,
                  input$speciesSelection,
                  input$vulnerability_PI,
@@ -1028,6 +1065,7 @@ shinyServer(function(input, output) {
     
     if ("landingsData" %in% input$checkDataGroup & "Total Landings" %in% input$indicatorLandingsSelection){
       newRow = c("Total Landings",
+                 input$yearLandingsSelection,
                  input$siteSelection,
                  input$speciesSelection,
                  levels(droplevels(landingsInput()$Change_In_Landings)),
@@ -1042,6 +1080,7 @@ shinyServer(function(input, output) {
     if ("landingsData" %in% input$checkDataGroup & "CPUE" %in% input$indicatorLandingsSelection){
       
       newRow = c("CPUE",
+                 input$yearLandingsSelection,
                  input$siteSelection,
                  input$speciesSelection,
                  levels(droplevels(cpueInput()$Change_In_CPUE)),
@@ -1058,6 +1097,7 @@ shinyServer(function(input, output) {
     if ("dataLength" %in% input$checkDataGroup & "Fishing Mortality / Natural Mortality (LBAR)" %in% input$indicatorLengthSelection) {
 
       newRow = c("LBAR",
+                 input$yearGlobalSelection,
                  LBARInput()[,c("Site",
                                 "Species",
                                 "FvM",
@@ -1072,6 +1112,7 @@ shinyServer(function(input, output) {
     if ("dataLength" %in% input$checkDataGroup & "Fishing Mortality / Natural Mortality (Catch Curve)" %in% input$indicatorLengthSelection) {
       
       newRow = c("Catch Curve",
+                 input$yearGlobalSelection,
                  CCInput()[,c("Site",
                                 "Species",
                                 "FvM",
@@ -1085,6 +1126,7 @@ shinyServer(function(input, output) {
     
     if ("dataLength" %in% input$checkDataGroup & "Froese Sustainability Indicators" %in% input$indicatorLengthSelection) {
       newRow = c("Froese Indicators",
+                 input$yearGlobalSelection,
                  input$siteSelection,
                  input$speciesSelection,
                  input$froese_Result,
@@ -1098,6 +1140,7 @@ shinyServer(function(input, output) {
     if ("dataLength" %in% input$checkDataGroup & "Spawning Potential Ratio (SPR)" %in% input$indicatorLengthSelection) {
       
       newRow = c("SPR",
+                 input$yearGlobalSelection,
                  SPRInput()[,c("Site",
                                 "Species",
                                 "SPR",
@@ -1112,6 +1155,7 @@ shinyServer(function(input, output) {
       if ("underwaterData" %in% input$checkDataGroup & "Density Ratio (Target Species)" %in% input$indicatorUnderwaterSelection){
 
         newRow = c("Density Ratio",
+                   input$yearUnderwaterSelection,
                    input$siteSelection,
                    input$speciesSelection,
                    drInput()$Density_Ratio,
@@ -1128,6 +1172,7 @@ shinyServer(function(input, output) {
           
          
            newRow = c("Biomass Ratio",
+                      input$yearUnderwaterSelection,
                      input$siteSelection,
                      input$speciesSelection,
                      brInput()$Biomass_Ratio,
@@ -1197,9 +1242,10 @@ shinyServer(function(input, output) {
   })
   
   brInput <- reactive({
-    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearGlobalSelection) | is.null(biomassData()) | is.null(densityData())) return()
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearUnderwaterSelection) | is.null(biomassData()) | is.null(densityData())) return()
     
-    biomassDF <- biomassData()
+    biomassDF <- biomassData() %>%
+      filter(Year <= input$yearUnderwaterSelection)
 
     BR <- biomassDF %>%
       group_by(Year,Reserve) %>%
@@ -1239,10 +1285,11 @@ shinyServer(function(input, output) {
   })
   
   drInput <- reactive({
-    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearGlobalSelection) | is.null(biomassData()) | is.null(densityData())) return()
+    if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$yearUnderwaterSelection) | is.null(biomassData()) | is.null(densityData())) return()
     
     densityDF <- densityData()%>%
-      filter(Species == input$speciesSelection)
+      filter(Species == input$speciesSelection &
+               Year <= input$yearUnderwaterSelection)
     DR <- densityDF %>%
       group_by(Year,Species,Reserve) %>%
       summarize(Density = mean(Density)) %>%
@@ -1729,7 +1776,7 @@ shinyServer(function(input, output) {
   
   output$downloadPlot <- downloadHandler(
     filename = function(){
-      gsub(" ", "", paste("LF_Plot_",input$siteSelection,"_",input$speciesSelection,"_",input$gearSelection,"_",input$yearSelection,".pdf", sep=""))
+      gsub(" ", "", paste("LF_Plot_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".pdf", sep=""))
     },
     content = function(file) {
       pdf(file)
@@ -1816,7 +1863,7 @@ shinyServer(function(input, output) {
   
   output$downloadLandingsPlot <- downloadHandler(
     filename = function(){
-      gsub(" ", "", paste("Landings_Plot_",input$siteSelection,"_",input$speciesSelection,"_",input$gearSelection,"_",input$yearSelection,".pdf", sep=""))
+      gsub(" ", "", paste("Landings_Plot_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".pdf", sep=""))
     },
     content = function(file) {
       pdf(file)
@@ -1828,7 +1875,7 @@ shinyServer(function(input, output) {
   
   output$downloadLHI <- downloadHandler(
     filename = function(){
-      gsub(" ", "", paste("LHI_",input$siteSelection,"_",input$speciesSelection,"_",input$gearSelection,"_",input$yearSelection,".csv", sep=""))
+      gsub(" ", "", paste("LHI_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
       write.csv(LHIInput(),file)
@@ -1836,7 +1883,7 @@ shinyServer(function(input, output) {
   
   output$downloadSummary <- downloadHandler(
     filename = function(){
-      gsub(" ", "", paste("Summary_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearSelection,"_",input$yearSelection,".csv", sep=""))
+      gsub(" ", "", paste("Summary_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
       write.csv(summaryInput(),file)
