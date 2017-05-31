@@ -512,8 +512,9 @@ shinyServer(function(input, output) {
         
         df = subset(df,site==input$siteSelection)
         df = subset(df,species==input$speciesSelection)
-        years = c("Aggregate Across Years",as.vector(unique(df$year)))
-        selectInput(inputId="yearGlobalSelection","Select Year for Length-Based Analysis",choices=years,selected="Aggregate Across Years")}
+        yearsNum <- as.vector(unique(df$year))
+        years = c("Aggregate Across Years",yearsNum)
+        selectInput(inputId="yearGlobalSelection","Select Year for Length-Based Analysis",choices=years,selected=max(yearsNum))}
   })
   
   
@@ -687,6 +688,14 @@ shinyServer(function(input, output) {
   
   output$UVCPlots <- renderPlot({
     print(plotUVC())
+  })
+  
+  output$CCPlot <- renderPlot({
+    print(plot(CCInput()$ccOutputs,plot_selec = TRUE))
+  })
+  
+  output$SPRPlot <- renderPlot({
+    print(plotSim(SPRInput()$MySim))
   })
   
   
@@ -971,13 +980,13 @@ shinyServer(function(input, output) {
   
   output$LBAR <- DT::renderDataTable(LBARInput())
   
-  output$CC <- DT::renderDataTable(CCInput())
+  output$CC <- DT::renderDataTable(CCInput()$table)
   
   output$Landings <- DT::renderDataTable(landingsInput())
   
   output$CPUE <- DT::renderDataTable(cpueInput())
   
-  output$SPR <- DT::renderDataTable(SPRInput())
+  output$SPR <- DT::renderDataTable(SPRInput()$table)
   
   output$lengthFD <- DT::renderDataTable(lengthFDInput())
   
@@ -1113,7 +1122,7 @@ shinyServer(function(input, output) {
       
       newRow = c("Catch Curve",
                  input$yearGlobalSelection,
-                 CCInput()[,c("Site",
+                 CCInput()$table[,c("Site",
                                 "Species",
                                 "FvM",
                                 "FvMCC_TRP",
@@ -1141,7 +1150,7 @@ shinyServer(function(input, output) {
       
       newRow = c("SPR",
                  input$yearGlobalSelection,
-                 SPRInput()[,c("Site",
+                 SPRInput()$table[,c("Site",
                                 "Species",
                                 "SPR",
                                 "TRP_SPR",
@@ -1194,10 +1203,35 @@ shinyServer(function(input, output) {
   
   
   SPRInput <- reactive({
-    if (is.na(input$FM) | is.na(input$SL50) | is.na(input$SL95)) return(NULL)
-    table = data.frame(matrix(NA,nrow=1,ncol=6))
+    #if (is.na(input$FM) | is.na(input$SL50) | is.na(input$SL95)) return(NULL)
+    df <- lengthData()
+    df = subset(df,site==input$siteSelection)
+    df = subset(df,species==input$speciesSelection)
+    if (input$gearGlobalSelection != "Aggregate Across Gear Types") {
+      dfSubset = subset(df,gear==input$gearGlobalSelection)
+      gearLabel = input$gearGlobalSelection
+    } else {
+      dfSubset = df
+      gearLabel = "Aggregate Across Gear Types"
+    }
+    
+    if (input$yearGlobalSelection != "Aggregate Across Years") {
+      dfSubset = subset(dfSubset,year==input$yearGlobalSelection)
+      yearLabel = input$yearGlobalSelection
+    } else {
+      dfSubset = dfSubset
+      yearLabel = "Aggregate Across Years"
+    }
+    lengthData = dfSubset$length_cm[!is.na(dfSubset$length_cm)]
+    
+
+    
+    table = data.frame(matrix(NA,nrow=1,ncol=9))
     colnames(table) = c("Site",
                         "Species",
+                        "F",
+                        "M",
+                        "FvM",
                         "SPR",
                         "TRP_SPR",
                         "LRP_SPR",
@@ -1210,9 +1244,17 @@ shinyServer(function(input, output) {
     MyPars@L95 <- input$m95
     MyPars@MK <- input$M / input$k 
     MyPars@M <- input$M
-    MyPars@SL50 <- input$SL50
-    MyPars@SL95 <- input$SL95
-    MyPars@FM <- input$FM
+    #MyPars@SL50 <- input$SL50
+    #MyPars@SL95 <- input$SL95
+    #MyPars@FM <- input$FM
+    F <- as.numeric(CCInput()$table$F)
+    M <- input$M
+    S50 <- as.numeric(CCInput()$table$S50)
+    S95 <- as.numeric(CCInput()$table$S95)
+    FvM <- as.numeric(CCInput()$table$FvM)
+    MyPars@SL50 <- S50
+    MyPars@SL95 <- S95
+    MyPars@FM <- FvM
     MyPars@BinWidth <- 1
     MyPars@BinMax <- input$Linf*1.3
     MyPars@BinMin <- 0
@@ -1221,8 +1263,21 @@ shinyServer(function(input, output) {
     MyPars@Walpha <- input$w_a
     MyPars@Wbeta <- input$w_b
     
-    MySim <- LBSPRsim(MyPars)
     
+    #SPR_Lengths <- new("LB_lengths", file = lengthData, LB_pars = MyPars,dataType = c("raw"), header = FALSE, verbose = FALSE)
+
+    # SPR_Lengths <- new("LB_lengths")
+    # SPR_Lengths@LMids <- seq(0.5,max(lengthData),1)
+    # SPR_Lengths@LData <- matrix(lengthData)
+    # SPR_Lengths@L_units <- "cm"
+    # SPR_Lengths@Years <- 1
+    # SPR_Lengths@NYears <- 1
+    # browser()
+    # browser()
+
+    
+    MySim <- LBSPRsim(MyPars)
+    #browser()
     SPR <- round(MySim@SPR, 2)
     
     if (is.nan(SPR) | is.infinite(SPR)) result = "Cannot Interpret" else{
@@ -1233,12 +1288,16 @@ shinyServer(function(input, output) {
     
     table[1,] = c(input$siteSelection,
                   input$speciesSelection,
+                  F,
+                  M,
+                  FvM,
                   SPR,
                   input$SPR_TRP,
                   input$SPR_LRP,
                   result)
     
-    return(table)
+    return(list(table = table,
+                MySim = MySim))
   })
   
   brInput <- reactive({
@@ -1415,7 +1474,7 @@ shinyServer(function(input, output) {
     
   })
   
-  CCInput <- eventReactive(input$goButton,{
+  CCInput <- reactive({
     
     df <- lengthData()
     df = subset(df,site==input$siteSelection)
@@ -1458,7 +1517,9 @@ shinyServer(function(input, output) {
           dfSubset = subset(dfSubset,year==input$yearGlobalSelection)
           yearLabel = input$yearGlobalSelection
         } else {
-          dfSubset = dfSubset
+          dfSubset = dfSubset %>%
+            mutate(year = as.numeric(format(Sys.Date(), "%Y")))
+          
           yearLabel = "Aggregate Across Years"
         }
         
@@ -1466,7 +1527,7 @@ shinyServer(function(input, output) {
         sampleSize = length(lengthData)
         dfSubset <- dfSubset %>%
           mutate(Date = ymd(paste(year,"01","01",sep="-")))
-        
+
         lfq_dat <- lfqCreate(dfSubset,Lname = "length_cm", Dname = "Date", aggregate_dates = FALSE,
                              length_unit = "cm", bin_size = 1, plot=FALSE) %>%
           lfqModify()
@@ -1475,10 +1536,40 @@ shinyServer(function(input, output) {
         lfq_dat$K <- input$k
         lfq_dat$t0 <- input$t0
         
-        
+        # t0 <- lfq_dat$t0
+        # K <-lfq_dat$K
+        # Linf <- lfq_dat$Linf
+        # #browser()
+        # midLengths <- lfq_dat$midLengths
+        # interval <- midLengths[2] - midLengths[1]
+        # lowerLengths <- midLengths - (interval / 2)
+        # t_L1 <- (t0 - (1/K)) * log(1 - (lowerLengths / Linf))
+        # 
+        # dt <- rep(NA,length(midLengths))
+        # for(x1 in 1:(length(dt)-1)){
+        #   dt[x1] <- t_L1[x1+1] - t_L1[x1]
+        # }
+        # ln_Linf_L <- log(Linf - lowerLengths)
+        # t_midL <- (t0 - (1/K)) * log(1 - (midLengths / Linf))
+        # catch <- lfq_dat$catch
+        # lnC <- log(catch)
+        # lnC_dt <- log(catch / dt)
+        # lnC_dt[which(lnC_dt == -Inf | is.nan(lnC_dt))] <- NA
+        catch <- lfq_dat$catch
+        catch<-rowSums(catch)
+        cutMin <- which(catch == max(catch,na.rm=TRUE))
+        catchCut <- catch[seq(cutMin,length(catch))]
+        cutMax <- cutMin + which(catchCut == 0)[1] - 2
+        #browser()
+        #lnC_dt <- rowSums(lnC_dt,na.rm=TRUE)
+        #browser()
         ccOutputs <- catchCurve(lfq_dat,
                                 catch_columns = 1,
-                                calc_ogive = TRUE)
+                                calc_ogive = TRUE,
+                                cumulative = FALSE,
+                                reg_int = c(cutMin,cutMax))
+        
+        #browser()
         
         Z = ccOutputs$Z
         F = ccOutputs$Z - input$M
@@ -1507,6 +1598,8 @@ shinyServer(function(input, output) {
                       S50,
                       S95,
                       result)
+        return(list(table = table,
+                    ccOutputs = ccOutputs))
       }
     }
     
@@ -1797,7 +1890,7 @@ shinyServer(function(input, output) {
       gsub(" ", "", paste("CC_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
-      write.csv(CCInput(),file)
+      write.csv(CCInput()$table,file)
     }) 
   
   output$downloadSPR <- downloadHandler(
@@ -1805,7 +1898,7 @@ shinyServer(function(input, output) {
       gsub(" ", "", paste("SPR_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
-      write.csv(SPRInput(),file)
+      write.csv(SPRInput()$table,file)
     }) 
   
   output$downloadLengthFD <- downloadHandler(

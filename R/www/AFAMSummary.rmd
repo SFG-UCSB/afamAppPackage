@@ -93,9 +93,21 @@ cat("\n  ")
 
 ```
 
-```{r, fig.height = 7, fig.width = 7, echo=FALSE,error=FALSE,message=FALSE,warning=FALSE,results='asis'}
+```{r, fig.height = 5, fig.width = 7, echo=FALSE,error=FALSE,message=FALSE,warning=FALSE,results='asis'}
 cat("\n  ")
 if("dataLength" %in% input$checkDataGroup) plotInput()
+cat("\n  ")
+```
+
+```{r, fig.height = 7, fig.width = 7, echo=FALSE,error=FALSE,message=FALSE,warning=FALSE,results='asis'}
+cat("\n  ")
+if("Fishing Mortality / Natural Mortality (Catch Curve)" %in% input$indicatorLengthSelection) plot(CCInput()$ccOutputs,plot_selec = TRUE)
+cat("\n  ")
+```
+
+```{r, fig.height = 7, fig.width = 7, echo=FALSE,error=FALSE,message=FALSE,warning=FALSE,results='asis'}
+cat("\n  ")
+if("Spawning Potential Ratio (SPR)" %in% input$indicatorLengthSelection) plotSim(SPRInput()$MySim)
 cat("\n  ")
 ```
 

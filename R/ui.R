@@ -514,8 +514,9 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Fishing Mortality / Natural Mortality (Catch Curve)') != -1",
-                                                  h4("Instructions: Hit the Go! button to begin the analysis. A window should pop up, where you should select the beginning and end points over which the catch curve should be calcualted. The beginning point should be the length at full selectivity. The end point should be the last point in the data set before there are any zero measurements. You may find consulting the length histogram helpful. The results for the catch curve method will then be calculated. You may re-do the analysis by pressing the Go! button again."),
-                                                  actionButton("goButton", "Go!"),
+                                                  h4("Instructions: The catch curve method will be used to automatically calculate total mortality (Z) and the ratio F/M. The linear regression will be automatically fit from the mode of the histogram to the largest non-zero length class in the measured catch."),
+                                                  h4("The linear regression fit as well as selectivy curves will also be shown."),
+                                                  #actionButton("goButton", "Go!"),
                                                   downloadButton("downloadCC",label="Download Catch Curve Results (CSV)"),
                                                   h5(a("This calculation uses the TropFishR package.", href="https://github.com/tokami/TropFishR",target="_blank"))
                                                   #downloadButton("downloadCCPlot",label="Download LBAR Results (Plot)"))
@@ -525,8 +526,8 @@ shinyUI(fluidPage(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Fishing Mortality / Natural Mortality (Catch Curve)') != -1",
                                                   h2("Catch Curve Model Outputs"),
                                                   h4("Z, F, and F/M have been calculated"),
-                                                  DT::dataTableOutput("CC")
-                                                  #plotOutput("LBARBox",height=400,width=400))
+                                                  DT::dataTableOutput("CC"),
+                                                  plotOutput("CCPlot",height=800,width=800)
                                                 )
                                               )
                                             )),
@@ -535,12 +536,14 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Spawning Potential Ratio (SPR)') != -1",
-                                                  h4("Instructions: Enter the 3 parameters below, and SPR will be automatically calcualted. If you did the Catch curve method, you can get SL95 and SL50 from the output table for that. If not, you can use the length histogram. SL95 should be the mode of the histogram. SL50 should be the length that has roughly half the number of counts as the mode."),
-                                                  numericInput(inputId = "FM",label="Enter the F/M ratio calculated from either Catch Curve or LBAR.",min=0,max=10,value=NULL),
-                                                  numericInput(inputId = "SL95",label="Enter the Length at 95% selectivity.",min=0,value=NULL),
-                                                  numericInput(inputId = "SL50",label="Enter the Length at 50% selectivity.",min=0,value=NULL),
+                                                  h4("Instructions: SPR will automatically be calculated for you. Catch curve will first be used to calculate F/M as well as the selectivity parameters. The SPR calculation will use these as inputs."),
+                                                  #h4("Instructions: Enter the 3 parameters below, and SPR will be automatically calcualted. If you did the Catch curve method, you can get SL95 and SL50 from the output table for that. If not, you can use the length histogram. SL95 should be the mode of the histogram. SL50 should be the length that has roughly half the number of counts as the mode."),
+                                                  #numericInput(inputId = "FM",label="Enter the F/M ratio calculated from either Catch Curve or LBAR.",min=0,max=10,value=NULL),
+                                                  #numericInput(inputId = "SL95",label="Enter the Length at 95% selectivity.",min=0,value=NULL),
+                                                  #numericInput(inputId = "SL50",label="Enter the Length at 50% selectivity.",min=0,value=NULL),
                                                   downloadButton("downloadSPR",label="Download SPR Results (CSV)"),
-                                                  h5(a("This calculation uses the LBSPR package.", href="https://github.com/AdrianHordyk/LBSPR",target="_blank"))
+                                                  h5(a("This calculation uses the LBSPR package for calculating SPR.", href="https://github.com/AdrianHordyk/LBSPR",target="_blank")),
+                                                  h5(a("This calculation also uses the TropFishR package for calculating F/M and the selectivity parameters.", href="https://github.com/tokami/TropFishR",target="_blank"))
                                                   #downloadButton("downloadSPRPlot",label="Download SPR Results (Plot)"))
                                               )),
                                               mainPanel(
@@ -548,7 +551,8 @@ shinyUI(fluidPage(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Spawning Potential Ratio (SPR)') != -1",
                                                   h2("SPR Model Outputs"),
                                                   h4("SPR been calculated using the provided inputs"),
-                                                  DT::dataTableOutput("SPR")
+                                                  DT::dataTableOutput("SPR"),
+                                                  plotOutput("SPRPlot",height=800,width=800)
                                                   #plotOutput("SPRBox",height=400,width=400))
                                               )
                                             )
