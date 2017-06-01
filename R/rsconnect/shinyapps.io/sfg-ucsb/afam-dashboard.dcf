@@ -3,8 +3,8 @@ title: afam-dashboard
 account: sfg-ucsb
 server: shinyapps.io
 appId: 182081
-bundleId: 847557
+bundleId: 847993
 url: https://sfg-ucsb.shinyapps.io/afam-dashboard/
-when: 1496250076.98961
+when: 1496271853.21502
 asMultiple: FALSE
 asStatic: FALSE

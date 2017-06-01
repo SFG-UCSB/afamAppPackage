@@ -107,7 +107,9 @@ cat("\n  ")
 
 ```{r, fig.height = 7, fig.width = 7, echo=FALSE,error=FALSE,message=FALSE,warning=FALSE,results='asis'}
 cat("\n  ")
-if("Spawning Potential Ratio (SPR)" %in% input$indicatorLengthSelection) plotSim(SPRInput()$MySim)
+if("Spawning Potential Ratio (SPR)" %in% input$indicatorLengthSelection) grid.arrange(plotSize(SPRInput()$myFit),
+                 plotMat(SPRInput()$myFit),
+                 ncol=1)
 cat("\n  ")
 ```
 

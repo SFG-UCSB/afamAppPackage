@@ -461,7 +461,8 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Froese Sustainability Indicators') != -1",
-                                                  h4("Instructions: The results for the Froese Sustainability Indicators method will be automatically calculated using the life history information provided and data visualizations performed. Once this is done, select the aggregated assessment result below. Unless you have reason to believe otherwise, select the most critical of the 3 results (percent mature, percent optimal, and percent megaspawner)."),
+                                                  h4("Instructions: The results for the Froese Sustainability Indicators method will be automatically calculated using the life history information provided according to the Froese 2004 methedology. Once this is done, select the aggregated assessment result below. Unless you have reason to believe otherwise, select the most critical of the 3 results (percent mature, percent optimal, and percent megaspawner)."),
+                                                  h5(a("Froese, R. (2004). Keep it simple: three indicators to deal with overfishing. Fish and fisheries, 5(1), 86-91.",href="http://onlinelibrary.wiley.com/doi/10.1111/j.1467-2979.2004.00144.x/full",target="_blank")),
                                                   selectInput(inputId = "froese_Result",label = "Select the aggregated assessment result from the Froese Sustainability Indicators technique:",choices=c("Green","Yellow","Red"),selected=NULL),
                                                   downloadButton("downloadFroese",label="Download Froese Results (CSV)"))
                                               ),
@@ -495,7 +496,8 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Fishing Mortality / Natural Mortality (LBAR)') != -1",
-                                                  h4("Instructions: The results for the LBAR method will be automatically calculated using the life history information provided and data visualizations performed."),
+                                                  h4("Instructions: The results for the LBAR method will be automatically calculated using the life history information provided using the Ault et al. 2005 methedology."),
+                                                  h5(a("Ault, J. S., Smith, S. G., & Bohnsack, J. A. (2005). Evaluation of average length as an estimator of exploitation status for the Florida coral-reef fish community. ICES Journal of Marine Science: Journal du Conseil, 62(3), 417-423.",href="https://doi.org/10.1016/j.icesjms.2004.12.001",target="_blank")),
                                                   downloadButton("downloadLBAR",label="Download LBAR Results (CSV)")
                                                   #downloadButton("downloadLBARPlot",label="Download LBAR Results (Plot)"))
                                               )),
@@ -514,11 +516,11 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Fishing Mortality / Natural Mortality (Catch Curve)') != -1",
-                                                  h4("Instructions: The catch curve method will be used to automatically calculate total mortality (Z) and the ratio F/M. The linear regression will be automatically fit from the mode of the histogram to the largest non-zero length class in the measured catch."),
-                                                  h4("The linear regression fit as well as selectivy curves will also be shown."),
+                                                  h4("Instructions: The catch curve method will be used to automatically calculate total mortality (Z), the ratio F/M, and selectivity parameters according to Sparre and Venama 1998 methedology. The linear regression will be automatically fit from the mode of the histogram to the largest non-zero length class in the measured catch."),
+                                                  h5(a("Sparr, P., and Venema, S.C., 1998. Introduction to tropical fish stock assessment - Part 1: Manual. FAO Fish. Tech. Pap. 306.", href="http://www.fao.org/docrep/W5449E/W5449E00.htm",target="_blank")),
+                                                  h5(a("This calculation uses the TropFishR R Package.", href="https://github.com/tokami/TropFishR",target="_blank")),
                                                   #actionButton("goButton", "Go!"),
-                                                  downloadButton("downloadCC",label="Download Catch Curve Results (CSV)"),
-                                                  h5(a("This calculation uses the TropFishR package.", href="https://github.com/tokami/TropFishR",target="_blank"))
+                                                  downloadButton("downloadCC",label="Download Catch Curve Results (CSV)")
                                                   #downloadButton("downloadCCPlot",label="Download LBAR Results (Plot)"))
                                               )),
                                               mainPanel(
@@ -527,6 +529,7 @@ shinyUI(fluidPage(
                                                   h2("Catch Curve Model Outputs"),
                                                   h4("Z, F, and F/M have been calculated"),
                                                   DT::dataTableOutput("CC"),
+                                                  h4("Below are the results of the model fit to the length data (top) and the calculated selectivity curve (bottom)."),
                                                   plotOutput("CCPlot",height=800,width=800)
                                                 )
                                               )
@@ -536,24 +539,19 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Spawning Potential Ratio (SPR)') != -1",
-                                                  h4("Instructions: SPR will automatically be calculated for you. Catch curve will first be used to calculate F/M as well as the selectivity parameters. The SPR calculation will use these as inputs."),
-                                                  #h4("Instructions: Enter the 3 parameters below, and SPR will be automatically calcualted. If you did the Catch curve method, you can get SL95 and SL50 from the output table for that. If not, you can use the length histogram. SL95 should be the mode of the histogram. SL50 should be the length that has roughly half the number of counts as the mode."),
-                                                  #numericInput(inputId = "FM",label="Enter the F/M ratio calculated from either Catch Curve or LBAR.",min=0,max=10,value=NULL),
-                                                  #numericInput(inputId = "SL95",label="Enter the Length at 95% selectivity.",min=0,value=NULL),
-                                                  #numericInput(inputId = "SL50",label="Enter the Length at 50% selectivity.",min=0,value=NULL),
-                                                  downloadButton("downloadSPR",label="Download SPR Results (CSV)"),
-                                                  h5(a("This calculation uses the LBSPR package for calculating SPR.", href="https://github.com/AdrianHordyk/LBSPR",target="_blank")),
-                                                  h5(a("This calculation also uses the TropFishR package for calculating F/M and the selectivity parameters.", href="https://github.com/tokami/TropFishR",target="_blank"))
-                                                  #downloadButton("downloadSPRPlot",label="Download SPR Results (Plot)"))
+                                                  h4("Instructions: SPR will automatically be calculated for you using the methedology in Prince et al. 2011"),
+                                                  h5(a("Prince, J., Victor, S., Kloulchad, V., & Hordyk, A. (2015). Length based SPR assessment of eleven Indo-Pacific coral reef fish populations in Palau. Fisheries Research, 171, 42-58.",href="https://doi.org/10.1016/j.fishres.2015.06.008",target="_blank")),
+                                                  h5(a("This calculation uses the LBSPR R Package for calculating SPR.", href="https://github.com/AdrianHordyk/LBSPR",target="_blank")),
+                                                  downloadButton("downloadSPR",label="Download SPR Results (CSV)")
                                               )),
                                               mainPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Spawning Potential Ratio (SPR)') != -1",
                                                   h2("SPR Model Outputs"),
-                                                  h4("SPR has been calculated using the provided inputs"),
+                                                  h4("SPR and the selectivity parameters have been calculated using the provided inputs"),
                                                   DT::dataTableOutput("SPR"),
+                                                  h4("Below are the results of the model fit to the length data (top) and the calculated maturity and selectivity curves (bottom)."),
                                                   plotOutput("SPRPlot",height=800,width=800)
-                                                  #plotOutput("SPRBox",height=400,width=400))
                                               )
                                             )
                                    )
@@ -619,6 +617,9 @@ shinyUI(fluidPage(
                                    tabPanel("Biomass Ratio (aggregated across species)",
                                             sidebarLayout(
                                               sidebarPanel(
+                                                h5("Instructions: Biomass ratio will be automatically calculated according to the McClanahan et al. 2011 and Karr et al. 2015 methedology."),
+                                                h5(a("McClanahan, T. R., Graham, N. A., MacNeil, M. A., Muthiga, N. A., Cinner, J. E., Bruggemann, J. H., & Wilson, S. K. (2011). Critical thresholds and tangible targets for ecosystem-based management of coral reef fisheries. Proceedings of the National Academy of Sciences, 108(41), 17230-17233.", href="http://www.pnas.org/content/108/41/17230.short",target="_blank")),
+                                                h5(a("Karr, K. A., Fujita, R., Halpern, B. S., Kappel, C. V., Crowder, L., Selkoe, K. A., ... & Rader, D. (2015). Thresholds in Caribbean coral reefs: implications for ecosystem‐based fishery management. Journal of Applied Ecology, 52(2), 402-412..", href="http://onlinelibrary.wiley.com/doi/10.1111/1365-2664.12388/abstract",target="_blank"))
                                                 ),
                                               mainPanel(
                                                 conditionalPanel(
@@ -629,6 +630,8 @@ shinyUI(fluidPage(
                                    tabPanel("Density Ratio (Target Species)",
                                             sidebarLayout(
                                               sidebarPanel(
+                                                h5("Instructions: Density ratio will be automatically calculated according to the Babcock and MacCall 2011 methedology."),
+                                                h5(a("Babcock, E. A., & MacCall, A. D. (2011). How useful is the ratio of fish density outside versus inside no-take marine reserves as a metric for fishery management control rules?. Canadian Journal of Fisheries and Aquatic Sciences, 68(2), 343-359.", href="http://www.nrcresearchpress.com/doi/abs/10.1139/F10-146#.WTBEwRPyui4",target="_blank"))
                                               ),
                                               mainPanel(
                                                 conditionalPanel(

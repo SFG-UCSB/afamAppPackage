@@ -695,7 +695,9 @@ shinyServer(function(input, output) {
   })
   
   output$SPRPlot <- renderPlot({
-    print(plotSim(SPRInput()$MySim))
+    grid.arrange(plotSize(SPRInput()$myFit),
+                 plotMat(SPRInput()$myFit),
+                 ncol=1)
   })
   
   
@@ -1223,14 +1225,15 @@ shinyServer(function(input, output) {
       yearLabel = "Aggregate Across Years"
     }
     lengthData = dfSubset$length_cm[!is.na(dfSubset$length_cm)]
-    
+    lengthData <- as.matrix(lengthData)
+    #write_csv(lengthData,"tempLengthData.csv")
 
     
     table = data.frame(matrix(NA,nrow=1,ncol=9))
     colnames(table) = c("Site",
                         "Species",
-                        "F",
-                        "M",
+                        "SL50",
+                        "SL95",
                         "FvM",
                         "SPR",
                         "TRP_SPR",
@@ -1256,48 +1259,42 @@ shinyServer(function(input, output) {
     MyPars@SL95 <- S95
     MyPars@FM <- FvM
     MyPars@BinWidth <- 1
-    MyPars@BinMax <- input$Linf*1.3
+    MyPars@BinMax <- max(lengthData)
     MyPars@BinMin <- 0
     MyPars@L_units <- "cm"
     MyPars@Walpha_units <- "cm"
     MyPars@Walpha <- input$w_a
     MyPars@Wbeta <- input$w_b
     
-    
-    #SPR_Lengths <- new("LB_lengths", file = lengthData, LB_pars = MyPars,dataType = c("raw"), header = FALSE, verbose = FALSE)
-
-    # SPR_Lengths <- new("LB_lengths")
-    # SPR_Lengths@LMids <- seq(0.5,max(lengthData),1)
-    # SPR_Lengths@LData <- matrix(lengthData)
-    # SPR_Lengths@L_units <- "cm"
-    # SPR_Lengths@Years <- 1
-    # SPR_Lengths@NYears <- 1
-    # browser()
-    # browser()
-
-    
-    MySim <- LBSPRsim(MyPars)
+    SPR_Lengths <- new("LB_lengths", file = lengthData, LB_pars = MyPars,dataType = "raw")
+    SPR_Lengths@Years <- as.numeric(input$yearGlobalSelection)
+    myFit <- LBSPRfit(MyPars, SPR_Lengths)
+    sprFit <- as.numeric(myFit@Ests[1,4])
+    sl50Fit <- as.numeric(myFit@Ests[1,1])
+    sl95Fit <- as.numeric(myFit@Ests[1,2])
+    FvMFit <- as.numeric(myFit@Ests[1,3])
+    #MySim <- LBSPRsim(MyPars)
     #browser()
-    SPR <- round(MySim@SPR, 2)
+    #SPR <- round(MySim@SPR, 2)
     
-    if (is.nan(SPR) | is.infinite(SPR)) result = "Cannot Interpret" else{
-      if (SPR >= input$SPR_TRP) result = "Green"
-      if (SPR < input$SPR_TRP & SPR >= input$SPR_LRP) result = "Yellow"
-      if (SPR < input$SPR_LRP) result = "Red"
+    if (is.nan(sprFit) | is.infinite(sprFit)) result = "Cannot Interpret" else{
+      if (sprFit >= input$SPR_TRP) result = "Green"
+      if (sprFit < input$SPR_TRP & sprFit >= input$SPR_LRP) result = "Yellow"
+      if (sprFit < input$SPR_LRP) result = "Red"
     }
     
     table[1,] = c(input$siteSelection,
                   input$speciesSelection,
-                  F,
-                  M,
-                  FvM,
-                  SPR,
+                  sl50Fit,
+                  sl95Fit,
+                  FvMFit,
+                  sprFit,
                   input$SPR_TRP,
                   input$SPR_LRP,
                   result)
     
     return(list(table = table,
-                MySim = MySim))
+                myFit = myFit))
   })
   
   brInput <- reactive({
@@ -1492,13 +1489,13 @@ shinyServer(function(input, output) {
                         "gear",
                         "year",
                         "Sample Size",
+                        "SL50",
+                        "SL95",
                         "Z",
                         "F",
                         "FvM",
                         "FvMCC_TRP",
                         "FvMCC_LRP",
-                        "S50",
-                        "S95",
                         "Result_CC")
     
     for (i in 1:g){
@@ -1590,13 +1587,13 @@ shinyServer(function(input, output) {
                       gearLabel,
                       yearLabel,
                       sampleSize,
+                      S50,
+                      S95,
                       Z,
                       F,
                       FvM,
                       input$FvMCC_TRP,
                       input$FvMCC_LRP,
-                      S50,
-                      S95,
                       result)
         return(list(table = table,
                     ccOutputs = ccOutputs))
