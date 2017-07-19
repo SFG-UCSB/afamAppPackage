@@ -1259,13 +1259,12 @@ shinyServer(function(input, output) {
     MyPars@SL95 <- S95
     MyPars@FM <- FvM
     MyPars@BinWidth <- 1
-    MyPars@BinMax <- max(lengthData)
+    MyPars@BinMax <- round(max(c(lengthData,input$Linf))+1)
     MyPars@BinMin <- 0
     MyPars@L_units <- "cm"
     MyPars@Walpha_units <- "cm"
     MyPars@Walpha <- input$w_a
     MyPars@Wbeta <- input$w_b
-    
     SPR_Lengths <- new("LB_lengths", file = lengthData, LB_pars = MyPars,dataType = "raw")
     SPR_Lengths@Years <- as.numeric(input$yearGlobalSelection)
     myFit <- LBSPRfit(MyPars, SPR_Lengths)
@@ -1556,10 +1555,12 @@ shinyServer(function(input, output) {
         catch<-rowSums(catch)
         cutMin <- which(catch == max(catch,na.rm=TRUE))
         catchCut <- catch[seq(cutMin,length(catch))]
-        cutMax <- cutMin + which(catchCut == 0)[1] - 2
+        cutMax <- ifelse(0 %in% catchCut,
+                         cutMin + which(catchCut == 0)[1] - 2,
+                         length(catch))
         #browser()
         #lnC_dt <- rowSums(lnC_dt,na.rm=TRUE)
-        #browser()
+
         ccOutputs <- catchCurve(lfq_dat,
                                 catch_columns = 1,
                                 calc_ogive = TRUE,
