@@ -1,6 +1,7 @@
 shinyServer(function(input, output) {
   
   lengthData <- reactive({
+    req(input$dataType,input$sizeMax,input$sizeMin,input$insideArea)
     if(is.null(input$dataType)) return(NULL)
     inFile <- input$data
     #
@@ -9,6 +10,7 @@ shinyServer(function(input, output) {
 
     if (input$dataType == "Use sample Data") df = df_length else df = read_csv(inFile$datapath)
     if (input$sizeMax != -999) df <- df %>% filter(length_cm<input$sizeMax)
+    if (input$sizeMin != -999) df <- df %>% filter(length_cm>input$sizeMin)
     if (input$insideArea == TRUE) df <- df %>% filter(inside_area == "Inside")
     df
   })
@@ -438,8 +440,8 @@ shinyServer(function(input, output) {
   output$indicatorUnderwaterUI <- renderUI({
     if(is.null(tierTable()$tier)) return()
     if(tierTable()$tier < 2 |length(input$underwaterChecks)<4) return()
-    indicatorList = c("Biomass Ratio (aggregated across species)","Density Ratio (Target Species)")
-    checkboxGroupInput(inputId = "indicatorUnderwaterSelection",label = "Select at least one underwater-survey-based performance indicator:",choices=indicatorList,selected="Biomass Ratio (aggregated across species)")
+    if (input$speciesSelection %in% densityData()$Species) indicatorList = c("Biomass Ratio (aggregated across species)","Density Ratio (Target Species)") else indicatorList = c("Biomass Ratio (aggregated across species)")
+    checkboxGroupInput(inputId = "indicatorUnderwaterSelection",label = "Select at least one underwater-survey-based performance indicator. Note that `Density Ratio (Target Species)` will only be available if the target species appears in the data:",choices=indicatorList,selected="Biomass Ratio (aggregated across species)")
   })
   
   output$gearUI <- renderUI({
@@ -552,6 +554,7 @@ shinyServer(function(input, output) {
   })
   
   plotInput <- function(){
+    req(input$Linf,input$M,input$k,input$t0,input$w_a,input$w_b,input$m50,input$m95)
     if(is.null(input$speciesSelection) | is.null(input$siteSelection) | is.null(input$gearGlobalSelection) | is.null(input$yearGlobalSelection) | is.null(lengthData())) return()
     # inFile <- input$data
     # 
@@ -573,9 +576,10 @@ shinyServer(function(input, output) {
               geom_histogram(position="identity", binwidth=input$binSize,fill="#00ADB7",colour="black") +
               ggtitle(paste(paste("Site: ",input$siteSelection,sep=""),
                             paste("\nSpecies: ",input$speciesSelection,sep=""),
-                            paste("\nSize at maturity (red line): ",round(froeseTemp$Lmat,2),"; Percent mature in this figure: ",round(froeseTemp$percentMature,2),"%",sep=""),
-                            paste("\nOptimal size (green line): ",round(froeseTemp$Lopt,2),"; Percent optimal in this figure: ",round(froeseTemp$percentOpt,2),"%",sep=""),
-                            paste("\nMegaspawner size (blue line): ",round(froeseTemp$Lmega,2),"; Percent megaspawner in this figure: ",round(froeseTemp$percentMega,2),"%",sep=""))) +
+                            paste("\nAverage length measured: ",signif(mean(df$length_cm),3),"; Smallest length measured: ",signif(min(df$length_cm),3),"; Largest length measured: ",signif(max(df$length_cm),3),sep=""),
+                            paste("\nSize at maturity (red line): ",signif(froeseTemp$Lmat,3),"; Percent mature: ",signif(froeseTemp$percentMature,3),"%",sep=""),
+                            paste("\nOptimal size (green line): ",signif(froeseTemp$Lopt,3),"; Percent optimal: ",signif(froeseTemp$percentOpt,3),"%",sep=""),
+                            paste("\nMegaspawner size (blue line): ",signif(froeseTemp$Lmega,3),"; Percent megaspawner: ",signif(froeseTemp$percentMega,3),"%",sep=""))) +
               facet_grid(gear~year) +
               xlab("Length (cm)") +
               ylab("Count") +
@@ -602,9 +606,10 @@ shinyServer(function(input, output) {
                             paste("\nSpecies: ",input$speciesSelection,sep=""),
                             paste("\nGear Type: ",input$gearGlobalSelection,sep=""),      
                             paste("\nYear: ",input$yearGlobalSelection,sep=""),
-                            paste("\nSize at maturity (red line): ",round(froeseTemp$Lmat,2),"; Percent mature in this figure: ",round(froeseTemp$percentMature,2),"%",sep=""),
-                            paste("\nOptimal size (green line): ",round(froeseTemp$Lopt,2),"; Percent optimal in this figure: ",round(froeseTemp$percentOpt,2),"%",sep=""),
-                            paste("\nMegaspawner size (blue line): ",round(froeseTemp$Lmega,2),"; Percent megaspawner in this figure: ",round(froeseTemp$percentMega,2),"%",sep=""))) +
+                            paste("\nAverage length measured: ",signif(mean(df$length_cm),3),"; Smallest length measured: ",signif(min(df$length_cm),3),"; Largest length measured: ",signif(max(df$length_cm),2),sep=""),
+                            paste("\nSize at maturity (red line): ",signif(froeseTemp$Lmat,3),"; Percent mature: ",signif(froeseTemp$percentMature,3),"%",sep=""),
+                            paste("\nOptimal size (green line): ",signif(froeseTemp$Lopt,3),"; Percent optimal: ",signif(froeseTemp$percentOpt,3),"%",sep=""),
+                            paste("\nMegaspawner size (blue line): ",signif(froeseTemp$Lmega,3),"; Percent megaspawner: ",signif(froeseTemp$percentMega,3),"%",sep=""))) +
               facet_grid(.~year) +
               xlab("Length (cm)") +
               ylab("Count") +
@@ -631,9 +636,10 @@ shinyServer(function(input, output) {
                             paste("\nSpecies: ",input$speciesSelection,sep=""),
                             paste("\nGear Type: ",input$gearGlobalSelection,sep=""),      
                             paste("\nYear: ",input$yearGlobalSelection,sep=""),
-                            paste("\nSize at maturity (red line): ",round(froeseTemp$Lmat,2),"; Percent mature in this figure: ",round(froeseTemp$percentMature,2),"%",sep=""),
-                            paste("\nOptimal size (green line): ",round(froeseTemp$Lopt,2),"; Percent optimal in this figure: ",round(froeseTemp$percentOpt,2),"%",sep=""),
-                            paste("\nMegaspawner size (blue line): ",round(froeseTemp$Lmega,2),"; Percent megaspawner in this figure: ",round(froeseTemp$percentMega,2),"%",sep=""))) +
+                            paste("\nAverage length measured: ",signif(mean(df$length_cm),3),"; Smallest length measured: ",signif(min(df$length_cm),3),"; Largest length measured: ",signif(max(df$length_cm),2),sep=""),
+                            paste("\nSize at maturity (red line): ",signif(froeseTemp$Lmat,3),"; Percent mature: ",signif(froeseTemp$percentMature,3),"%",sep=""),
+                            paste("\nOptimal size (green line): ",signif(froeseTemp$Lopt,3),"; Percent optimal: ",signif(froeseTemp$percentOpt,3),"%",sep=""),
+                            paste("\nMegaspawner size (blue line): ",signif(froeseTemp$Lmega,3),"; Percent megaspawner: ",signif(froeseTemp$percentMega,3),"%",sep=""))) +
               facet_grid(gear~.) +
               xlab("Length (cm)") +
               geom_vline(xintercept = froeseTemp$Lmat,color="red",type=2) +
@@ -658,9 +664,10 @@ shinyServer(function(input, output) {
                             paste("\nSpecies: ",input$speciesSelection,sep=""),
                             paste("\nGear Type: ",input$gearGlobalSelection,sep=""),      
                             paste("\nYear: ",input$yearGlobalSelection,sep=""),
-                            paste("\nSize at maturity (red line): ",round(froeseTemp$Lmat,2),"; Percent mature in this figure: ",round(froeseTemp$percentMature,2),"%",sep=""),
-                            paste("\nOptimal size (green line): ",round(froeseTemp$Lopt,2),"; Percent optimal in this figure: ",round(froeseTemp$percentOpt,2),"%",sep=""),
-                            paste("\nMegaspawner size (blue line): ",round(froeseTemp$Lmega,2),"; Percent megaspawner in this figure: ",round(froeseTemp$percentMega,2),"%",sep=""))) +
+                            paste("\nAverage length measured: ",signif(mean(df$length_cm),3),"; Smallest length measured: ",signif(min(df$length_cm),3),"; Largest length measured: ",signif(max(df$length_cm),2),sep=""),
+                            paste("\nSize at maturity (red line): ",signif(froeseTemp$Lmat,3),"; Percent mature: ",signif(froeseTemp$percentMature,3),"%",sep=""),
+                            paste("\nOptimal size (green line): ",signif(froeseTemp$Lopt,3),"; Percent optimal: ",signif(froeseTemp$percentOpt,3),"%",sep=""),
+                            paste("\nMegaspawner size (blue line): ",signif(froeseTemp$Lmega,3),"; Percent megaspawner: ",signif(froeseTemp$percentMega,3),"%",sep=""))) +
               xlab("Length (cm)") +
               ylab("Count") +
               geom_vline(xintercept = froeseTemp$Lmat,color="red",type=2) +
@@ -753,8 +760,10 @@ shinyServer(function(input, output) {
             text = element_text(size=12),
             plot.title = element_text(size=12),
             axis.title = element_text(size=12))
+    
+    if (!("Density Ratio (Target Species)" %in% input$indicatorUnderwaterSelection)) biomass_plot else {
      grid.arrange(biomass_plot,density_plot,nrow=2,top=paste(paste("Site: ",input$siteSelection,sep=""),
-                                                                   paste("\nSpecies: ",input$speciesSelection,sep="")))
+                                                                   paste("\nSpecies: ",input$speciesSelection,sep="")))}
   }
   
   plotCPUE <- function(){
@@ -843,9 +852,9 @@ shinyServer(function(input, output) {
               plot.title = element_text(size=12),
               axis.title = element_text(size=12)) +
         ggtitle(paste("Reference period shown as red line",
-                      "\nAverage catch from ", input$catchReferenceSlider[1], " to ", tail(input$catchReferenceSlider,n=1),": ",round(catchRP,2),
-                      "\nCatch in ",max(dataSubset$year),": ",round(catchLast,2),
-                      "\nPercentage change in catch from reference period to ",max(dataSubset$year),": ",round(catchRelativeFinal,2),"%",sep=""))
+                      "\nAverage catch from ", input$catchReferenceSlider[1], " to ", tail(input$catchReferenceSlider,n=1),": ",signif(catchRP,3),
+                      "\nCatch in ",max(dataSubset$year),": ",signif(catchLast,3),
+                      "\nPercentage change in catch from reference period to ",max(dataSubset$year),": ",signif(catchRelativeFinal,3),"%",sep=""))
       
       CPUEPlot = ggplot(dataSubset,aes(year,CPUE)) +
         geom_line(linetype=2,colour="#00ADB7") +
@@ -859,9 +868,9 @@ shinyServer(function(input, output) {
               plot.title = element_text(size=12),
               axis.title = element_text(size=12)) +
         ggtitle(paste("Reference period shown as red line",
-                      "\nAverage CPUE from ", input$catchReferenceSlider[1], " to ", tail(input$catchReferenceSlider,n=1),": ",round(cpueRP,2),
-                      "\nCPUE in ",max(dataSubset$year),": ",round(cpueLast,2),
-                      "\nPercentage change in CPUE from reference period to ",max(dataSubset$year),": ",round(cpueRelativeFinal,2),"%",sep=""))
+                      "\nAverage CPUE from ", input$catchReferenceSlider[1], " to ", tail(input$catchReferenceSlider,n=1),": ",signif(cpueRP,3),
+                      "\nCPUE in ",max(dataSubset$year),": ",signif(cpueLast,3),
+                      "\nPercentage change in CPUE from reference period to ",max(dataSubset$year),": ",signif(cpueRelativeFinal,3),"%",sep=""))
       
       return(list(plots = grid.arrange(landingsPlot,effortPlot,CPUEPlot,nrow=3,top=paste(paste("Site: ",input$siteSelection,sep=""),
                                                                      paste("\nSpecies: ",input$speciesSelection,sep=""))),
@@ -1001,6 +1010,15 @@ shinyServer(function(input, output) {
   output$summary <-DT::renderDataTable(summaryInput())
   
   summaryInput<-reactive({
+    validate(need(input$siteSelection, 'Please select a site for assessment in Step 1'),
+             need(input$speciesSelection, 'Please select a species for assessment in Step 1'),
+             need(input$checkDataGroup,'Please select your available data types in Step 1'))
+    
+    if ("dataLEK" %in% input$checkDataGroup) validate(need(input$indicatorLEKSelection,'Please select at least one LEK indicator in Step 3'))
+    if ("landingsData" %in% input$checkDataGroup) validate(need(input$indicatorLandingsSelection,'Please select at least one landings indicator in Step 3'))
+    if ("dataLength" %in% input$checkDataGroup) validate(need(input$indicatorLengthSelection,'Please select at least one length indicator in Step 3'))
+    if ("underwaterData" %in% input$checkDataGroup) validate(need(input$indicatorUnderwaterSelection,'Please select at least one underwater indicator in Step 3'))
+    
     summaryTable = data.frame(matrix(NA,nrow=1,ncol=7))
     
     summaryTable = summaryTable[-1,]
@@ -1015,6 +1033,10 @@ shinyServer(function(input, output) {
                "Result")
     
     if ("dataLEK" %in% input$checkDataGroup & "Presence of Destructive Fishing Gear" %in% input$indicatorLEKSelection){
+      validate(need(input$destructive_PI, 'Please complete the destructve fishing gear assessment under Step 5'),
+               need(input$destructive_TRP, 'Please define a target reference point for destructve fishing gear in Step 3'),
+               need(input$yearLEKSelection, 'Please select a year for LEK assessment in Step 5'),
+               need(input$destructive_LRP, 'Please define a limit reference point for destructve fishing gear in Step 3'))
       if (input$destructive_PI == input$destructive_TRP) result = "Green" else result = "Red"
       newRow = c("Presence of Destructive Fishing Gear",
                  input$yearLEKSelection,
@@ -1030,6 +1052,10 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("dataLEK" %in% input$checkDataGroup & "Changes in Fishing Seasons" %in% input$indicatorLEKSelection){
+      validate(need(input$seasons_PI, 'Please complete the change in fishing seasons assessment under Step 5'),
+               need(input$season_TRP, 'Please define a target reference point for change in fishing seasons in Step 3'),
+               need(input$yearLEKSelection, 'Please select a year for LEK assessment in Step 5'),
+               need(input$season_LRP, 'Please define a limit reference point for change in fishing seasons in Step 3'))
       if (input$seasons_PI == input$season_TRP) result = "Green" else result = "Red"
       newRow = c("Changes in Fishing Seasons",
                  input$yearLEKSelection,
@@ -1045,6 +1071,10 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("dataLEK" %in% input$checkDataGroup & "Changes in Target Species Composition" %in% input$indicatorLEKSelection){
+      validate(need(input$composition_PI, 'Please complete the change in target species composition assessment under Step 5'),
+               need(input$composition_TRP, 'Please define a target reference point for change in target species composition in Step 3'),
+               need(input$yearLEKSelection, 'Please select a year for LEK assessment in Step 5'),
+               need(input$composition_LRP, 'Please define a limit reference point for change in target species composition in Step 3'))
       if (input$composition_PI == input$composition_TRP) result = "Green" else result = "Red"
       newRow = c("Changes in Target Species Composition",
                  input$yearLEKSelection,
@@ -1060,6 +1090,10 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("dataLEK" %in% input$checkDataGroup & "Target Species Vulnerability" %in% input$indicatorLEKSelection){
+      validate(need(input$vulnerability_PI, 'Please complete the target species vulnerability assessment under Step 5'),
+               need(input$vulnerability_TRP, 'Please define a target reference point for target species vulnerability in Step 3'),
+               need(input$yearLEKSelection, 'Please select a year for LEK assessment in Step 5'),
+               need(input$vulnerability_LRP, 'Please define a limit reference point for target species vulnerability in Step 3'))
       if (input$vulnerability_PI == input$vulnerability_TRP) result = "Green" else result = "Red"
       newRow = c("Target Species Vulnerability",
                  input$yearLEKSelection,
@@ -1075,6 +1109,10 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("landingsData" %in% input$checkDataGroup & "Total Landings" %in% input$indicatorLandingsSelection){
+      validate(need(plotCPUE()$catchRelativeFinal, 'Please complete the landings assessment under Step 5'),
+               need(input$landings_TRP, 'Please define a target reference point for change in landings in Step 3'),
+               need(input$yearLandingsSelection, 'Please select a year for landings assessment in Step 5'),
+               need(input$landings_LRP, 'Please define a limit reference point for change in landings in Step 3'))
       newRow = c("Total Landings",
                  input$yearLandingsSelection,
                  input$siteSelection,
@@ -1089,7 +1127,10 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("landingsData" %in% input$checkDataGroup & "CPUE" %in% input$indicatorLandingsSelection){
-      
+      validate(need(plotCPUE()$cpueRelativeFinal, 'Please complete the CPUE assessment under Step 5'),
+               need(input$CPUE_TRP, 'Please define a target reference point for change in landings in Step 3'),
+               need(input$yearLandingsSelection, 'Please select a year for CPUE assessment in Step 5'),
+               need(input$CPUE_LRP, 'Please define a limit reference point for change in CPUE in Step 3'))
       newRow = c("CPUE",
                  input$yearLandingsSelection,
                  input$siteSelection,
@@ -1106,7 +1147,8 @@ shinyServer(function(input, output) {
     
     
     if ("dataLength" %in% input$checkDataGroup & "Fishing Mortality / Natural Mortality (LBAR)" %in% input$indicatorLengthSelection) {
-
+      validate(need(LBARInput(), 'Please complete the LBAR assessment under Step 5'),
+               need(input$yearGlobalSelection, 'Please select a year for length assessment in Step 5'))
       newRow = c("LBAR",
                  input$yearGlobalSelection,
                  LBARInput()[,c("Site",
@@ -1121,7 +1163,8 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("dataLength" %in% input$checkDataGroup & "Fishing Mortality / Natural Mortality (Catch Curve)" %in% input$indicatorLengthSelection) {
-      
+      validate(need(CCInput()$table, 'Please complete the catch curve assessment under Step 5'),
+               need(input$yearGlobalSelection, 'Please select a year for length assessment in Step 5'))
       newRow = c("Catch Curve",
                  input$yearGlobalSelection,
                  CCInput()$table[,c("Site",
@@ -1136,6 +1179,8 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("dataLength" %in% input$checkDataGroup & "Froese Sustainability Indicators" %in% input$indicatorLengthSelection) {
+      validate(need(input$froese_Result, 'Please complete the Froese sustainability indicators assessment under Step 5'),
+               need(input$yearGlobalSelection, 'Please select a year for length assessment in Step 5'))
       newRow = c("Froese Indicators",
                  input$yearGlobalSelection,
                  input$siteSelection,
@@ -1149,6 +1194,8 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}
 
     if ("dataLength" %in% input$checkDataGroup & "Spawning Potential Ratio (SPR)" %in% input$indicatorLengthSelection) {
+      validate(need(SPRInput()$table$SPR, 'Please complete the SPR assessment under Step 5'),
+               need(input$yearGlobalSelection, 'Please select a year for length assessment in Step 5'))
       
       newRow = c("SPR",
                  input$yearGlobalSelection,
@@ -1164,7 +1211,8 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}  
     
       if ("underwaterData" %in% input$checkDataGroup & "Density Ratio (Target Species)" %in% input$indicatorUnderwaterSelection){
-
+        validate(need(drInput(), 'Please complete the density ratio assessment under Step 5'),
+                 need(input$yearUnderwaterSelection, 'Please select a year for underwater assessment in Step 5'))
         newRow = c("Density Ratio",
                    input$yearUnderwaterSelection,
                    input$siteSelection,
@@ -1180,7 +1228,8 @@ shinyServer(function(input, output) {
         summaryTable = rbind(summaryTable,newRow)}
         
         if ("underwaterData" %in% input$checkDataGroup & "Biomass Ratio (aggregated across species)" %in% input$indicatorUnderwaterSelection){
-          
+          validate(need(brInput(), 'Please complete the biomass ratio assessment under Step 5'),
+                   need(input$yearUnderwaterSelection, 'Please select a year for underwater assessment in Step 5'))
          
            newRow = c("Biomass Ratio",
                       input$yearUnderwaterSelection,
@@ -1206,6 +1255,7 @@ shinyServer(function(input, output) {
   
   SPRInput <- reactive({
     #if (is.na(input$FM) | is.na(input$SL50) | is.na(input$SL95)) return(NULL)
+    req(lengthData(),input$siteSelection,input$speciesSelection,input$gearGlobalSelection,input$yearGlobalSelection,input$M,input$Linf,input$k,input$m50,input$m95,input$w_a,input$w_b)
     df <- lengthData()
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
@@ -1284,10 +1334,10 @@ shinyServer(function(input, output) {
     
     table[1,] = c(input$siteSelection,
                   input$speciesSelection,
-                  sl50Fit,
-                  sl95Fit,
-                  FvMFit,
-                  sprFit,
+                  signif(sl50Fit,3),
+                  signif(sl95Fit,3),
+                  signif(FvMFit,3),
+                  signif(sprFit,3),
                   input$SPR_TRP,
                   input$SPR_LRP,
                   result)
@@ -1331,7 +1381,7 @@ shinyServer(function(input, output) {
     table[1,] <- c(input$siteSelection,
                    input$speciesSelection,
                    max(biomassDF$Year),
-                   BR,
+                   signif(BR,3),
                    input$BR_TRP,
                    input$BR_LRP,
                    result)
@@ -1374,7 +1424,7 @@ shinyServer(function(input, output) {
     table[1,] <- c(input$siteSelection,
                    input$speciesSelection,
                    max(densityDF$Year),
-                   DR,
+                   signif(DR,3),
                    input$DR_TRP,
                    input$DR_LRP,
                    result)
@@ -1383,7 +1433,7 @@ shinyServer(function(input, output) {
   })
   
   LBARInput <- reactive({
-    
+    req(lengthData(),input$siteSelection,input$speciesSelection,input$gearGlobalSelection,input$yearGlobalSelection,input$Linf,input$k,input$M)
     df <- lengthData()
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
@@ -1451,11 +1501,11 @@ shinyServer(function(input, output) {
                       gearLabel,
                       yearLabel,
                       sampleSize,
-                      lcSubset,
-                      lbar,
-                      Z,
-                      F,
-                      FvM,
+                      signif(lcSubset,3),
+                      signif(lbar,3),
+                      signif(Z,3),
+                      signif(F,3),
+                      signif(FvM,3),
                       input$FvMLBAR_TRP,
                       input$FvMLBAR_LRP,
                       result)
@@ -1471,7 +1521,7 @@ shinyServer(function(input, output) {
   })
   
   CCInput <- reactive({
-    
+    req(lengthData(),input$siteSelection,input$speciesSelection,input$gearGlobalSelection,input$yearGlobalSelection,input$M,input$Linf,input$k,input$t0)
     df <- lengthData()
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
@@ -1588,11 +1638,11 @@ shinyServer(function(input, output) {
                       gearLabel,
                       yearLabel,
                       sampleSize,
-                      S50,
-                      S95,
-                      Z,
-                      F,
-                      FvM,
+                      signif(S50,3),
+                      signif(S95,3),
+                      signif(Z,3),
+                      signif(F,3),
+                      signif(FvM,3),
                       input$FvMCC_TRP,
                       input$FvMCC_LRP,
                       result)
@@ -1669,7 +1719,7 @@ shinyServer(function(input, output) {
                       gearLabel,
                       yearLabel,
                       sampleSize,
-                      averageLengthFD,
+                      signif(averageLengthFD,3),
                       input$lengthFD_TRP,
                       input$lengthFD_LRP,
                       result)
@@ -1685,7 +1735,7 @@ shinyServer(function(input, output) {
   })
   
   FroeseInput <- reactive({
-    
+    req(lengthData(),input$Linf,input$M,input$k,input$t0,input$w_a,input$w_b,input$m50,input$m95,input$gearGlobalSelection,input$yearGlobalSelection)
     df <- lengthData()
     df = subset(df,site==input$siteSelection)
     df = subset(df,species==input$speciesSelection)
@@ -1773,12 +1823,12 @@ shinyServer(function(input, output) {
                       gearLabel,
                       yearLabel,
                       sampleSize,
-                      Lmat,
-                      Lopt,
-                      Lmega,
-                      percentMature,
-                      percentOpt,
-                      percentMega,
+                      signif(Lmat,3),
+                      signif(Lopt,3),
+                      signif(Lmega,3),
+                      signif(percentMature,3),
+                      signif(percentOpt,3),
+                      signif(percentMega,3),
                       input$percentMature_TRP,
                       input$percentMature_LRP,
                       input$percentOptimal_TRP,
@@ -1817,7 +1867,7 @@ shinyServer(function(input, output) {
         
         newRow = c(input$siteSelection,
                       input$speciesSelection,
-                      catchRelative,
+                      signif(catchRelative,3),
                       input$landings_TRP,
                       input$landings_LRP,
                       result)
@@ -1850,7 +1900,7 @@ shinyServer(function(input, output) {
     
     newRow = c(input$siteSelection,
                input$speciesSelection,
-               cpueRelative,
+               signif(cpueRelative,3),
                input$CPUE_TRP,
                input$CPUE_LRP,
                result)
@@ -1970,6 +2020,14 @@ shinyServer(function(input, output) {
     },
     content = function(file) {
       write.csv(LHIInput(),file)
+    }) 
+  
+  output$downloadLHI <- downloadHandler(
+    filename = function(){
+      gsub(" ", "", paste("LHI_Database.csv", sep=""))
+    },
+    content = function(file) {
+      write.csv(lhi_database,file)
     }) 
   
   output$downloadSummary <- downloadHandler(

@@ -24,19 +24,19 @@ shinyUI(fluidPage(
                             selectInput("dataType",label="Do you wish to use a real data set or a sample data set?",choices=c("Use sample Data","Use Real Data"),selected="Use sample Data"),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('dataLength') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: site, year, species, gear, length_cm,inside_area. Each row should represent an individual length measurement."),
+                              fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: site, year, species, gear, length_cm,inside_area (TRUE or FALSE, whether or not the measurement is from inside the fishing area of interest). Each row should represent an individual length measurement."),
                               hr()
                             ),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('landingsData') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: site, year, species, gear, inside_area, fisher_days, sampled_catch, total_catch. Each row should represent an individual catch sample."),
+                              fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: site, year, species, gear, inside_area (TRUE or FALSE, whether or not the measurement is from inside the fishing area of interest), fisher_days (the measure of effort), sampled_catch, total_catch. Each row should represent an individual catch sample."),
                               hr()
                             ),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('underwaterData') != -1 & input.dataType == 'Use Real Data'",
                               fileInput("dataBiomass",label = "Upload Underwater Visual Survey ecosystem-level biomass data. Make sure your input *.csv has the following column headers: Year, Reserve (a column of 0s or 1s), and Biomass (aggregated ecosystem-level biomass across all species). Each row should represent 1 transect."),
                               hr(),
-                              fileInput("dataDensity",label = "Upload Underwater Visual Survey species-level density data. Make sure your input *.csv has the following column headers: Year, Reserve (a column of 0s or 1s), and Density (for each species). Each row should represent 1 transect."),
+                              fileInput("dataDensity",label = "Upload Underwater Visual Survey species-level density data. Make sure your input *.csv has the following column headers: Year, Reserve (a column of 0s or 1s), and Density (for each species). Each row should represent 1 observation."),
                               hr()
                             )
                           ),
@@ -86,6 +86,8 @@ shinyUI(fluidPage(
                         sidebarPanel(
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step2.html",sep=""),target="_blank")),
                           h4("Instructions: Select your fisheries management control(s). This list is automatically updated based on your assessment and management tier."),
+                          h4("Note: You may wish to come back to this step after looking at the data. For example, looking at the length histogram could help you determine if a size limit is appropriate."),
+                          h4("Note: This is a record keeping step if you are going through the entire AFAM process. This step will also require significant input from stakeholders (see guidance document). You may skip this step if you simply wish to visualize and analyze your data."),
                           uiOutput("fmcUI")
                         ),
                         mainPanel(
@@ -344,7 +346,8 @@ shinyUI(fluidPage(
                       sidebarLayout(
                         sidebarPanel(
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step4.html",sep=""),target="_blank")),
-                          h4("Instructions: For each possible assessment result, write out the likely interpretations for what would cause that result, and also specify the harvest control rule that will be triggered if any of the interpretations happen. The harvest control rule should make some adjustment to the fishery management control(s) selected in Step 2.")
+                          h4("Instructions: For each possible assessment result, write out the likely interpretations for what would cause that result, and also specify the harvest control rule that will be triggered if any of the interpretations happen. The harvest control rule should make some adjustment to the fishery management control(s) selected in Step 2."),
+                          h4("Note: This is a record keeping step if you are going through the entire AFAM process. This step will also require significant input from stakeholders (see guidance document). You may skip this step if you simply wish to visualize and analyze your data.")
                           ),
                         mainPanel(
                           fixedRow(
@@ -408,6 +411,8 @@ shinyUI(fluidPage(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.checkDataGroup.indexOf('dataLength') != -1",
                                                   h4("Instructions: If your species and country is already included in life history database, the life history parameters will be automatically populated below. A number of key target species found in the Philippines, Indonesia, and Brazil are included for your convenience. Ensure that these parameters look reasonable, and double-check that the references come from a similar geographic location and ecosystem. If the species and country is not included in the database, or if certain parameters and references aren't appropriate, you will need to enter these parameters manually, along with their references. Ensure parameters use consistent length and weight units that match your data (i.e., centimeters and grams). Once the table on the right has been populated, you may save this for your records using the button below."),
+                                                  h4("Note: Please ensure that your species scientific name is spelled correctly, or the dashboard may not be able to locate it in the life history database."),
+                                                  downloadButton("downloadLHIFull",label="You may download a copy of the life history database by clicking here. By doing so, you can also see the full list of included species."),
                                                   uiOutput("speciesUIText"),
                                                   uiOutput("commonUIText"),
                                                   uiOutput("codeUI"),
@@ -427,7 +432,7 @@ shinyUI(fluidPage(
                                                   uiOutput("m50MetaUI"),
                                                   uiOutput("m95UI"),
                                                   uiOutput("m95MetaUI"),
-                                                  downloadButton("downloadLHI",label="Download Life History Information"))
+                                                  downloadButton("downloadLHI",label="Download Life History Information for this species"))
                                               ),
                                               mainPanel(
                                                 conditionalPanel(
@@ -446,6 +451,7 @@ shinyUI(fluidPage(
                                                   uiOutput("gearGlobalUI"),
                                                   uiOutput("yearGlobalUI"),
                                                   numericInput("sizeMax",label="Enter the largest feasible fish length that should be observed in the catch. Lengths above this will be removed as outliers. A good starting point is 1.3 * L_Infinity. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999),
+                                                  numericInput("sizeMin",label="Enter the smallest feasible fish length that should be observed in the catch. Lengths below this will be removed as outliers. Leave this as -999 if you do not believe there are any outliers to remove.",value=-999),
                                                   #uiOutput("gearUI"),
                                                   #uiOutput("yearUI"),
                                                   downloadButton("downloadPlot",label="Download Plot"))
@@ -646,6 +652,7 @@ shinyUI(fluidPage(
                         sidebarPanel(
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step6.html",sep=""),target="_blank")),
                           h4("Instructions: A summary of all assessment results is provided to the right. Look these over with your stakeholder working group, and record the group's interpretation of how the fishery is doing."),
+                          h4("Note: This is a record keeping step if you are going through the entire AFAM process. This step will also require significant input from stakeholders (see guidance document). You may skip this step if you simply wish to visualize and analyze your data."),
                           downloadButton("downloadSummary",label="Download Summary of Performance Indicators")
                         ),
                         mainPanel(
@@ -660,6 +667,7 @@ shinyUI(fluidPage(
                         sidebarPanel(
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step7.html",sep=""),target="_blank")),
                           h4("Instructions: After interpreting your assessment results in Step 6, select the result below to determine which of your pre-defined harvest control rules should be triggered."),
+                          h4("Note: This is a record keeping step if you are going through the entire AFAM process. This step will also require significant input from stakeholders (see guidance document). You may skip this step if you simply wish to visualize and analyze your data."),
                           uiOutput("HCRTriggerUI"),
                           verbatimTextOutput("InterpretationTriggerText"),
                           verbatimTextOutput("HCRTriggerText")
@@ -674,11 +682,15 @@ shinyUI(fluidPage(
                         sidebarPanel(
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step8.html",sep=""),target="_blank")),
                           h5("Once you have completed all steps, you are ready to create your Fishery Management Plan. To get a copy of your AFAM report, first click the Generate Report button. After that, you can click the link below to open the report in a new browser tab."),
-                          actionButton("report", "Generate Report"),
-                          helpText(a(h2("Click for the report (after generating)"), href="AFAMSummary.html",target="_blank")),
-                          hr(),
-                          radioButtons('format', h5('You may also save a copy of the report. Select the format for your AFAM summary document:'), c('HTML', 'Word'),inline = TRUE),
-                          downloadButton("summaryDocDownload", label = "Download AFAM summary document")
+                          h4("Note: You must first complete all 8 steps of the dashboard, or these buttons will not appear. Specifically, you must interpret the results in Step 6 and select a management reponse in Step 7."),
+                          h4("Note: This is a record keeping step if you are going through the entire AFAM process. This step will also require significant input from stakeholders (see guidance document). You may skip this step if you simply wish to visualize and analyze your data."),
+                          conditionalPanel(
+                            condition = "input.selectedResult && input.stakeholderInterpretation",
+                            actionButton("report", "Generate Report"),
+                            helpText(a(h2("Click for the report (after generating)"), href="AFAMSummary.html",target="_blank")),
+                            hr(),
+                            radioButtons('format', h5('You may also save a copy of the report. Select the format for your AFAM summary document:'), c('HTML', 'Word'),inline = TRUE),
+                            downloadButton("summaryDocDownload", label = "Download AFAM summary document"))
                         ),
                         mainPanel(
                           
