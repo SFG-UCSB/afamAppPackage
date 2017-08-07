@@ -1993,11 +1993,13 @@ shinyServer(function(input, output) {
       #file.copy(src, 'indicatorTable.csv')
       
       library(rmarkdown)
+      withProgress(message = 'Generating report for downloading. Please wait one moment.',{
       out <- render('www/AFAMSummary.rmd', switch(
         input$format,
         HTML = html_document(), Word = word_document(), PDF = pdf_document()
       ))
       file.rename(out, file)
+      })
     })
   
   outputOptions(output, "summaryDocDownload", suspendWhenHidden=FALSE)
