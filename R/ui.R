@@ -410,9 +410,9 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.checkDataGroup.indexOf('dataLength') != -1",
-                                                  h4("Instructions: If your species and country is already included in life history database, the life history parameters will be automatically populated below. A number of key target species found in the Philippines, Indonesia, and Brazil are included for your convenience. Ensure that these parameters look reasonable, and double-check that the references come from a similar geographic location and ecosystem. If the species and country is not included in the database, or if certain parameters and references aren't appropriate, you will need to enter these parameters manually, along with their references. Ensure parameters use consistent length and weight units that match your data (i.e., centimeters and grams). Once the table on the right has been populated, you may save this for your records using the button below."),
+                                                  h4("Instructions: If your species and country is already included in life history database, the life history parameters will be automatically populated below. A number of key target species found in the Philippines, Indonesia, and Brazil are included for your convenience. Ensure that these parameters look reasonable, and double-check that the references come from a similar geographic location and ecosystem. If the species and country is not included in the database, or if certain parameters and references aren't appropriate, you will need to enter these parameters manually, along with their references. Ensure parameters use consistent length and weight units that match your data (i.e., centimeters and grams). Once the table on the right has been populated, you may save this for your records using the button below. You may also download a copy of the complete database and species list to see what's currently included."),
                                                   h4("Note: Please ensure that your species scientific name is spelled correctly, or the dashboard may not be able to locate it in the life history database."),
-                                                  downloadButton("downloadLHIFull",label="You may download a copy of the life history database by clicking here. By doing so, you can also see the full list of included species."),
+                                                  downloadButton("downloadLHIFull",label="Download full database and species list"),
                                                   uiOutput("speciesUIText"),
                                                   uiOutput("commonUIText"),
                                                   uiOutput("codeUI"),
@@ -689,7 +689,7 @@ shinyUI(fluidPage(
                             actionButton("report", "Generate Report"),
                             helpText(a(h2("Click for the report (after generating)"), href="AFAMSummary.html",target="_blank")),
                             hr(),
-                            radioButtons('format', h5('You may also save a copy of the report. Select the format for your AFAM summary document:'), c('HTML', 'Word'),inline = TRUE),
+                            radioButtons('format', h5('You may also save a copy of the report. Select the format for your AFAM summary document:'), c('HTML', 'Word','PDF'),inline = TRUE),
                             downloadButton("summaryDocDownload", label = "Download AFAM summary document"))
                         ),
                         mainPanel(

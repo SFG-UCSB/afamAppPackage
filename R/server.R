@@ -1014,7 +1014,7 @@ shinyServer(function(input, output) {
              need(input$speciesSelection, 'Please select a species for assessment in Step 1'),
              need(input$checkDataGroup,'Please select your available data types in Step 1'))
     
-    if ("dataLEK" %in% input$checkDataGroup) validate(need(input$indicatorLEKSelection,'Please select at least one LEK indicator in Step 3'))
+    if ("dataLEK" %in% input$checkDataGroup & !("landingsData" %in% input$checkDataGroup) & !("dataLength" %in% input$checkDataGroup) & !("underwaterData" %in% input$checkDataGroup)) validate(need(input$indicatorLEKSelection,'Please select at least one LEK indicator in Step 3'))
     if ("landingsData" %in% input$checkDataGroup) validate(need(input$indicatorLandingsSelection,'Please select at least one landings indicator in Step 3'))
     if ("dataLength" %in% input$checkDataGroup) validate(need(input$indicatorLengthSelection,'Please select at least one length indicator in Step 3'))
     if ("underwaterData" %in% input$checkDataGroup) validate(need(input$indicatorUnderwaterSelection,'Please select at least one underwater indicator in Step 3'))
@@ -1978,7 +1978,7 @@ shinyServer(function(input, output) {
   output$summaryDocDownload <- downloadHandler(
     filename = function() {
       paste("AFAM_Summary",input$siteSelection,input$speciesSelection,input$gearGlobalSelection,input$yearGlobalSelection, sep = '.', switch(
-        input$format,HTML = 'html', Word = 'docx'
+        input$format,HTML = 'html', Word = 'docx' , PDF = 'PDF'
       ))
     },
     
@@ -1995,7 +1995,7 @@ shinyServer(function(input, output) {
       library(rmarkdown)
       out <- render('www/AFAMSummary.rmd', switch(
         input$format,
-        HTML = html_document(), Word = word_document()
+        HTML = html_document(), Word = word_document(), PDF = pdf_document()
       ))
       file.rename(out, file)
     })
@@ -2022,7 +2022,7 @@ shinyServer(function(input, output) {
       write.csv(LHIInput(),file)
     }) 
   
-  output$downloadLHI <- downloadHandler(
+  output$downloadLHIFull <- downloadHandler(
     filename = function(){
       gsub(" ", "", paste("LHI_Database.csv", sep=""))
     },
