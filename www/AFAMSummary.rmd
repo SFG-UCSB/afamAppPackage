@@ -12,10 +12,6 @@ pandoc_args:
 
 # AFAM Summary  
   
-  
-![FF Logo](FF_Logo.png)  
-  
-  
 This document summarizes the outputs of each step of the AFAM process. This can be used as the basis for your site-level adaptive fisheries management plan.
 
 ## Step 1: Upload data, select species, and determine assessment and management tier

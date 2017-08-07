@@ -681,20 +681,20 @@ shinyUI(fluidPage(
                       sidebarLayout(
                         sidebarPanel(
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step8.html",sep=""),target="_blank")),
-                          h5("Once you have completed all steps, you are ready to create your Fishery Management Plan. To get a copy of your AFAM report, first click the Generate Report button. After that, you can click the link below to open the report in a new browser tab."),
-                          h4("Note: You must first complete all 8 steps of the dashboard, or these buttons will not appear. Specifically, you must interpret the results in Step 6 and select a management reponse in Step 7."),
-                          h4("Note: This is a record keeping step if you are going through the entire AFAM process. This step will also require significant input from stakeholders (see guidance document). You may skip this step if you simply wish to visualize and analyze your data."),
+                          h5("Once you have completed all steps, you are ready to create your Fishery Management Plan. To get a copy of your AFAM report, first click the Generate Report button. The report will then appear on the right. You may also download a copy of the report below."),
+                          h4("Note: You must first complete all 8 steps of the dashboard, or these buttons and the report will not appear. Specifically, you must interpret the results in Step 6 and select a management reponse in Step 7."),
+                          #h4("Note: This is a record keeping step if you are going through the entire AFAM process. This step will also require significant input from stakeholders (see guidance document). You may skip this step if you simply wish to visualize and analyze your data."),
                           conditionalPanel(
                             condition = "input.selectedResult && input.stakeholderInterpretation",
                             actionButton("report", "Generate Report"),
-                            helpText(a(h2("Click for the report (after generating)"), href="AFAMSummary.html",target="_blank")),
+                            #helpText(a(h2("Click for the report (after generating)"), href="AFAMSummary.html",target="_blank")),
                             hr(),
-                            radioButtons('format', h5('You may also save a copy of the report. Select the format for your AFAM summary document:'), c('HTML', 'Word','PDF'),inline = TRUE),
+                            radioButtons('format', h5('If you wish to save a copy of your report, select the format for your download:'), c('HTML', 'Word','PDF'),inline = TRUE),
                             downloadButton("summaryDocDownload", label = "Download AFAM summary document"))
                         ),
                         mainPanel(
                           
-                          #uiOutput("renderSummary")
+                          uiOutput("renderSummary")
                         )
                       )
              )

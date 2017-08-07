@@ -2125,11 +2125,24 @@ shinyServer(function(input, output) {
     )
   })
   
+  # observeEvent(input$report,
+  #              tagList(
+  #                rmarkdown::render("www/AFAMSummary.rmd"),
+  #                inclRmd("www/AFAMSummary.html")
+  #              )
+  # )
+  output$renderSummary <- renderUI({NULL})
   observeEvent(input$report,
-               tagList(
-                 rmarkdown::render("www/AFAMSummary.rmd"),
-                 inclRmd("www/AFAMSummary.html")
-               )
+               output$renderSummary <- renderUI({
+                 withProgress(message = 'Generating report for viewing. Please wait one moment.',{
+                   tempReport <- tempfile(fileext = ".rmd")
+                   file.copy("www/AFAMSummary.rmd", tempReport, overwrite = TRUE)
+                   rmarkdown::render(tempReport,
+                                     "html_fragment")
+                   includeHTML(gsub(".rmd",".html",tempReport))
+                 })
+               })
+               
   )
   
   #output$helpFile2<-renderUI({getPage("help/2_overview.md")})
