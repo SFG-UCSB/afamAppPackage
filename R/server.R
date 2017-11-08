@@ -242,7 +242,7 @@ shinyServer(function(input, output) {
     dataTypes = c("Local Ecological Knowledge", "Length composition data","Landings and Effort Data","Underwater Visual Survey Data")
     dataAvailable = c("dataLEK" %in% dataList,"dataLength" %in% dataList,"landingsData" %in% dataList,"underwaterData" %in% dataList)
    
-    if(dataAvailable[1]) yearsLEK = 1 else yearsLEK = 0
+    if(dataAvailable[1]) yearsLEK = input$numYearsLEK else yearsLEK = 0
     if(!dataAvailable[2]) yearsLength = 0 else{
       if (is.null(lengthData()) & input$dataType != "Use sample Data")  yearsLength = 0 else {
         #df = lengthData()
@@ -467,28 +467,44 @@ shinyServer(function(input, output) {
         selectInput(inputId="gearGlobalSelection","Select Gear Type for Length-Based Analysis",choices=gears,selected="Aggregate Across Gear Types")}
   })
   
+  output$countryUI <- renderUI({
+    textInput("countrySelection",label="Enter country name")
+  })
+  
   output$speciesUI <- renderUI({
     
-    if (is.null(input$dataType)) {
+    if (is.null(lengthData()) & is.null(catchData()) & is.null(densityData())) {
        textInput(inputId="speciesSelection","Enter Species for Analysis") } else{
         
         if(is.null(lengthData())) speciesLength <- NA else speciesLength <- as.vector(unique(lengthData()$species))
         if(is.null(catchData())) speciesCatch <- NA else speciesCatch <- as.vector(unique(catchData()$species))
         if(is.null(densityData())) speciesDensity <- NA else speciesDensity <- as.vector(unique(densityData()$Species))
 
-        
-        species = unique(na.trim(c(speciesLength,speciesCatch,speciesDensity)))
-        selectInput(inputId="speciesSelection","Select Species for Analysis",choices=species)}
+        species = na.trim(unique(c(speciesLength,speciesCatch,speciesDensity)))
+        selectInput(inputId="speciesSelection","Select Species for Analysis (from pre-populated list of species contained in the data)",choices=species)}
   })
   
   output$siteUI <- renderUI({
-    if (is.null(lengthData()) | is.null(input$dataType)) {
-      textInput(inputId="siteSelection","Enter Site for Analysis")} else {
+    if (is.null(lengthData()) & is.null(catchData()) & is.null(densityData())  & is.null(biomassData())) {
+      textInput(inputId="siteSelection","Enter Study Site for Analysis")} else {
         
-        df <- lengthData()
         
-        sites = as.vector(unique(df$site))
-        selectInput(inputId="siteSelection","Select Site for Analysis",choices=sites)}
+        sites <- Reduce(intersect, list(c(unique(lengthData()$site),
+                                        unique(catchData()$site),
+                                        unique(densityData()$site))))
+
+        selectInput(inputId="siteSelection","Select Site for Analysis (from pre-populated list of study sites contained in the data)",choices=sites)}
+  })
+  
+  output$countryUI <- renderUI({
+    if (is.null(lengthData()) & is.null(catchData()) & is.null(densityData())  & is.null(biomassData())) {
+      textInput("countrySelection",label="Enter country name")} else {
+        countries <- Reduce(intersect, list(c(unique(lengthData()$country),
+                                        unique(catchData()$country),
+                                        unique(densityData()$country),
+                                        unique(biomassData()$country))))
+
+        selectInput(inputId="countrySelection","Select Country for Analysis (from pre-populated list of countries contained in the data)",choices=countries)}
   })
   
   output$yearUI <- renderUI({

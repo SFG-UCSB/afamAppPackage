@@ -21,31 +21,35 @@ shinyUI(fluidPage(
                           hr(),
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('dataLength') != -1 | input.checkDataGroup.indexOf('landingsData') != -1 | input.checkDataGroup.indexOf('underwaterData') != -1",
-                            selectInput("dataType",label="Do you wish to use a real data set or a sample data set?",choices=c("Use sample Data","Use Real Data"),selected="Use sample Data"),
+                            selectInput("dataType",label="Do you wish to use a real data set or a sample data set?",choices=c("Use sample Data","Use Real Data"),selected="Use Real Data"),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('dataLength') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: site, year, species, gear, length_cm,inside_area (TRUE or FALSE, whether or not the measurement is from inside the fishing area of interest). Each row should represent an individual length measurement."),
+                              fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: country, site, year, species, gear, length_cm,inside_area (TRUE or FALSE, whether or not the measurement is from inside the fishing area of interest). Each row should represent an individual length measurement."),
                               hr()
                             ),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('landingsData') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: site, year, species, gear, inside_area (TRUE or FALSE, whether or not the measurement is from inside the fishing area of interest), fisher_days (the measure of effort), sampled_catch, total_catch. Each row should represent an individual catch sample."),
+                              fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: country, site, year, species, gear, inside_area (TRUE or FALSE, whether or not the measurement is from inside the fishing area of interest), fisher_days (the measure of effort), sampled_catch, total_catch. Each row should represent an individual catch sample."),
                               hr()
                             ),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('underwaterData') != -1 & input.dataType == 'Use Real Data'",
-                              fileInput("dataBiomass",label = "Upload Underwater Visual Survey ecosystem-level biomass data. Make sure your input *.csv has the following column headers: Year, Reserve (a column of 0s or 1s), and Biomass (aggregated ecosystem-level biomass across all species). Each row should represent 1 transect."),
+                              fileInput("dataBiomass",label = "Upload Underwater Visual Survey ecosystem-level biomass data. Make sure your input *.csv has the following column headers: Year, country, site, Reserve (a column of 0s or 1s), and Biomass (aggregated ecosystem-level biomass across all species). Each row should represent 1 transect."),
                               hr(),
-                              fileInput("dataDensity",label = "Upload Underwater Visual Survey species-level density data. Make sure your input *.csv has the following column headers: Year, Reserve (a column of 0s or 1s), and Density (for each species). Each row should represent 1 observation."),
+                              fileInput("dataDensity",label = "Upload Underwater Visual Survey species-level density data. Make sure your input *.csv has the following column headers: Year, country, site, Reserve (a column of 0s or 1s), and Density (for each species). Each row should represent 1 observation."),
                               hr()
                             )
                           ),
                           conditionalPanel(
                             condition = "(input.checkDataGroup.indexOf('dataLength') != -1 | input.checkDataGroup.indexOf('landingsData') != -1 | input.checkDataGroup.indexOf('underwaterData') != -1) & input.dataType == 'Use sample Data'",
-                            ("We would like to thank Wildlife Conservation Society and Karimunjawa National Park, Indonesia for providing the sample data included in the dashboard. We encourage you to use the data to better learn the functionality of the dashboard, but please contact Gavin McDonald (gmcdonald@bren.ucsb.edu) before using the data for any other purposes."),
+                            ("We would like to thank Wildlife Conservation Society, Karimunjawa National Park, Indonesia, and Rare for providing the sample data included in the dashboard. We encourage you to use the data to better learn the functionality of the dashboard, but please contact Gavin McDonald (gmcdonald@bren.ucsb.edu) before using the data for any other purposes."),
                             hr()
                           ),
-                          selectInput("countrySelection",label="Select country",choices=c("Indonesia","Philippines","Brazil")),
+                          conditionalPanel(
+                            condition = "input.checkDataGroup.indexOf('dataLEK')!=-1",
+                            numericInput("numYearsLEK",label="Enter the number of years for which you have local ecological knowledge",value=1)
+                          ),
+                          uiOutput("countryUI"),
                           uiOutput("siteUI"),
                           uiOutput("speciesUI"),
                           conditionalPanel(
