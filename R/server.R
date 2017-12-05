@@ -2048,6 +2048,15 @@ shinyServer(function(input, output) {
       write.csv(lhi_database,file)
     }) 
   
+  output$button <- renderUI({
+    if (is.null(summaryInput())){
+      NULL
+    } else {
+      downloadButton("downloadSummary", "Download Summary of Performance Indicators")
+    }
+  })
+  
+  
   output$downloadSummary <- downloadHandler(
     filename = function(){
       gsub(" ", "", paste("Summary_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
