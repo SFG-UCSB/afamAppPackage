@@ -6,4 +6,6 @@ We recommend that during each step you thoroughly read the help documentation, a
 
 This toolkit was developed by the Fish Forever partnership, but can hopefully serve the broader fisheries management and marine conservation community. Please contact Gavin McDonald with any questions, comments, or feedback (gmcdonald@bren.ucsb.edu).
 
+The methedology used in this toolkit has been published in <a href="https://doi.org/10.1016/j.ocecoaman.2017.11.015" target="_blank">McDonald et al., 2018. An adaptive assessment and management toolkit for data-limited fisheries. Ocean and Coastal Management, 152 (2018), pp. 100-119 (https://doi.org/10.1016/j.ocecoaman.2017.11.015)</a>. When using the toolkit, please cite this paper.
+
 ![](FF_Logo.png)

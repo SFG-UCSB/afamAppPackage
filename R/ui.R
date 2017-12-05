@@ -4,7 +4,7 @@ shinyUI(fluidPage(
              tabPanel("Instructions",
                       fluidRow(
                         includeMarkdown("www/introduction.md"),
-                        helpText(a(h1("Click for help!"), href=paste(savedURL,"toolkit-overview.html",sep=""),target="_blank")),
+                        helpText(a(h1("Click for help!"), href=paste(savedURL,"index.html",sep=""),target="_blank")),
                         img(src = "_book/myMediaFolder/media/2_image1.png")
                         )
 
@@ -655,9 +655,9 @@ shinyUI(fluidPage(
                       sidebarLayout(
                         sidebarPanel(
                           helpText(a(h1("Click for help!"), href=paste(savedURL,"Step6.html",sep=""),target="_blank")),
-                          h4("Instructions: A summary of all assessment results is provided to the right. Look these over with your stakeholder working group, and record the group's interpretation of how the fishery is doing."),
+                          h4("Instructions: Once you have gone through Steps 1-6, a summary of all assessment results will be provided to the right. You will also be able to download these results. Look these over with your stakeholder working group, and record the group's interpretation of how the fishery is doing."),
                           h4("Note: This is a record keeping step if you are going through the entire AFAM process. This step will also require significant input from stakeholders (see guidance document). You may skip this step if you simply wish to visualize and analyze your data."),
-                          downloadButton("downloadSummary",label="Download Summary of Performance Indicators")
+                          uiOutput("button")
                         ),
                         mainPanel(
                           h2("Summary of All Performance Indicators"),
