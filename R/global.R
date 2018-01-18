@@ -60,6 +60,16 @@ phils_lhi_metadata <- phils_lhi_metadata[-1,] %>%
   filter(Marker == "Reference(s)") %>%
   mutate(Country = "Philippines")
 
+moz_lhi_metadata <- read_xlsx("data/Mozambique Life History Database.xlsx",sheet=2,na=c("","N/A"))
+colnames(moz_lhi_metadata) = moz_lhi_metadata[1,]
+colnames(moz_lhi_metadata)[1] = "Marker"
+moz_lhi_metadata <- moz_lhi_metadata[-1,] %>%
+  mutate(`Scientific Name` = na.locf(`Scientific Name`),
+         `Common Name` = na.locf(`Common Name`),
+         `Species Identification Code` = na.locf(`Species Identification Code`)) %>%
+  filter(Marker == "Reference(s)") %>%
+  mutate(Country = "Mozambique")
+
 indo_lhi_metadata <- read_xlsx("data/Indonesia Life History Database.xlsx",sheet=2,na=c("","N/A"))
 colnames(indo_lhi_metadata) = indo_lhi_metadata[1,]
 colnames(indo_lhi_metadata)[1] = "Marker"
@@ -82,7 +92,8 @@ brazil_lhi_metadata <- brazil_lhi_metadata[-1,] %>%
 
 metadata <- bind_rows(phils_lhi_metadata,
                       indo_lhi_metadata,
-                      brazil_lhi_metadata) %>%
+                      brazil_lhi_metadata,
+                      moz_lhi_metadata) %>%
   dplyr::select(Country,
                 Species = `Scientific Name`,
                 Common = `Common Name`,
@@ -101,6 +112,11 @@ colnames(phils_lhi_database) = phils_lhi_database[1,]
 phils_lhi_database <- phils_lhi_database[-c(1,2,3),] %>%
   mutate(Country = "Philippines")
 
+moz_lhi_database <- read_xlsx("data/Mozambique Life History Database.xlsx",sheet=1,na=c("","N/A"))
+colnames(moz_lhi_database) = moz_lhi_database[1,]
+moz_lhi_database <- moz_lhi_database[-c(1,2,3),] %>%
+  mutate(Country = "Mozambique")
+
 indo_lhi_database <- read_xlsx("data/Indonesia Life History Database.xlsx",sheet=1,na=c("","N/A"))
 colnames(indo_lhi_database) = indo_lhi_database[1,]
 indo_lhi_database <- indo_lhi_database[-c(1,2,3),] %>%
@@ -113,7 +129,8 @@ brazil_lhi_database <- brazil_lhi_database[-c(1,2,3),] %>%
 
 lhi_database <- bind_rows(phils_lhi_database,
                           indo_lhi_database,
-                          brazil_lhi_database) %>%
+                          brazil_lhi_database,
+                          moz_lhi_database) %>%
   dplyr::select(Country,
          Species = `Scientific Name`,
          Common = `Common Name`,
