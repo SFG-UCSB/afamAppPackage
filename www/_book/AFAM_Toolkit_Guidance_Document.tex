@@ -124,7 +124,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2017-12-05}
+  \date{2017-05-23}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -149,9 +149,8 @@ Welcome to the Adaptive Fisheries Assessment and Management (AFAM)
 Toolkit Guidance Document!
 
 We've tried to make using the AFAM Toolkit Guidance Document simple and
-intuitive. This document is meant to be accompanied by the
-\href{https://github.com/SFG-UCSB/afamAppPackage}{AFAM Toolkit
-Dashboard}, which will help you work through each step and perform the
+intuitive. This document is meant to be accompanied by the AFAM Toolkit
+Dashboard, which will help you work through each step and perform the
 appropriate assessment methods for your fishery.
 
 This toolkit was developed by the Fish Forever partnership, but can
@@ -160,20 +159,14 @@ community. Please contact Gavin McDonald with any questions, comments,
 or feedback
 (\href{mailto:gmcdonald@bren.ucsb.edu}{\nolinkurl{gmcdonald@bren.ucsb.edu}}).
 
-The methedology used in this toolkit has been published in McDonald et
-al., 2018. An adaptive assessment and management toolkit for
-data-limited fisheries. Ocean and Coastal Management, 152 (2018),
-pp.~100-119 (\url{https://doi.org/10.1016/j.ocecoaman.2017.11.015}).
-When using the toolkit, please cite this paper.
-
 \begin{figure}
 \centering
 \includegraphics{myMediaFolder/media/FF_Logo.png}
 \caption{}
 \end{figure}
 
-\chapter*{AFAM Toolkit Overview}\label{afam-toolkit-overview}
-\addcontentsline{toc}{chapter}{AFAM Toolkit Overview}
+\chapter*{Toolkit Overview}\label{toolkit-overview}
+\addcontentsline{toc}{chapter}{Toolkit Overview}
 
 \section{Purpose Statement}\label{purpose-statement}
 
@@ -827,12 +820,14 @@ The ability of the selected FMCs to meet the stated community objectives
 should be discussed will all relevant stakeholders, along with any
 potential tradeoffs of implementing the selected FMC(s).
 
-Additionally, prior to implementing FMC(s), any existing social survey
-data should be reviewed. Social survey data can be used to provide
+Additionally, prior to implementing FMC(s), any existing KAP and social
+Impact Survey data should be reviewed. KAP data can be used to provide
 insight into individual attitudes towards fishery management in your
-community. Any information on enforcement should also be reviewed to
-gain a better understanding of the likelihood of compliance with
-implementation of new FMCs.
+community. Social Impact Survey data can be used to provide context as
+to how dependent the community is on the fishery and how changes in FMCs
+may affect their livelihoods. Any information on enforcement should also
+be reviewed to gain a better understanding of the likelihood of
+compliance with implementation of new FMCs.
 
 \section{Step 2e -- General Guidance for Setting Effective FMCs for the
 First Time}\label{Step2e}
@@ -1884,13 +1879,6 @@ practices:
   discuss reference points with them to determine if they are
   appropriate for your fishery and adjust values as necessary.
 \end{itemize}
-
-Additionally, you should ensure that for each performance indicator and
-assessment type that all assumptions are valid (these are listed in the
-table below). The dashboard has a series of questions that will help
-ensure that assumptions associated with each performance indicator and
-assessment method aren't violated. Only assessment techniques that are
-appropriate for your fishery will be available as options.
 
 \section{Step 3c -- Select Assessment Methods}\label{Step3c}
 
@@ -5780,16 +5768,8 @@ method descriptions under \protect\hyperlink{Step3}{Step 3} for detailed
 descriptions of the assessment methods. To do the calculations, you may
 use the AFAM Toolkit dashboard.
 
-The dashboard currently comes pre-loaded with the necessary life history
-information for many species commonly found in the Philippines,
-Indonesia, and Brazil. If your species is currently included, you should
-ensure the life history parameters look reasonable for your particular
-site. If they are not included, you will need to find these parameters
-by looking through the literature and using resources such as
-\href{www.fishbase.org}{FishBase}
-
-If you do not have R installed on your computer, you should first
-install R and R Studio on your computer using
+If you do not have the AFAM Toolkit dashboard installed on your
+computer, you should first install R and R Studio on your computer using
 \href{https://sfg-ucsb.github.io/fishery-manageR/}{these instructions}.
 
 Next you will install the AFAM package onto your computer so that you
@@ -5810,7 +5790,7 @@ your R Studio console and run the code.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{## Specify packages that are required for AFAM app. Install them if they're not installed already}
-\NormalTok{list.of.packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"gridExtra"}\NormalTok{, }\StringTok{"pander"}\NormalTok{, }\StringTok{"shiny"}\NormalTok{, }\StringTok{"DT"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{,}\StringTok{"readxl"}\NormalTok{,}\StringTok{"stringr"}\NormalTok{,}\StringTok{"LBSPR"}\NormalTok{,}\StringTok{"TropFishR"}\NormalTok{,}\StringTok{"lubridate"}\NormalTok{,}\StringTok{"zoo"}\NormalTok{,}\StringTok{"curl"}\NormalTok{)}
+\NormalTok{list.of.packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"gridExtra"}\NormalTok{, }\StringTok{"pander"}\NormalTok{, }\StringTok{"shiny"}\NormalTok{, }\StringTok{"DT"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{)}
 \NormalTok{new.packages <-}\StringTok{ }\NormalTok{list.of.packages[}\OperatorTok{!}\NormalTok{(list.of.packages }\OperatorTok{%in%}\StringTok{ }\KeywordTok{installed.packages}\NormalTok{()[,}\StringTok{"Package"}\NormalTok{])]}
 \ControlFlowTok{if}\NormalTok{(}\KeywordTok{length}\NormalTok{(new.packages) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{ ) }\KeywordTok{install.packages}\NormalTok{(new.packages)}
 
@@ -5838,7 +5818,7 @@ the working directory to the location where you have the app file.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{## Specify packages that are required for AFAM app. Install them if they're not installed already}
-\NormalTok{list.of.packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"gridExtra"}\NormalTok{, }\StringTok{"pander"}\NormalTok{, }\StringTok{"shiny"}\NormalTok{, }\StringTok{"DT"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{,}\StringTok{"readxl"}\NormalTok{,}\StringTok{"stringr"}\NormalTok{,}\StringTok{"LBSPR"}\NormalTok{,}\StringTok{"TropFishR"}\NormalTok{,}\StringTok{"lubridate"}\NormalTok{,}\StringTok{"zoo"}\NormalTok{,}\StringTok{"curl"}\NormalTok{)}
+\NormalTok{list.of.packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"gridExtra"}\NormalTok{, }\StringTok{"pander"}\NormalTok{, }\StringTok{"shiny"}\NormalTok{, }\StringTok{"DT"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{)}
 \NormalTok{new.packages <-}\StringTok{ }\NormalTok{list.of.packages[}\OperatorTok{!}\NormalTok{(list.of.packages }\OperatorTok{%in%}\StringTok{ }\KeywordTok{installed.packages}\NormalTok{()[,}\StringTok{"Package"}\NormalTok{])]}
 \ControlFlowTok{if}\NormalTok{(}\KeywordTok{length}\NormalTok{(new.packages) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{ ) }\KeywordTok{install.packages}\NormalTok{(new.packages)}
 
@@ -5863,8 +5843,6 @@ connectivity to run the app!
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## load Shiny package}
-\KeywordTok{library}\NormalTok{(shiny)}
 \NormalTok{## Load AFAM Package}
 \KeywordTok{library}\NormalTok{(afamAppPackage)}
 
@@ -6620,11 +6598,6 @@ Fish. Soc., 121, 115-
 Froese, R. (2004). Keep it simple: three indicators to deal with
 overfishing. Fish and Fisheries, 5, 86--91.
 
-Harford, W.J., Gedamke, T., Babcock, E.A., Carcamo, R., McDonald, G., \&
-Wilson, J.R. Management strategy evaluation of a multi-indicator
-adaptive framework for data-limited fisheries management (2016).
-Bulletin of Marine Science. \url{https://doi.org/10.5343/bms.2016.1025}.
-
 Hordyk, A., Ono, K., Valencia, S., Loneragan, N., \& Prince, J. (2014).
 A novel length-based empirical estimation method of spawning potential
 ratio (SPR), and tests of its performance, for small-scale, data-poor
@@ -6643,12 +6616,6 @@ thresholds and tangible targets for ecosystem-based management of coral
 reef fisheries. Proceedings of the National Academy of Sciences of the
 United States of America, 108(41), 17230--3.
 \url{doi:10.1073/pnas.1106861108}
-
-McDonald G., Harford B., Arrivillaga A., Babcock E.A., Carcamo R., Foley
-J., Fujita R., Gedamke T., Gibson J., Karr K., Robinson J., Wilson J.
-(2016) An indicator-based adaptive management framework and its
-application to data-limited fisheries in Belize. Marine Policy.
-\url{http://doi.org/10.1016/j.marpol.2016.11.027}.
 
 McDonald, G., Carcam, R., Fujita, R., Gedamke, T., Karr, K., Wilson, J.
 A multi-indicator framework for adaptive management of data-limited
