@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="Step4.html">
-<link rel="next" href="Step6.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="Step1.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -173,61 +173,106 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="Step5" class="section level1">
-<h1><span class="header-section-number">5</span> Step 5 - Perform Assessment Methods</h1>
-<p><em>What do my assessment methods say about the fishery?</em></p>
-<div class="figure"><span id="fig:Step5"></span>
-<img src="myMediaFolder/media/Step5.png" alt="Step 5" />
-<p class="caption">Figure 5.1: Step 5</p>
+<div id="afam-toolkit-overview" class="section level1 unnumbered">
+<h1>AFAM Toolkit Overview</h1>
+<div id="purpose-statement" class="section level2">
+<h2><span class="header-section-number">0.1</span> Purpose Statement</h2>
+<ul>
+<li><p>This toolkit provides you the tools you will need to estimate how your fishery is doing and achieve your fishery goals by managing it adaptively. The toolkit will help you implement fisheries management measures based on your best available science, learn how these management interventions are performing, and then adjust them as necessary.</p></li>
+<li><p>This toolkit will help you create an Adaptive Fisheries Management Plan</p></li>
+<li><p>See Figure <a href="afam-toolkit-overview.html#fig:schematic"><a href="afam-toolkit-overview.html#fig:schematic">.</a></a> below for a step-by-step process schematic of the toolkit</p></li>
+</ul>
 </div>
-<p>During this step, you will use your data to calculate performance indicators using the chosen assessment methods. Refer to the assessment method descriptions under <a href="Step3.html#Step3">Step 3</a> for detailed descriptions of the assessment methods. To do the calculations, you may use the AFAM Toolkit dashboard.</p>
-<p>The dashboard includes data templates you may fill out using your own data to ensure all data are properly formatted for analysis. Alternatively, the dashboard also specifies the necessary columns for all types of data input, so you could also simply make sure your data has all necessary column names. Importantly, all column names must match <em>exactly</em> what is specified in the dashboard.</p>
-<p>The dashboard currently comes pre-loaded with the necessary life history information for many species commonly found in the Philippines, Indonesia, Mozambique and Brazil. If your species is currently included, you should ensure the life history parameters look reasonable for your particular site. If they are not included, you will need to find these parameters by looking through the literature and using resources such as <a href="www.fishbase.org">FishBase</a></p>
-<p>If you do not have R installed on your computer, you should first install R and R Studio on your computer using <a href="https://sfg-ucsb.github.io/fishery-manageR/">these instructions</a>.</p>
-<p>Next you will install the AFAM package onto your computer so that you can use it in R and R Studio.</p>
-<div id="installling-the-dashboard-from-the-internet" class="section level2">
-<h2><span class="header-section-number">5.1</span> Installling the dashboard from the internet</h2>
-<p>This is the best option and should be chosen if you have internet connectivity. This will install the AFAM package onto your computer from an online file sharing service (“Github”). This will ensure that your version of the app is the most up-to-date as possible. Note that this step requires internet connection.</p>
-<p>If you choose this option, simply copy and paste the following code into your R Studio console and run the code.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Specify packages that are required for AFAM app. Install them if they&#39;re not installed already
-list.of.packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;gridExtra&quot;</span>, <span class="st">&quot;pander&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;DT&quot;</span>,<span class="st">&quot;devtools&quot;</span>,<span class="st">&quot;readxl&quot;</span>,<span class="st">&quot;stringr&quot;</span>,<span class="st">&quot;LBSPR&quot;</span>,<span class="st">&quot;TropFishR&quot;</span>,<span class="st">&quot;lubridate&quot;</span>,<span class="st">&quot;zoo&quot;</span>,<span class="st">&quot;curl&quot;</span>)
-new.packages &lt;-<span class="st"> </span>list.of.packages[<span class="op">!</span>(list.of.packages <span class="op">%in%</span><span class="st"> </span><span class="kw">installed.packages</span>()[,<span class="st">&quot;Package&quot;</span>])]
-<span class="cf">if</span>(<span class="kw">length</span>(new.packages) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> ) <span class="kw">install.packages</span>(new.packages)
-
-## Load packages required for AFAM
-<span class="kw">lapply</span>(list.of.packages, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)
-
-## Install AFAM from Github, an online file-sharing service
-<span class="kw">install_github</span>(<span class="st">&quot;SFG-UCSB/afamAppPackage&quot;</span>)</code></pre></div>
+<div id="suggested-audience" class="section level2">
+<h2><span class="header-section-number">0.2</span> Suggested Audience</h2>
+<ul>
+<li><p>The toolkit is designed as a facilitation document that is led by one person. However, during each step, this person would work with a multi-stakeholder group to reach consensus and make decisions</p></li>
+<li><p>The person who should facilitate this process will depend on team skills and goals from fishery programs. The toolkit may be used by technical staff members, who may each use the toolkit in different fisheries systems</p></li>
+</ul>
 </div>
-<div id="installling-the-dashboard-from-a-local-file-on-your-computer" class="section level2">
-<h2><span class="header-section-number">5.2</span> Installling the dashboard from a local file on your computer</h2>
-<p>This is the option to choose if you don’t internet connectivity, but do have a copy of the app file (this will be called something like “afamAppPackage_0.1.tar.gz”). This option will install the AFAM package onto your computer using this file. Note that this may mean you don’t have the most up-to-date version of the app as possible.</p>
-<p>If you choose this option, simply copy and paste the following code into your R Studio console and run the code. Note that you’ll need to change the working directory to the location where you have the app file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Specify packages that are required for AFAM app. Install them if they&#39;re not installed already
-list.of.packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;gridExtra&quot;</span>, <span class="st">&quot;pander&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;DT&quot;</span>,<span class="st">&quot;devtools&quot;</span>,<span class="st">&quot;readxl&quot;</span>,<span class="st">&quot;stringr&quot;</span>,<span class="st">&quot;LBSPR&quot;</span>,<span class="st">&quot;TropFishR&quot;</span>,<span class="st">&quot;lubridate&quot;</span>,<span class="st">&quot;zoo&quot;</span>,<span class="st">&quot;curl&quot;</span>)
-new.packages &lt;-<span class="st"> </span>list.of.packages[<span class="op">!</span>(list.of.packages <span class="op">%in%</span><span class="st"> </span><span class="kw">installed.packages</span>()[,<span class="st">&quot;Package&quot;</span>])]
-<span class="cf">if</span>(<span class="kw">length</span>(new.packages) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> ) <span class="kw">install.packages</span>(new.packages)
-
-## Load packages required for AFAM
-<span class="kw">lapply</span>(list.of.packages, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)
-
-## Set your working directory to where the AFAM app file is located. Note that you&#39;ll need to change this to match the actual directory on your computer
-<span class="kw">setwd</span>(<span class="st">&quot;/Users/gmcdonald/github/afamAppPackage&quot;</span>)
-## Install AFAM from your local file
-<span class="kw">install.packages</span>(<span class="st">&quot;afamAppPackage_0.1.tar.gz&quot;</span>, <span class="dt">repos =</span> <span class="ot">NULL</span>, <span class="dt">type=</span><span class="st">&quot;source&quot;</span>)</code></pre></div>
+<div id="skills-necessary-to-use-toolkit" class="section level2">
+<h2><span class="header-section-number">0.3</span> Skills Necessary to Use Toolkit</h2>
+<ul>
+<li><p>General knowledge and skills in fisheries science (ecology, management, population dynamics, local policy)</p></li>
+<li><p>Familiarity working with fisheries data</p></li>
+<li><p>Facilitation skills to coordinate and lead multi-stakeholder discussions</p></li>
+<li><p>Communication skills to effectively convey the benefits and tradeoffs of different fisheries assessment and management options to a variety of stakeholders</p></li>
+</ul>
 </div>
-<div id="running-the-afam-toolkit-dashboard-does-not-require-internet" class="section level2">
-<h2><span class="header-section-number">5.3</span> Running the AFAM Toolkit Dashboard (does not require internet)</h2>
-<p>You now have the AFAM App Package installed on your computer! To use it, simply load the package, and run the app. You may copy and paste the following code into your R Studio console. Note that once the package is installed during the step above, you no longer need internet connectivity to run the app!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## load Shiny package
-<span class="kw">library</span>(shiny)
-## Load AFAM Package
-<span class="kw">library</span>(afamAppPackage)
-
-## Run AFAM App
-<span class="kw">runAFAM</span>()</code></pre></div>
-<p>```</p>
+<div id="toolkit-objectives" class="section level2">
+<h2><span class="header-section-number">0.4</span> Toolkit Objectives</h2>
+<ul>
+<li><p>This toolkit provides a step-by-step process that you can use to analyze data, evaluate the performance of your fishery, choose management measures, and adjust management so that the fishery achieves your management objectives. Specifically, the toolkit helps managers:</p>
+<ul>
+<li><p>Select fisheries management controls (regulations) designed to help managers achieve their fisheries goals (i.e. limit fishing mortality, protect ecological and biological function, reduce bycatch, etc.)</p></li>
+<li><p>Determine which and how data should be used to monitor and evaluate target species and/or ecosystem status over time</p></li>
+<li><p>Perform data-limited assessment techniques to evaluate fisheries performance</p></li>
+<li><p>Define a process for how fisheries assessment and management will be reviewed and adapted periodically over time, using the best available scientific data and local ecological knowledge</p></li>
+</ul></li>
+<li><p>By working through the above steps, this toolkit will help you create an Adaptive Fisheries Management Plan.</p></li>
+<li><p>Visualizing data collected at your site can be used as a “spot check” to detect problems with data collection sampling protocols. You may wish to revisit the dashboard frequently (every few months) during the beginning stages of any new data collection program to adaptively correct problems.</p></li>
+</ul>
+</div>
+<div id="when-to-use-the-toolkit" class="section level2">
+<h2><span class="header-section-number">0.5</span> When to Use the Toolkit</h2>
+<ul>
+<li><p>This toolkit has been designed to work holistically. To properly assess and manage your fishery, it will be important to have clearly articulated goals, a qualitative characterization of the fishery, prioritized species, and a mechanism under which fisheries management can be implemented. Please see the following section for a more detailed description of data requirements and recommendations.</p></li>
+<li><p>The AFAM toolkit should be used on an annual basis at least for the first few years in order to take advantage of the adaptive nature of this framework. As time progresses and more data and information become available for the fishery, different assessment and management tiers should be used. Additionally, as technical capacity for data analysis develops at your site, more advanced assessment methods may be appropriate. Due to changing biological, ecological, environmental, and socioeconomic conditions, it will also be important to perform each assessment method on an annual basis in order to measure changes in the fishery and adjust fisheries management controls accordingly.</p></li>
+</ul>
+</div>
+<div id="data-necessary-to-use-the-toolkit" class="section level2">
+<h2><span class="header-section-number">0.6</span> Data Necessary to Use the Toolkit</h2>
+<p>Below we describe the minimum data requirements as well as additional optional data that is recommended but not required. The AFAM toolkit can be used with whatever data is available, although the most important types of data for data-limited fisheries assessment come from fishery-dependent length composition surveys and underwater visual surveys.</p>
+<p>Table 1: Minimum required and optional recommended data for using the AFAM Toolkit</p>
+<p>+———————————–+ | <strong>Minimum Required Data</strong> | +===================================+ | | +———————————–+ | Qualitative characterization of | | the fishery (including local | | history, gear types, target | | species, fishing locations, | | fishing seasons, etc) | +———————————–+ +———————————–+ | List or prioritized species for | | management | | | | List or prioritized goals for | | management | +———————————–+ |<strong>Additional Recommended Data</strong> | +———————————–+ | Landings, effort, and CPUE of key | | target species | +———————————–+ +———————————–+ | Fishery-dependent | | Length composition data of key | | target species | +———————————–+ | Fished:Unfished density ratio | | from underwater visual survey | | (key target species) | +———————————–+ +———————————–+ | Biomass ratio | | from underwater visual survey | | (aggregated across species) | +———————————–+</p>
+</div>
+<div id="how-this-toolkit-was-developed" class="section level2">
+<h2><span class="header-section-number">0.7</span> How this Toolkit was Developed</h2>
+<p>This toolkit builds on extensive research over the past decades in data-limited fisheries assessment and management approaches. This toolkit also utilizes extensive first-hand experience in designing a similar Adaptive Management Framework for the Belizean conch and lobster fisheries, an initiative undertaken between the Belize Fisheries Department, Belize Science Team, and several members of the Fish Forever team (<a href="http://dx.doi.org/10.1016/j.marpol.2016.11.027">McDonald et al., 2017</a>, <a href="http://dx.doi.org/10.5343/bms.2016.1025">Harford et al., 2016</a>). The toolkit has also now been tested in Brazil, Philippines, and Indonesia <a href="https://doi.org/10.1016/j.ocecoaman.2017.11.015">McDonald et al., 2018</a>.</p>
+</div>
+<div id="how-to-use-this-toolkit" class="section level2">
+<h2><span class="header-section-number">0.8</span> How to use this toolkit</h2>
+<p>This toolkit will guide you through an eight-step process that should be conducted on an annual basis. The AFAM Toolkit Dashboard is the easiest way to help facilliate your process through each step and in performing the data-limited assessments. Definitions of many terms throughout this document can be found in the <a href="Glossary.html#Glossary">Glossary</a>. Words or phrases that are found in the glossary are often <em>italicized</em>.</p>
+<p><strong>8 Steps in the Toolkit:</strong></p>
+<p>The toolkit process is broken into 8 steps, shown in the schematic (Figure <a href="afam-toolkit-overview.html#fig:schematic"><a href="afam-toolkit-overview.html#fig:schematic">.</a></a>) and described below.</p>
+<div class="figure"><span id="fig:schematic"></span>
+<img src="myMediaFolder/media/2_image1.png" alt="8 steps of the AFAM Toolkit" />
+<p class="caption">Figure .: 8 steps of the AFAM Toolkit</p>
+</div>
+<ol style="list-style-type: decimal">
+<li><p><a href="Step1.html#Step1">Step 1 – Determine Assessment and Management Tier</a></p>
+<ol style="list-style-type: lower-alpha">
+<li>Your assessment and management tier is based on the data you have available and will determine what assessment and management options you have at your disposal</li>
+</ol></li>
+<li><p><a href="Step2.html#Step2">Step 2 – Determine Appropriate Fisheries Management Controls</a></p>
+<ol style="list-style-type: lower-alpha">
+<li>Fishery management controls are what allow managers to limit aspects of fishing behavior to limit fishing mortality or to protect key biological or ecological function (i.e., Total Allowable Catch or seasonal closures to protect spawning aggregations)</li>
+</ol></li>
+<li><p><a href="Step3.html#Step3">Step 3 – Select Performance Indicators, Reference Points, and Assessment Methods</a></p>
+<ol style="list-style-type: lower-alpha">
+<li>Performance indicators are numerical values based on data that give an indication of how the fishery is performing relative to a reference point. Reference points may define either a target where you want the fishery to move towards or a limit where you want the fishery to stay away from. The assessment method is the technique for calculating your performance indicator using available data. For example, a performance indicator could be fishing mortality with a target reference point of natural mortality. In this case, the assessment method to calculate fishing mortality could be Catch Curve.</li>
+</ol></li>
+<li><p><a href="Step4.html#Step4">Step 4 – Define Harvest Control Rules</a></p>
+<ol style="list-style-type: lower-alpha">
+<li>A harvest control rule helps stakeholders to compare performance indicators with reference points and adjust fisheries management controls accordingly. In other words, a harvest control rule is a plan for pre-agreed management actions as a function of variables related to the status of stock in question. For example, a simple harvest control rule could specify that if fishing mortality is above natural mortality, the Total Allowable Catch should be reduced.</li>
+</ol></li>
+<li><p><a href="Step5.html#Step5">Step 5 - Perform Assessment Methods</a></p>
+<ol style="list-style-type: lower-alpha">
+<li>You will learn about the various types of assessment methods and use the appropriate assessment method to calculate your selected performance indicators and reference points. This section provides a “how-to” guide for using each assessment method. You will use the toolkit dashboard to perform the methods.</li>
+</ol></li>
+<li><p><a href="Step6.html#Step6">Step 6 – Interpret Assessment Results</a></p>
+<ol style="list-style-type: lower-alpha">
+<li>You will interpret your assessment results, together with local ecological knowledge and other available data, to determine if a management response is required or not.</li>
+</ol></li>
+<li><p><a href="Step7.html#Step7">Step 7 – Adjust Fisheries Management Controls Using Defined Harvest Control Rules</a></p>
+<ol style="list-style-type: lower-alpha">
+<li>You will use the harvest control rules defined in Step 4 and the interpretations generated in Step 6 to adjust fisheries management controls appropriately.</li>
+</ol></li>
+<li><p><a href="Step8.html#Step8">Step 8 – Complete your Fishery Management Plan</a></p>
+<ol style="list-style-type: lower-alpha">
+<li>You will use the outputs of the AFAM toolkit to fill out a Fishery Management Plan template for your fishery. Note that the template provided here may need to be adapted to better suit regional context.</li>
+</ol></li>
+</ol>
 
 </div>
 </div>
@@ -236,8 +281,8 @@ new.packages &lt;-<span class="st"> </span>list.of.packages[<span class="op">!</
           </div>
         </div>
       </div>
-<a href="Step4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="Step6.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Step1.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -265,7 +310,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/07-Step5.rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-overview.rmd",
 "text": "Edit"
 },
 "download": ["AFAM_Toolkit_Guidance_Document.pdf", "AFAM_Toolkit_Guidance_Document.epub"],

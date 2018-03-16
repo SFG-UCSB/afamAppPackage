@@ -5,6 +5,6 @@ account: sfg-ucsb
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 182081
-bundleId: 1182337
+bundleId: 1182347
 url: https://sfg-ucsb.shinyapps.io/afam-dashboard/
-when: 1516316001.55321
+when: 1516316342.03989
