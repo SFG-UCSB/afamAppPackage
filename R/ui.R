@@ -5,6 +5,7 @@ shinyUI(fluidPage(
                       fluidRow(
                         includeMarkdown("www/introduction.md"),
                         helpText(a(h1("Click for help!"), href=paste(savedURL,"index.html",sep=""),target="_blank")),
+                        helpText(a(h3("You may also download a PDF copy of the guidebook here."), href=paste(savedURL,"AFAM_Toolkit_Guidance_Document.pdf",sep=""),target="_blank")),
                         img(src = "_book/myMediaFolder/media/2_image1.png")
                         )
 
