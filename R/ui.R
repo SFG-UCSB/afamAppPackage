@@ -25,18 +25,22 @@ shinyUI(fluidPage(
                             selectInput("dataType",label="Do you wish to use a real data set or a sample data set?",choices=c("Use sample Data","Use Real Data"),selected="Use Real Data"),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('dataLength') != -1 & input.dataType == 'Use Real Data'",
+                              downloadButton(outputId = "download_length_data_sample", label = "Download sample length data"),
                               fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: country, site, year, species, gear, length_cm,inside_area (TRUE or FALSE, whether or not the measurement is from inside the fishing area of interest). Each row should represent an individual length measurement."),
                               hr()
                             ),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('landingsData') != -1 & input.dataType == 'Use Real Data'",
+                              downloadButton(outputId = "download_landings_data_sample", label = "Download sample landings data"),
                               fileInput("dataLandings",label = "Upload Landings Data. Make sure your landings input *.csv has the following column headers: country, site, year, species, gear, inside_area (TRUE or FALSE, whether or not the measurement is from inside the fishing area of interest), fisher_days (the measure of effort), sampled_catch, total_catch. Each row should represent an individual catch sample."),
                               hr()
                             ),
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('underwaterData') != -1 & input.dataType == 'Use Real Data'",
+                              downloadButton(outputId = "download_uvc_eco_data_sample", label = "Download sample underwater visual survey ecosystem-level biomass data"),
                               fileInput("dataBiomass",label = "Upload Underwater Visual Survey ecosystem-level biomass data. Make sure your input *.csv has the following column headers: Year, country, site, Reserve (a column of 0s or 1s), and Biomass (aggregated ecosystem-level biomass across all species). Each row should represent 1 transect."),
                               hr(),
+                              downloadButton(outputId = "download_uvc_species_data_sample", label = "Download sample underwater visual survey species-level density data"),
                               fileInput("dataDensity",label = "Upload Underwater Visual Survey species-level density data. Make sure your input *.csv has the following column headers: Year, country, site, Reserve (a column of 0s or 1s), and Density (for each species). Each row should represent 1 observation."),
                               hr()
                             )

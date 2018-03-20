@@ -2221,6 +2221,42 @@ shinyServer(function(input, output) {
   output$helpFile9<-renderUI({getPage("help/9_Step7.html")})
   output$helpFile10<-renderUI({getPage("help/10_Step8.html")})
   
+  output$download_length_data_sample <- downloadHandler(
+    filename = function() {
+      "sample_length_data.csv"
+    },
+    content = function(con) {
+      write.csv(df_length, con)
+    }
+  )
+  
+  output$download_landings_data_sample <- downloadHandler(
+    filename = function() {
+      "sample_landings_data.csv"
+    },
+    content = function(con) {
+      write.csv(df_catch, con)
+    }
+  )
+  
+  output$download_uvc_eco_data_sample <- downloadHandler(
+    filename = function() {
+      "sample_uvc_ecosystem_biomass_data.csv"
+    },
+    content = function(con) {
+      write.csv(df_biomass, con)
+    }
+  )
+  
+  output$download_uvc_species_data_sample <- downloadHandler(
+    filename = function() {
+      "sample_uvc_species_density_data.csv"
+    },
+    content = function(con) {
+      write.csv(df_density, con)
+    }
+  )
+  
 })
 
 LBAR = function(Lc,Linf,k,M,lfDist){
