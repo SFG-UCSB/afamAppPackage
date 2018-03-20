@@ -246,45 +246,45 @@ shinyUI(fluidPage(
                             ),hr()),
                           conditionalPanel(
                             condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Froese Sustainability Indicators') != -1",
+                            # fixedRow(
+                            #   column(4,
+                            #          h4("Froese Percent Optimal")
+                            #   ),
+                            #   column(4,
+                            #          numericInput("percentOptimal_TRP", label = NULL, value = 100)
+                            #   ),
+                            #   column(4,
+                            #          numericInput("percentOptimal_LRP", label = NULL, value = 80))
+                            # ),hr(),
+                            # fixedRow(
+                            #   column(4,
+                            #          h4("Froese Percent Mature")
+                            #   ),
+                            #   column(4,
+                            #          numericInput("percentMature_TRP", label = NULL, value = 90)
+                            #   ),
+                            #   column(4,
+                            #          numericInput("percentMature_LRP", label = NULL, value = 50))
+                            # ),hr(),
+                            # fixedRow(
+                            #   column(4,
+                            #          h4("Froese Percent Megaspawner")
+                            #   ),
+                            #   column(4,
+                            #          numericInput("percentMega_TRP", label = NULL, value = 20)
+                            #   ),
+                            #   column(4,
+                            #          numericInput("percentMega_LRP", label = NULL, value = 30))
+                            # ),hr(),
                             fixedRow(
                               column(4,
-                                     h4("Froese Percent Optimal")
+                                     h4("Froese Indicators Status")
                               ),
                               column(4,
-                                     numericInput("percentOptimal_TRP", label = NULL, value = 100)
+                                     h4("Spawning biomass above reference point")
                               ),
                               column(4,
-                                     numericInput("percentOptimal_LRP", label = NULL, value = 80))
-                            ),hr(),
-                            fixedRow(
-                              column(4,
-                                     h4("Froese Percent Mature")
-                              ),
-                              column(4,
-                                     numericInput("percentMature_TRP", label = NULL, value = 90)
-                              ),
-                              column(4,
-                                     numericInput("percentMature_LRP", label = NULL, value = 50))
-                            ),hr(),
-                            fixedRow(
-                              column(4,
-                                     h4("Froese Percent Megaspawner")
-                              ),
-                              column(4,
-                                     numericInput("percentMega_TRP", label = NULL, value = 20)
-                              ),
-                              column(4,
-                                     numericInput("percentMega_LRP", label = NULL, value = 30))
-                            ),hr(),
-                            fixedRow(
-                              column(4,
-                                     h4("Froese Indicators Aggregated")
-                              ),
-                              column(4,
-                                     textInput("froese_TRP", label = NULL, value = "Green")
-                              ),
-                              column(4,
-                                     textInput("froese_LRP", label = NULL, value = "Red"))
+                                     h4("Spawning biomass below reference point"))
                             ),hr()),
                           conditionalPanel(
                             condition = "input.checkDataGroup && input.indicatorLandingsSelection && input.checkDataGroup.indexOf('landingsData') != -1 && input.indicatorLandingsSelection.indexOf('Total Landings') != -1",
@@ -472,9 +472,10 @@ shinyUI(fluidPage(
                                               sidebarPanel(
                                                 conditionalPanel(
                                                   condition = "input.checkDataGroup && input.indicatorLengthSelection && input.checkDataGroup.indexOf('dataLength') != -1 && input.indicatorLengthSelection.indexOf('Froese Sustainability Indicators') != -1",
-                                                  h4("Instructions: The results for the Froese Sustainability Indicators method will be automatically calculated using the life history information provided according to the Froese 2004 methedology. Once this is done, select the aggregated assessment result below. Unless you have reason to believe otherwise, select the most critical of the 3 results (percent mature, percent optimal, and percent megaspawner)."),
+                                                  h4("Instructions: The results for the Froese Sustainability Indicators method will be automatically calculated using the life history information provided according to the Froese 2004 and Cope and Punt 2009 methedology."),
                                                   h5(a("Froese, R. (2004). Keep it simple: three indicators to deal with overfishing. Fish and fisheries, 5(1), 86-91.",href="http://onlinelibrary.wiley.com/doi/10.1111/j.1467-2979.2004.00144.x/full",target="_blank")),
-                                                  selectInput(inputId = "froese_Result",label = "Select the aggregated assessment result from the Froese Sustainability Indicators technique:",choices=c("Green","Yellow","Red"),selected=NULL),
+                                                  h5(a("Cope and Punt 2009. Length‐Based Reference Points for Data‐Limited Situations: Applications and Restrictions. Marine and Coastal Fisheries 1.1 (2009): 169-186.",href="http://onlinelibrary.wiley.com/doi/10.1577/C08-025.1/full",target="_blank")),
+                                                  #selectInput(inputId = "froese_Result",label = "Select the aggregated assessment result from the Froese Sustainability Indicators technique:",choices=c("Green","Yellow","Red"),selected=NULL),
                                                   downloadButton("downloadFroese",label="Download Froese Results (CSV)"))
                                               ),
                                               mainPanel(

@@ -284,7 +284,27 @@ shinyServer(function(input, output) {
   output$LHITable <- DT::renderDataTable(LHIInput(), options = list(paging=FALSE, searching = FALSE))
   
   LHIInput <- reactive({
-    if(is.null(input$siteSelection) | is.null(input$speciesSelection)) return()
+    req(c(input$countrySelection,
+          input$siteSelection,
+          input$speciesSelection,
+          input$Common,
+          input$Code,
+          input$Linf,
+          input$k,
+          input$t0,
+          input$M,
+          input$w_a,
+          input$w_b,
+          input$m50,
+          input$m95,
+          input$Linf_Reference,
+          input$k_Reference,
+          input$t0_Reference,
+          input$M_Reference,
+          input$w_a_Reference,
+          input$w_b_Reference,
+          input$m50_Reference,
+          input$m95_Reference))
     table = data.frame(matrix(NA,nrow=1,ncol=13))
     
     colnames(table) = c("Country",
@@ -1195,16 +1215,16 @@ shinyServer(function(input, output) {
       summaryTable = rbind(summaryTable,newRow)}
     
     if ("dataLength" %in% input$checkDataGroup & "Froese Sustainability Indicators" %in% input$indicatorLengthSelection) {
-      validate(need(input$froese_Result, 'Please complete the Froese sustainability indicators assessment under Step 5'),
+      validate(need(FroeseInput()$Result, 'Please complete the Froese sustainability indicators assessment under Step 5'),
                need(input$yearGlobalSelection, 'Please select a year for length assessment in Step 5'))
       newRow = c("Froese Indicators",
                  input$yearGlobalSelection,
                  input$siteSelection,
                  input$speciesSelection,
-                 input$froese_Result,
-                 "Green",
-                 "Red",
-                 input$froese_Result)
+                 paste0(FroeseInput()$Selectivity, " and ", FroeseInput()$Status),
+                 "Spawning biomass above reference point",
+                 "Spawning biomass below reference point",
+                 FroeseInput()$Result)
       newRow = t(data.frame(newRow,stringsAsFactors = FALSE))
       colnames(newRow) = Names
       summaryTable = rbind(summaryTable,newRow)}
@@ -1760,7 +1780,7 @@ shinyServer(function(input, output) {
     #if (input$yearGlobalSelection == "Aggregate Across Years") y = 1 else y = length(as.vector(unique(df$year)))
     g = 1
     y = 1
-    table = data.frame(matrix(NA,nrow=g*y,ncol=20))
+    table = data.frame(matrix(NA,nrow=g*y,ncol=14))
     
     colnames(table) = c("Site",
                         "Species",
@@ -1773,15 +1793,18 @@ shinyServer(function(input, output) {
                         "Percent_Mature",
                         "Percent_Opt",
                         "PercentMega",
-                        "TRP_Percent_Mature",
-                        "LRP_Percent_Mature",
-                        "TRP_Percent_Opt",
-                        "LRP_Percent_Opt",
-                        "TRP_Percent_Mega",
-                        "LRP_Percent_Mega",
-                        "Result_Mature",
-                        "Result_Opt",
-                        "Result_Mega")
+                        # "TRP_Percent_Mature",
+                        # "LRP_Percent_Mature",
+                        # "TRP_Percent_Opt",
+                        # "LRP_Percent_Opt",
+                        # "TRP_Percent_Mega",
+                        # "LRP_Percent_Mega",
+                        # "Result_Mature",
+                        # "Result_Opt",
+                        # "Result_Mega",
+                        "Result",
+                        "Selectivity",
+                        "Status")
     
     for (i in 1:g){
       
@@ -1806,31 +1829,38 @@ shinyServer(function(input, output) {
         lengthData = dfSubset$length_cm[!is.na(dfSubset$length_cm)]
         sampleSize = length(lengthData)
         
-        Lmat = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$Lmat
-        Lopt = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$Lopt
+        froese_outputs <- froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)
+        
+        Lmat = froese_outputs$Lmat
+        Lopt = froese_outputs$Lopt
         Lmega = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$Lmega
-        percentMature = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$percentMature
-        percentOpt = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$percentOpt
-        percentMega = froese(input$Linf,input$M,input$k,-input$t0,input$w_a,input$w_b,input$m50,input$m95,lengthData)$percentMega
+        percentMature = froese_outputs$percentMature
+        percentOpt = froese_outputs$percentOpt
+        percentMega = froese_outputs$percentMega
+        selectivity = froese_outputs$selectivity
+        status = froese_outputs$status
         
+        # if (is.nan(percentMature) | is.infinite(percentMature)) resultMature = "Cannot Interpret" else{
+        #   if (percentMature < input$percentMature_TRP & percentMature>input$FvMLBAR_LRP) resultMature = "Yellow"
+        #   if (percentMature <= input$percentMature_LRP) resultMature = "Red"
+        #   if (percentMature >= input$percentMature_TRP) resultMature = "Green"
+        # }
+        # 
+        # if (is.nan(percentOpt) | is.infinite(percentOpt)) resultOpt = "Cannot Interpret" else{
+        #   if (percentOpt < input$percentOptimal_TRP & percentOpt>input$percentOptimal_LRP) resultOpt = "Yellow"
+        #   if (percentOpt <= input$percentOptimal_LRP) resultOpt = "Red"
+        #   if (percentOpt >= input$percentOptimal_TRP) resultOpt = "Green"
+        # }
+        # 
+        # if (is.nan(percentMega) | is.infinite(percentMega)) resultMega = "Cannot Interpret" else{
+        #   if (percentMega < input$percentMega_TRP & percentMega>input$percentMega_LRP) resultMega = "Yellow"
+        #   if (percentMega <= input$percentMega_LRP) resultMega = "Red"
+        #   if (percentMega >= input$percentMega_TRP) resultMega = "Green"
+        # }
         
-        if (is.nan(percentMature) | is.infinite(percentMature)) resultMature = "Cannot Interpret" else{
-          if (percentMature < input$percentMature_TRP & percentMature>input$FvMLBAR_LRP) resultMature = "Yellow"
-          if (percentMature <= input$percentMature_LRP) resultMature = "Red"
-          if (percentMature >= input$percentMature_TRP) resultMature = "Green"
-        }
-        
-        if (is.nan(percentOpt) | is.infinite(percentOpt)) resultOpt = "Cannot Interpret" else{
-          if (percentOpt < input$percentOptimal_TRP & percentOpt>input$percentOptimal_LRP) resultOpt = "Yellow"
-          if (percentOpt <= input$percentOptimal_LRP) resultOpt = "Red"
-          if (percentOpt >= input$percentOptimal_TRP) resultOpt = "Green"
-        }
-        
-        if (is.nan(percentMega) | is.infinite(percentMega)) resultMega = "Cannot Interpret" else{
-          if (percentMega < input$percentMega_TRP & percentMega>input$percentMega_LRP) resultMega = "Yellow"
-          if (percentMega <= input$percentMega_LRP) resultMega = "Red"
-          if (percentMega >= input$percentMega_TRP) resultMega = "Green"
-        }
+        if(status == "Spawning biomass above reference point") resultFroese = "Green"
+        if(status == "Spawning biomass below reference point") resultFroese = "Red"
+        if(status == "No status information") resultFroese = "Yellow"
         
         if (i==1 & j ==1) k = 1 else k = k+1
         
@@ -1845,15 +1875,18 @@ shinyServer(function(input, output) {
                       signif(percentMature,3),
                       signif(percentOpt,3),
                       signif(percentMega,3),
-                      input$percentMature_TRP,
-                      input$percentMature_LRP,
-                      input$percentOptimal_TRP,
-                      input$percentOptimal_LRP,
-                      input$percentMega_TRP,
-                      input$percentMega_LRP,
-                      resultMature,
-                      resultOpt,
-                      resultMega)
+                      # input$percentMature_TRP,
+                      # input$percentMature_LRP,
+                      # input$percentOptimal_TRP,
+                      # input$percentOptimal_LRP,
+                      # input$percentMega_TRP,
+                      # input$percentMega_LRP,
+                      # resultMature,
+                      # resultOpt,
+                      # resultMega,
+                      resultFroese,
+                      selectivity,
+                      status)
       }
     }
     
@@ -2071,9 +2104,11 @@ shinyServer(function(input, output) {
     conMat = expand.grid(rep(list(c("Green","Yellow")),length(List)))
     for (i in 1:nrow(conMat)){
       if (length(List) == 1){
-        if (i ==1) newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[1,],".",sep="",collapse="")
-        if (i ==2) newHCR = paste(List," is ",rev(t(apply(conMat, 1, paste0))[1,]),".",sep="",collapse="")
-      } else newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[i,],".",sep="",collapse="")
+        #if (i ==1) newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[1,],".",sep="",collapse=" ")
+        #if (i ==2) newHCR = paste(List," is ",rev(t(apply(conMat, 1, paste0))[1,]),".",sep="",collapse=" ")
+        if (i ==1) newHCR = paste(List," is Green.",sep="",collapse=" ")
+        if (i ==2) newHCR = paste(List," is Yellow.",sep="",collapse=" ")
+      } else newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[i,],".",sep="",collapse=" ")
       if (i==1) fullList = newHCR else fullList = c(fullList,newHCR)
     }
     limits = paste(List," is Red",sep="")
@@ -2095,9 +2130,11 @@ shinyServer(function(input, output) {
     conMat = expand.grid(rep(list(c("Green","Yellow")),length(List)))
     for (i in 1:nrow(conMat)){
       if (length(List) == 1){
-        if (i ==1) newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[1,],".",sep="",collapse="")
-        if (i ==2) newHCR = paste(List," is ",rev(t(apply(conMat, 1, paste0))[1,]),".",sep="",collapse="")
-      } else newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[i,],".",sep="",collapse="")
+        #if (i ==1) newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[1,],".",sep="",collapse=" ")
+        #if (i ==2) newHCR = paste(List," is ",rev(t(apply(conMat, 1, paste0))[1,]),".",sep="",collapse=" ")
+        if (i ==1) newHCR = paste(List," is Green.",sep="",collapse=" ")
+        if (i ==2) newHCR = paste(List," is Yellow.",sep="",collapse=" ")
+      } else newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[i,],".",sep="",collapse=" ")
       if (i==1) fullList = newHCR else fullList = c(fullList,newHCR)}
     limits = paste(List," is Red",sep="")
     fullList = c(fullList,limits)
@@ -2119,9 +2156,11 @@ shinyServer(function(input, output) {
     conMat = expand.grid(rep(list(c("Green","Yellow")),length(List)))
     for (i in 1:nrow(conMat)){
       if (length(List) == 1){
-        if (i ==1) newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[1,],".",sep="",collapse="")
-        if (i ==2) newHCR = paste(List," is ",rev(t(apply(conMat, 1, paste0))[1,]),".",sep="",collapse="")
-      } else newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[i,],".",sep="",collapse="")
+        #if (i ==1) newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[1,],".",sep="",collapse=" ")
+        #if (i ==2) newHCR = paste(List," is ",rev(t(apply(conMat, 1, paste0))[1,]),".",sep="",collapse=" ")
+        if (i ==1) newHCR = paste(List," is Green.",sep="",collapse=" ")
+        if (i ==2) newHCR = paste(List," is Yellow.",sep="",collapse=" ")
+      } else newHCR = paste(List," is ",t(apply(conMat, 1, paste0))[i,],".",sep="",collapse=" ")
       if (i==1) fullList = newHCR else fullList = c(fullList,newHCR)
     }
     limits = paste(List," is Red",sep="")
@@ -2222,6 +2261,34 @@ froese = function(l_inf,M,k,t0,wa,wb,m50,m95,lengthData){
   percentMature = length(which(lengthData>Lmat)) / length(lengthData) * 100
   percentOpt = length(which(lengthData>Lopt_lower & lengthData<Lopt_upper)) / length(lengthData) * 100
   percentMega = length(which(lengthData>Lmega)) / length(lengthData) * 100
+  p_obj = percentMature / 100 + percentOpt / 100 + percentMega / 100
+  selectivity = case_when(p_obj < 1 & percentOpt / 100 + percentMega / 100 == 0 & percentMature / 100 > 0.25 ~ "Fish small and immature",
+                             p_obj < 1 & percentOpt / 100 + percentMega / 100 == 0 & percentMature / 100 <= 0.25 ~ "Fish small and immature",
+                             p_obj < 1 & percentOpt / 100 + percentMega / 100 > 0 & Lmat <= 0.75 * Lopt & percentMature / 100 > 0.4 ~ "Fish small and optimally-sized or all but biggest",
+                             p_obj < 1 & percentOpt / 100 + percentMega / 100 > 0 & Lmat == 0.9 * Lopt & percentMature / 100 > 0.25 ~ "Fish small and optimally-sized or all but biggest",
+                             p_obj < 1 & percentOpt / 100 + percentMega / 100 > 0 & (Lmat != 0.9 * Lopt | percentMature / 100 <= 0.25) ~ "Fish small and optimally-sized or all but biggest",
+                             p_obj < 1 & percentOpt / 100 + percentMega / 100 > 0 & (Lmat > 0.75 * Lopt | percentMature / 100 <= 0.4) ~ "Fish small and optimally-sized or all but biggest",
+                             1 < p_obj & p_obj < 2 & Lmat <= 0.75 * Lopt & percentMature / 100 > 0.95 ~ "Fish maturity ogive",
+                             1 < p_obj & p_obj < 2 & Lmat == 0.9 * Lopt & percentMature / 100 > 0.9 ~ "Fish maturity ogive",
+                             1 < p_obj & p_obj < 2 & (Lmat > 0.75 * Lopt | percentMature / 100 <= 0.95) ~ "Fish maturity ogive",
+                             1 < p_obj & p_obj < 2 & (Lmat != 0.9 * Lopt | percentMature / 100 <= 0.9) ~ "Fish maturity ogive",
+                             p_obj == 2 & percentOpt / 100 < 1 & percentOpt / 100 < 0.65 ~ "Fish optimally-sized and bigger",
+                             p_obj == 2 & percentOpt / 100 < 1 & percentOpt / 100 >= 0.65 ~ "Fish optimally-sized and bigger",
+                             p_obj == 2 & percentOpt / 100 == 1 ~ "Fish optimally-sized")
+  
+  status = case_when(p_obj < 1 & percentOpt / 100 + percentMega / 100 == 0 & percentMature / 100 > 0.25 ~ "Spawning biomass above reference point",
+                             p_obj < 1 & percentOpt / 100 + percentMega / 100 == 0 & percentMature / 100 <= 0.25 ~ "Spawning biomass below reference point",
+                             p_obj < 1 & percentOpt / 100 + percentMega / 100 > 0 & Lmat <= 0.75 * Lopt & percentMature / 100 > 0.4 ~ "Spawning biomass above reference point",
+                             p_obj < 1 & percentOpt / 100 + percentMega / 100 > 0 & Lmat == 0.9 * Lopt & percentMature / 100 > 0.25 ~ "Spawning biomass above reference point",
+                             p_obj < 1 & percentOpt / 100 + percentMega / 100 > 0 & (Lmat != 0.9 * Lopt | percentMature / 100 <= 0.25) ~ "Spawning biomass below reference point",
+                             p_obj < 1 & percentOpt / 100 + percentMega / 100 > 0 & (Lmat > 0.75 * Lopt | percentMature / 100 <= 0.4) ~ "Spawning biomass below reference point",
+                             1 < p_obj & p_obj < 2 & Lmat <= 0.75 * Lopt & percentMature / 100 > 0.95 ~ "Spawning biomass above reference point",
+                             1 < p_obj & p_obj < 2 & Lmat == 0.9 * Lopt & percentMature / 100 > 0.9 ~ "Spawning biomass above reference point",
+                             1 < p_obj & p_obj < 2 & (Lmat > 0.75 * Lopt | percentMature / 100 <= 0.95) ~ "Spawning biomass below reference point",
+                             1 < p_obj & p_obj < 2 & (Lmat != 0.9 * Lopt | percentMature / 100 <= 0.9) ~ "Spawning biomass below reference point",
+                             p_obj == 2 & percentOpt / 100 < 1 & percentOpt / 100 < 0.65 ~ "Spawning biomass above reference point",
+                             p_obj == 2 & percentOpt / 100 < 1 & percentOpt / 100 >= 0.65 ~ "Spawning biomass below reference point",
+                             p_obj == 2 & percentOpt / 100 == 1 ~ "No status information")
   
   return(list(percentMature = percentMature,
               percentOpt = percentOpt,
@@ -2230,7 +2297,9 @@ froese = function(l_inf,M,k,t0,wa,wb,m50,m95,lengthData){
               Lopt_lower = Lopt_lower,
               Lopt_upper = Lopt_upper,
               Lmega = Lmega,
-              Lmat = m95))}
+              Lmat = m95,
+              selectivity = selectivity,
+              status = status))}
 
 inclRmd <- function(path) {
   paste(readLines(path, warn = FALSE), collapse = '\n') %>%
