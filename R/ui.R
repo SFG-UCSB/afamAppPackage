@@ -38,10 +38,10 @@ shinyUI(fluidPage(
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('underwaterData') != -1 & input.dataType == 'Use Real Data'",
                               downloadButton(outputId = "download_uvc_eco_data_sample", label = "Download sample underwater visual survey ecosystem-level biomass data"),
-                              fileInput("dataBiomass",label = "Upload Underwater Visual Survey ecosystem-level biomass data. Make sure your input *.csv has the following column headers: Year, country, site, Reserve (a column of 0s or 1s), and Biomass (aggregated ecosystem-level biomass across all species). Each row should represent 1 transect. You may also download a sample data set as an example."),
+                              fileInput("dataBiomass",label = "Upload Underwater Visual Survey ecosystem-level biomass data. Make sure your input *.csv has the following column headers: Year, country, site, species, Biomass_Fished (aggregated biomass in fished area, often in kg/Ha), and Biomass_Unfished (aggregated biomass in unfished area). You may also download a sample data set as an example."),
                               hr(),
                               downloadButton(outputId = "download_uvc_species_data_sample", label = "Download sample underwater visual survey species-level density data"),
-                              fileInput("dataDensity",label = "Upload Underwater Visual Survey species-level density data. Make sure your input *.csv has the following column headers: Year, country, site, Reserve (a column of 0s or 1s), and Density (for each species). Each row should represent 1 observation. You may also download a sample data set as an example."),
+                              fileInput("dataDensity",label = "Upload Underwater Visual Survey species-level density data. Make sure your input *.csv has the following column headers: Year, country, site, species, Density_Fished (abundance density in fished area, often in individuals/Ha), and Density_Unfished (abundance density in unfished area). You may also download a sample data set as an example."),
                               hr()
                             )
                           ),

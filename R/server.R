@@ -749,22 +749,12 @@ shinyServer(function(input, output) {
     densityDF <- densityData() %>%
       filter(Year <= input$yearUnderwaterSelection)
     density_processed <- densityDF %>%
-      group_by(Year,Species,Reserve) %>%
-      summarize(Density = mean(Density)) %>%
-      spread(key=Reserve,value=Density) %>%
-      rename(Density_Fished = `0`,
-             Density_Unfished = `1`) %>%
       mutate(Density_Ratio = Density_Fished/Density_Unfished)
     
     biomassDF <- biomassData()%>%
       filter(Year <= input$yearUnderwaterSelection)
     
     biomass_processed <- biomassDF %>%
-      group_by(Year,Reserve) %>%
-      summarize(Biomass = mean(Biomass))  %>%
-      spread(key=Reserve,value=Biomass) %>%
-      rename(Biomass_Fished = `0`,
-             Biomass_Unfished =`1`) %>%
       mutate(Biomass_Ratio = Biomass_Fished/Biomass_Unfished)
     
     
@@ -1389,11 +1379,6 @@ shinyServer(function(input, output) {
       filter(Year <= input$yearUnderwaterSelection)
 
     BR <- biomassDF %>%
-      group_by(Year,Reserve) %>%
-      summarize(Biomass = mean(Biomass))  %>%
-      spread(key=Reserve,value=Biomass) %>%
-      rename(Biomass_Fished = `0`,
-             Biomass_Unfished =`1`) %>%
       mutate(Biomass_Ratio = Biomass_Fished/Biomass_Unfished) %>%
       filter(Year == max(.$Year))
     
@@ -1432,11 +1417,6 @@ shinyServer(function(input, output) {
       filter(Species == input$speciesSelection &
                Year <= input$yearUnderwaterSelection)
     DR <- densityDF %>%
-      group_by(Year,Species,Reserve) %>%
-      summarize(Density = mean(Density)) %>%
-      spread(key=Reserve,value=Density) %>%
-      rename(Density_Fished = `0`,
-             Density_Unfished = `1`) %>%
       mutate(Density_Ratio = Density_Fished/Density_Unfished) %>% 
       filter(Year == max(.$Year))
     
