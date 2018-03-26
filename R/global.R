@@ -18,7 +18,7 @@ df_catch <- read_csv("data/data_catch.csv")
 df_biomass <- read_csv("data/data_biomass.csv")
 df_density <- read_csv("data/data_density.csv")
 indicatorTable <- read_csv("data/indicatorTable.csv")
-lhi_database <- read_csv("data/lhi_database.csv")
+lhi_database <- read_csv("data/LHI_Database.csv")
 metadata <- read_csv("data/metadata.csv")
 
 has_internet <- function(){
