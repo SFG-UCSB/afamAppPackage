@@ -13,7 +13,14 @@ Imports:
   gridExtra,
   pander,
   shiny,
-  DT
+  DT,
+  readr,
+  zoo,
+  readxl,
+  LBSPR,
+  lubridate,
+  curl,
+  TropFishR
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr,
