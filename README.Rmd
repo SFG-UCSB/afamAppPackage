@@ -54,7 +54,7 @@ lapply(list.of.packages, require, character.only = TRUE)
 ## Set your working directory to where the AFAM app file is located. Note that you'll need to change this to match the actual directory on your computer
 setwd("/Users/gmcdonald/github/afamAppPackage")
 ## Install AFAM from your local file. Note that you may need to update this file name.
-install.packages("afamAppPackage_0.1.tar.gz", repos = NULL, type="source")
+install.packages("afamAppPackage_0.1.tar.gz")
 ```
 
 ## Step 2 - Run AFAM App (does not require internet)

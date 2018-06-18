@@ -1,0 +1,164 @@
+Country,Species,Common,Code,L_inf,k,t0,M,Wa,Wb,m50,m95
+Philippines,Abalistes stellaris,Starry triggerfish,ABALST,59.58,0.19,-0.73,0.198393,0.0472,2.76,32.66,37.23
+Philippines,Acanthocybium solandri,Wahoo,ACANSO,149.9,1.58,-0.17,0.44,0.0014157,3.3034,97.75,111.44999999999999
+Philippines,Acanthurus nigrofuscus,Brown surgeon fish,ACANNI,15.8,0.45,-2.26,0.2,0.0264,3.028,11.5,13.11
+Philippines,Anguilla bicolor bicolor,Shortfin Eel,ANGUBI,126.1,0.14,-0.77,0.1447,7.6e-4,3.17,64.3,73.3
+Philippines,Aprion virescens,Green Jobfish,APRIVI,65.6,0.307,0,0.11522,0.0077,3.134,45,51.3
+Philippines,Bolbometopon muricatum,Bumphead Parrotfish,BOLBMU,157.75,0.063,-0.47,0.1,0.0082,3.2,60,68.4
+Philippines,Caesio cuning,Yellowtail fusilier,CAESCU,51.096,0.989,-0.833,1.033,0.0052,3.339,28.07,32
+Philippines,Caranx ignobilis,Giant trevally,CARAIG,239.75,0.082,-0.173,0.272339,0.0202,3,112.8,128.59
+Philippines,Caranx melampygus,Bluefin Trevally,CARAME,96.68,0.22,0,0.427962,0.0234,2.918,36.94,42.11
+Philippines,Caranx sexfasciatus,Bigeye Trevally,CARASE,80,0.24,0,0.55,0.0198,2.986,42.34,48.27
+Philippines,Carcharhinus amblyrhynchos,Grey Reef Shark,CARCMA,229.2,0.05,-7.51,0.15767,0.0030223,3.29,125,142.5
+Philippines,Carcharhinus melanopterus,Blacktip Shark,CARCME,158.5,0.2519,0,0.1997,3.25e-4,3.649,96,109.44
+Philippines,Cheilinus undulatus,Napoleon Wrasse,CHEIUN,137.5,0.1,0,0.259,0.0113,3.136,74.75,85.215
+Philippines,Chlorurus sordidus,Daisy Parrotfish,CHLOSO,21.96,1.1,0,0.3375,0.0243,2.969,14.8,16.87
+Philippines,Dascyllus aruanus,Humbug Damselfish,DASCAR,11,2.9,0,4.81,0.0415,2.989,5,5.7
+Philippines,Elagatis bipinnulata,Rainbow runner,ELAGBI,93.02,0.214,-0.449,0.4279618,0.0135,2.92,65.7,74.9
+Philippines,Epinephelus coioides,Orange-spotted Grouper,EPINCO,97.9,0.14,-1.5,0.19,0.0099,3.102,43.5,49.59
+Philippines,Epinephelus polyphekadion,Camouflage Grouper,EPINPO,44.71,0.251,-0.14,0.144,0.0083,3.074333333,33.95,38.703
+Philippines,Euthynnus affinis,Eastern Little Tuna,EUTHAF,81.92,0.56,-0.0317,0.93,0.0254,2.889,37.7,42.98
+Philippines,Exallias brevis,Leopard blenny,EXALBR,15.4,0.48,-0.41,0.516506,NA,NA,9.7,11.06
+Philippines,Galeocerdo cuvier,Tiger Shark,GALECU,406.14,0.31,0,0.13314,0.00262,3.357,287,327.18
+Philippines,Hirundichthys speculiger,Mirrorwing flyingfish,HIRUSP,27.68,1.06,0,1.497866,0.0116,3.01,16.2,18.5
+Philippines,Hyporhamphus affinis,Spotted halfbeak needlefish,HYPOAF,41.57,NaN,0,0.554765,7e-4,3.575,23.62,26.93
+Philippines,Istiophorus platypterus,Indo-Pacific Sailfish,ISTIPL,240.4,0.145,-2.781,0.260498,0.004375,2.9775,166,189.24
+Philippines,Katsuwonus pelamis,Skipjack Tuna,KATSPE,65.1,1.3,0,1.6,0.018695,3.0305,35.5,40.47
+Philippines,Lutjanus ehrenbergii,Blackspot Snapper,LUTJEH,24.2,0.99,-0.05,0.35,0.018,2.97,20.15,21.975
+Philippines,Lutjanus fulviflamma,Dory Snapper,LUTJFU,28.87,0.3,0,0.29,0.0205,2.96,17.7,20.18
+Philippines,Lethrinus harak,Thumbprint emperor,LETHHA,28.4,0.509,-0.83,0.79475,0.01195,3.123,19.5,21.1
+Philippines,Lethrinus miniatus,Sweetlip/trumpet emperor,LETHMI,52.7,0.21,-2.07,0.69,0.00747,3.24,28,33.3
+Philippines,Lethrinus obsoletus,Orange-striped emperor,LETHOB,31.3,0.276,-2.78,0.153627,0.0173,3.026,23.7,25.7
+Philippines,Lutjanus argentimaculatus,Mangrove red snapper,LUTJAR,66.11,0.19,0,0.37,0.028,2.844,37.26,42.48
+Philippines,Lutjanus bohar,Two-Spot Red Snapper,LUTJBO,63.06,0.091,-3.94,0.0544679,0.0156,3.059,42.896,48.9
+Philippines,Lutjanus gibbus,Humpback Snapper,LUTJGI,34.695,0.23299999999999998,-2.465,0.906,0.0126812,3.158,20.1,22.9
+Philippines,Naso lopezi,Elongate unicornfish,NASOLO,68.89,NA,NA,NA,NA,NA,NA,NA
+Philippines,Naso unicornis,Bluespine unicornfish,NASOUN,43.39,0.489,-0.14,0.051650556,0.0179,3.035,32.8,37.4
+Philippines,Naso vlamingii,Bignose unicornfish,NASOVL,41.96,0.264,-0.26,0.0665718283,0.05248,2.843,25.8,29.4
+Philippines,Nemipterus peronii,Notched threadfin bream,NEGAPE,41.9,0.25,-0.74,0.209491767,0.0079,3.251,15,17.1
+Philippines,Octopus cyanea,Day Octopus,OCTOCY,1.345,0.006,0,1.997,2.306869,2.4997,10.15,NA
+Philippines,Octopus vulgaris,Common Octopus,OCTOVU,28.3,1.122,0.008,2.5604549,0.3992,2.9246,11.5,NA
+Philippines,Panulirus versicolor,Blue or Painted spiny lobster,PANUVE,14.47,0.27,-0.18,0.265,0.954992586,2.98,8.3,9.45
+Philippines,Photopectoralis bindus,Orangefin ponyfish,PHOTBI,11.4,0.82,0,3.25,0.106,2.19,8.7,9.9
+Philippines,Plectropomus leopardus,Leopard coral grouper,PLECLE,63.013,0.088,-4.4114,0.2,0.0118,3.06,32,36.5
+Philippines,Portunus pelagicus,Blue Swimming Crab,PORTPE,15.27,1.5,-0.57,2.2,0.05725,3.158,5.85,6.63
+Philippines,Rastrelliger kanagurta,Indian Mackerel,RASTKA,38,0.8,0,1.44,0.0083,3.166,18,20.52
+Philippines,Scarus ghobban,Blue-eyed Parrotfish,SCARGH,46.87,0.65,-0.07,0.52,0.0165,3.041,29.92,34.12
+Philippines,Scolopsis taenioptera,Lattice monocle bream,SCOLTA,30.5,0.47,0,1.12,0.00542,3.28,18,20.5
+Philippines,Scomberomorus commerson,Narrow-banded Spanish mackerel,SCOMCO,115.083,0.711,-0.25,0.35,0.0162,2.856,71.85,81.9
+Philippines,Selar crumenophthalmus,Bigeye scad,SELACR,25.7,2.05,0,1.78,0.0097,3.194,21.5,24.5
+Philippines,Selaroides leptolepis,Yellowstripe Scad,SELALE,19.49,1.2,0,2.21,0.00745,3.101,10.1,11.5
+Philippines,Siganus argenteus,Streamlined spinefoot,SIGAAR,31,0.75,0,1.466,0.0109,3.154,18,20.5
+Philippines,Siganus canaliculatus,White spotted spinefoot,SIGACA,28.1,1.95,0,2.816,0.01201,3.011,14.2,16.2
+Philippines,Sphyraena flavicauda,Yellowtail Barracuda,SPHYFL,42.73,0.296,-0.82,0.3153402,0.0044,3.083,24.2,27.6
+Philippines,Trichiurus lepturus,Largehead hairtail/beltfish,TRICLE,66,0.46,0,0.86,2e-4,3.324,25.5,29.1
+Philippines,Xiphias gladius,Swordfish,XIPHGL,256,0.102,NA,0.285,0.03,2.9395,168.2,191.7
+Philippines,Zebrasoma flavescens,Yellow Tang,ZEBRFL,16.75,0.275,-1.2,0.07306664,0.03738,2.86,14,16
+Indonesia,Bolbometopon muricatum,Bumphead Parrotfish,BOLBMU,157.75,0.063,-0.47,0.235722334,0.01307,3.05,53.5,60.99
+Indonesia,Caesio caerulaurea,Blue and gold fusilier,CAESCA,36.6,0.53,-0.29,0.98,0.02,2.991,21.2,24.168
+Indonesia,Caesio cuning,Yellowtail fusilier,CAESCU,62.2,0.32,-0.42,0.891598119,0.0208,3.0322,13.95,15.9
+Indonesia,Caesio teres,Yellow and blueback fusilier,CAESTE,41.7,0.46,-0.33,0.86,0.0093,3.253,23.8,27.132
+Indonesia,Caranx ignobilis,Giant trevally,CARAIG,184,0.69,-0.0242,0.223143551,0.0202,3,54,61.56
+Indonesia,Cephalopholis urodeta,Darkfin hind,CEPHUR,14.5,1.39,0,0.29957,0.0282,2.818,17,19.38
+Indonesia,Cromileptes altivelis,Humpback grouper,CROMAL,57.5,0.35,0,0.26,0.0060475,3.24,15.5,35
+Indonesia,Epinephelus bleekeri,Bleeker's grouper,EPINBL,78.5,0.12,-1.06,0.1248221781,0.00889,3.126,42,47.88
+Indonesia,Epinephelus faveatus,Barred-chest grouper,EPINFA,33.5,0.34,-0.47,0.72,0.01122,3.04,19.6,22.344
+Indonesia,Epinephelus fuscoguttatus,"Brown-marble, tiger grouper",EPINFU,80.69,0.16,0,0.45,0.0116,3.075,56.6,64.524
+Indonesia,Epinephelus hexagonatus,Starspotted grouper,EPINHE,29.5,0.91,0,1.71,0.017667,2.9300048,19,21.66
+Indonesia,Epinephelus merra,Honeycomb grouper,EPINME,25,0.43,0,1.14,0.0158,2.966,15,17.1
+Indonesia,Epinephelus polyphekadion,Camouflage grouper,EPINPO,44.71,0.251,-0.14,0.144,0.0083,3.074333333,33.95,38.703
+Indonesia,Epinephelus quoyanus,Longfin grouper,EPINQU,32.6595,0.523,-0.74,0.213981,0.031409,2.767,19.1,21.774
+Indonesia,Lutjanus gibbus,Humpback red snapper,LUTJGI,44.9,0.32,-0.526,0.82,0.021,2.996,25.4,28.96
+Indonesia,Lutjanus malabaricus,Malabar blood snapper,LUTJMA,84.3,0.226,-0.49,0.4,0.01988832,2.9279,42,47.88
+Indonesia,Panulirus homarus,Scalloped spiny lobster,PANUHO,31.85,0.24,0,1.26,0.1949,2.17,NA,NA
+Indonesia,Panulirus ornatus,Ornate spiny lobster,PANUOR,14.8433,0.00157,0,0.8,0.62375,2.82735,10.7,12.198
+Indonesia,Panulirus versicolor,Blue or Painted spiny lobster,PANUVE,14.47,0.27,-0.18,0.265,0.95499,2.98,8.2,9.35
+Indonesia,Plectropomus areolatus,Squaretail coral grouper,PLECAR,76.4,0.09,-5.87,0.2496,0.01,3.2697,36.6,41.72
+Indonesia,Plectropomus leopardus,Leopard coralgrouper,PLECLE,52.2,0.354,-0.766,0.213981,0.0118,3.06,34,38.76
+Indonesia,Plectropomus maculatus,Spotted coral grouper,PLECMA,71.4,0.206,-0.945,0.249644,0.0156,3,30,34.2
+Indonesia,Plectropomus oligacanthus,Highfin coralgrouper,PLECOL,77.5,0.15,-0.88,0.15684,0.0132,3,41.5,47.31
+Indonesia,Portunus pelagicus,Blue Swimming Crab,PORTPE,19.16,1.3,-0.0728,2.2,0.05725,3.158,10.05,12.5
+Indonesia,Pterocaesio pisang,Banana fusilier,PTERPI,17.5,1.05,0,2.04,0.00743,3.15,10.9,12.46
+Indonesia,Pterocaesio tile,Dark-banded fusilier,PTERTI,31.5,0.61,-0.26,1.13,0.01121,3,18.5,21.09
+Indonesia,Rastrelliger kanagurta,Indian mackerel,RASTKA,38,0.8,0,1.44,0.0083,3.166,18,20.52
+Indonesia,Scarus ghobban,Blue-eyed parrotfish,SCARGH,42.87,0.65,-0.07,0.82098055,0.0233,2.919,21.05,24
+Indonesia,Variola albimarginata,White-edged lyretail,VARIAL,31.6252,0.479,-0.155,0.249644,0.0257,3,28.6,32
+Indonesia,Variola louti,Yellow-edged lyretail,VARILO,155.8917,0.038,-3.978,0.42796,0.0122,3.079,47.6,52.5
+Indonesia,Actinopyga echinites,Sea cucumber (Deep water redfish),ACTIEC,NA,NA,NA,0.64,NA,NA,NA,NA
+Indonesia,Actinopyga lecanora,Sea cucumber (Stonefish),ACTILE,NA,NA,NA,0.73,NA,NA,NA,NA
+Indonesia,Actinopyga miliaris,Sea cucumber (Blackfish),ACTIMI,NA,NA,NA,0.73,NA,NA,NA,NA
+Indonesia,Bohadschia argus,Sea cucumber (Leopard fish),BOHAAR,NA,NA,NA,0.73,NA,NA,NA,NA
+Indonesia,Holothuria fuscogilva,Sea cucumber (White teatfish),HOLOGI,NA,NA,NA,0.44,NA,NA,766,NA
+Indonesia,Holothuria fuscopunctata,Sea cucumber (Elephant trunkfish),HOLOPU,NA,NA,NA,0.43,NA,NA,NA,NA
+Indonesia,Holothuria nobilis,Sea cucumber (Black teatfish),HOLONO,NA,NA,NA,0.43,NA,NA,NA,NA
+Indonesia,Holothuria scabra,Sea cucumber (Sandfish),HOLOSC,NA,NA,NA,0.4,NA,NA,40,NA
+Indonesia,Thelenota ananas,Sea cucumber (Prickly redfish),THELAN,NA,NA,NA,0.44,NA,NA,30,NA
+Brazil,Cynoscion acoupa,Acoupa weakfish,CYNOAC,161,0.188,0,0.3,0.00444489069,3.2,44,50.16
+Brazil,Centropomus undecimalis,Snook,CENTUN,86.2,1.05,0,0.3,0.014,2.693,46.523399999999995,65.94525
+Brazil,Panulirus argus,Red lobster / Caribbean spiny lobster,PANUAR,16.6085,0.245,0,0.375,6.507305e-5,2.91,16.55,18.85
+Brazil,Scomberomorus cavalla,King mackerel,SCOMCA,123.9,0.171,0.302,0.228,0.0164,2.821,49.5,65
+Brazil,Lutjanus synagris,Lane snapper,LUTJSY,46.8,0.036,-6.5,0.2,0.0203,2.87,23.6,36.35
+Brazil,Balistes vetula,Queen triggerfish,BALIVE,44.13,0.14,-1.8,1.15,0.0205,3.064,25,28.5
+Brazil,Crassostrea rhizophorae,Mangrove oyster,CRASRH,14.9,0.9,-0.05,2,NA,NA,3,3.42
+Brazil,Lucina pectinata (Phacoides pectinatus),Thick lucine,PHACPE,NA,NA,NA,NA,0.1604011053,3.392294,3,3.78
+Brazil,Anomalocardia brasiliana (Anomalocardia flexuosa),Clam,ANOMFL,2.868,0.61,0,1.498,3e-4,3.1091,1.29,1.47
+Brazil,Cynoscion microlepidotus,Smallscale weakfish,CYNOMI,105.4,0.15,0,0.156,0.00934419485,2.947,26.08,40
+Brazil,Cynoscion virescens,Green weakfish,CYNOVI,96.6,0.32,-0.14,0.74,0.005,3.054,33.5,38.19
+Brazil,Sciades proops,Crucifix sea catfish,SCIAPR,65.155,0.27,-1.2650000000000001,0.7489,0.0057,3.19,35.900000000000006,40.926
+Brazil,Micropogonias furnieri,Whitemouth croaker,MICRFU,74.1,0.14500000000000002,-1.4500000000000002,0.4,0.00673794699,3.177,30,34.2
+Brazil,Sciades parkeri,Gillbacker sea catfish,SCIAPA,119,0.46,0,0.16,0.00612,3.25,50,57
+Brazil,Cynoscion steindachneri,Smalltooth weakfish,CYNOST,113,0.17,-0.69,0.176,NA,NA,58.3,66.46
+Brazil,Cynoscion leiarchus,Smooth weakfish,CYNOLE,44.2,0.35,-0.57,0.4993,0.0044,3.332,25.7,29.3
+Brazil,Carangoides bartholomaei,Yellow jack,CARABA,102.8,0.21,-0.57,0.2187,0.0721,2.659,30,66.8
+Brazil,Scomberomorus brasiliensis,Spanish mackerel,SCOMBR,81.521,0.184,-0.106,0.382,0.00884,2.9465,42,47.88
+Brazil,Ocyurus chrysurus,Yellowtail snapper,OCYUCH,56.71,0.13,-0.773,0.112,0.0328,2.812,20.6,23.484
+Brazil,Callinectes sapidus,Atlantic blue crab,CALLSA,16.0245,1.461,-0.016,NA,0.12785,2.761,10.33,11.2
+Brazil,Mytella guyanensis,Mangrove mussel,MYTEGU,NA,NA,NA,NA,NA,NA,NA,NA
+Brazil,Ucides cordatus,Mangrove crab,UCIDCO,8.149999999999999,0.21000000000000002,0,NA,0.479,2.995,4.195,4.2700000000000005
+Brazil,Coryphaena hippurus,"Dolphinfish, dorado",CORYHI,194.1,0.897,0.0811,0.95,0.0202,2.799,46.7,60.25
+Brazil,Euthynnus alletteratus,Little tunny,EUTHAL,91.5,0.39,-0.4,0.599,0.0072,3.225,42,47.88
+Brazil,Hemiramphus brasiliensis,Ballyhoo,HEMIBR,25.159,3.65,0.048,5.12,0.0054,3.134,18.950000000000003,21.6
+Brazil,Hyporhamphus unifasciatus,Common halfbeak,HYPOUN,30.4,1.46,0.046,2.2,0.00209,3.32,18.25,20.805
+Brazil,Lobotes surinamensis,Tripletail,LOBOSU,58.6,0.68,0,0.29957,0.0107,3.182,45.9,52.33
+Brazil,Lutjanus analis,Mutton snapper,LUTJAN,84.5,0.05,-1.8,0.103,0.018,2.956,24.6,28
+Brazil,Megalops atlanticus,Atlantic tarpon,MEGAAT,234.75,0.372,0.185,0.23044,0.00805,2.935,110,125.4
+Brazil,Panulirus laevicauda,Smoothtail spiny lobster,PANULA,41.2,0.223,0,0.394,1.955e-4,2.7,14,15.959999999999999
+Brazil,Centropomus parallelus,Fat snook,CENTPA,67.9,0.187,-2.48,0.406,0.00542,3.176,23,26.22
+Brazil,Centropomus ensiferus,Swordspine snook,CENTEN,37.8,0.21,-0.64,0.2203,0.0039,3.298,21.8,24.85
+Brazil,Centropomus pectinatus,Tarpon snook,CENTPE,58.1,0.65,-0.21,0.6808,0.0106,2.98,32.1,36.59
+Mozambique,Pomadasys kaakan,Javelin grunter,POMAJA,62.14,0.27,-0.47,0.2,0.0136,3.003,39,44.459999999999994
+Mozambique,Scarus frenatus,Bridled parrotfish,SCARFR,25.9,0.448,0.276,0.32,0.00279,3.06,18,20.52
+Mozambique,Scarus ghobban,Blue-eyed Parrotfish,SCARGH,27.49,0.473,-0.244,0.472,0.0165,3.041,39.22,44.71079999999999
+Mozambique,Scarus rubroviolaceus,Ember parrotfish,SCARRU,30.83,0.431,-0.092,0.387,0.0136,3.019,34.98,39.877199999999995
+Mozambique,Epiniphelus tauvina,Greasy grouper,EPINTA,136.26,0.059,1.68,0.17,0.0082,3.12,53,60.419999999999995
+Mozambique,Lethrinus lentjan,"Pink ear emperor
+",LETHLE,37.27,0.165,-0.254,0.238,0.0206,2.982,20.3,23.142
+Mozambique,Lutjanus argentimaculatus,Mangrove red snapper,LUTJAR,66.59,0.126,2.327,0.158,0.064,2.761,48.64,55.4496
+Mozambique,Lutjanus bohar,Two-spot red snapper,LUTJBO,81.7,0.27,0,0.9105000000000001,0.0162,3.01,42.4,48.33599999999999
+Mozambique,Scomberomorus commerson,Narrow-banded Spanish mackerel,SCOMCO,126.4,0.47,-0.877,0.5,0.01353,3.2515,109.6,124.94399999999999
+Mozambique,Caranx lugubris,Black jack,CARALU,50.8,0.41,0,0.61,0.0105,3.087,36.5,41.61
+Mozambique,Abalistes stellatus,Starry Triggerfish,ABALST,62.2,0.2,-0.69,0.42,0.011,2.712,21.2,24.167999999999996
+Mozambique,Euthynnus affinis,Mackerel tuna,EUTHAF,81.92,0.56,-0.0317,0.93,0.0254,2.889,37.7,42.978
+Mozambique,Gymnocranius grandoculis,Blue-lined large-eye bream,GYMNRO,56.7,0.23,-0.61,0.46,0.0336,2.87,42.4,48.33599999999999
+Mozambique,Lethrinus harak,Thumbprint emperor,LETHHA,28.4,0.509,-0.83,0.79475,0.01195,3.123,2.3,2.6219999999999994
+Mozambique,Lethrinus mahsena,Sky emperor,LETHMA,29.26,0.207,-0.343,0.304,0.0188,3.029,20.14,22.9596
+Mozambique,Siganus sutor,Shoemaker spinefoot,SIGASU,43.28,0.648,-0.379,0.631,0.0328,2.719,20.2,23.028
+Mozambique,Parupeneus heptacanthus,Cinnabar goatfish,PARUHE,44.4,0.21,-0.72,0.51,0.0169,3.07802,25.2,28.727999999999998
+Mozambique,Scomber japonicus,Chub mackerel,SCOMJA,68.01,0.27,-0.9845,0.57,0.0049,3.3112,42,47.879999999999995
+Mozambique,Acanthurus dussimieri,Eyestripe surgeonfish,ACANDU,30.767,0.296,-0.29,0.64,0.0426,2.868,23.2,26.447999999999997
+Mozambique,Polysteganus coeruleopunctatus,Blueskin seabream,POLYCO,35.79,0.202,-2.24,0.268,0.0303,2.568,22.7,25.877999999999997
+Mozambique,Amblygaster sirm,Spotted sardinella,AMBLSI,22.15,1.58,-0.003,2.9,0.004632606657476798,3.123,16.5,18.81
+Mozambique,Bohadschia marmorata,Brown sandfish,BOHAMA,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+Mozambique,Holothuria fuscogilva,White teatfish,HOLOFU,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+Mozambique,Holothuria scabra,Golden Sandfish,HOLOSC,NaN,NaN,NaN,NaN,NaN,NaN,16.8,23
+Mozambique,Panulirus homarus,Scalloped spiny lobster,PANUHO,12.89,0.33,-0.35,0.74,0.18,2.7733,6.34,7.227599999999999
+Mozambique,Perna perna,Brown mussel,PERNPE,NaN,NaN,NaN,NaN,NaN,NaN,3,3.42
+Mozambique,Saccostrea cucullata,Hooded oyster,SACCCU,NaN,NaN,NaN,NaN,NaN,NaN,2.9,3.3059999999999996
+Mozambique,Octopus vulgaris,Common Octopus,OCTOVU,28.3,1.122,0.008,2.5604549,0.3992,2.9246,11.5,13.11
+Mozambique,Terebralia palustris,Giant mangrove whelk,TEREPA,NaN,NaN,NaN,NaN,NaN,NaN,2.9,3.3059999999999996
+Mozambique,Scylla serrata,Giant mudcrab,SCYLSE,31,0.57,-0.019,0.5276327420823718,0.5083092766781421,2.56,12,13.68
+Mozambique,Penaeus indicus,Indian white prawn,PENAIN,22.305,1.9,-0.031450000000000006,3.0999999999999996,41.45856877280316,4.1641,12.84515622572447,14.643478097325895
+Mozambique,Penaeus monodon,Giant tiger prawn,PENAMO,26.8,1.5,0.056,1.9449999999999998,6.027740668775489,3.0027,18.1,20.634
+Mozambique,Loligo spp,Common squid,LOLISP,NaN,NaN,NaN,NaN,NaN,NaN,18.166666666666664,20.709999999999997
+Mozambique,Mactra cuneata,Wedge Trough Shell,MACTCU,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+Mozambique,Panulirus penicillatus,Pronghorn Spiny Lobster,PANUPE,15.950000000000001,0.29000000000000004,-0.85,0.25,0.14400000000000002,2.745,5.75,6.555

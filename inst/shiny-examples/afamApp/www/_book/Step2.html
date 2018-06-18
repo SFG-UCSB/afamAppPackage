@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AFAM Toolkit Guidance Document</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This is the AFAM Guidance Document.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="AFAM Toolkit Guidance Document" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is the AFAM Guidance Document." />
+  <meta name="github-repo" content="SFG-UCSB/afamGuidanceDocument" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="AFAM Toolkit Guidance Document" />
+  
+  <meta name="twitter:description" content="This is the AFAM Guidance Document." />
+  
+
+<meta name="author" content="Gavin McDonald">
+
+
+<meta name="date" content="2018-03-16">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="Step1.html">
+<link rel="next" href="Step3.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">AFAM Toolkit Guidance Document</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="afam-toolkit-overview.html"><a href="afam-toolkit-overview.html"><i class="fa fa-check"></i>AFAM Toolkit Overview</a><ul>
+<li class="chapter" data-level="0.1" data-path="afam-toolkit-overview.html"><a href="afam-toolkit-overview.html#purpose-statement"><i class="fa fa-check"></i><b>0.1</b> Purpose Statement</a></li>
+<li class="chapter" data-level="0.2" data-path="afam-toolkit-overview.html"><a href="afam-toolkit-overview.html#suggested-audience"><i class="fa fa-check"></i><b>0.2</b> Suggested Audience</a></li>
+<li class="chapter" data-level="0.3" data-path="afam-toolkit-overview.html"><a href="afam-toolkit-overview.html#skills-necessary-to-use-toolkit"><i class="fa fa-check"></i><b>0.3</b> Skills Necessary to Use Toolkit</a></li>
+<li class="chapter" data-level="0.4" data-path="afam-toolkit-overview.html"><a href="afam-toolkit-overview.html#toolkit-objectives"><i class="fa fa-check"></i><b>0.4</b> Toolkit Objectives</a></li>
+<li class="chapter" data-level="0.5" data-path="afam-toolkit-overview.html"><a href="afam-toolkit-overview.html#when-to-use-the-toolkit"><i class="fa fa-check"></i><b>0.5</b> When to Use the Toolkit</a></li>
+<li class="chapter" data-level="0.6" data-path="afam-toolkit-overview.html"><a href="afam-toolkit-overview.html#data-necessary-to-use-the-toolkit"><i class="fa fa-check"></i><b>0.6</b> Data Necessary to Use the Toolkit</a></li>
+<li class="chapter" data-level="0.7" data-path="afam-toolkit-overview.html"><a href="afam-toolkit-overview.html#how-this-toolkit-was-developed"><i class="fa fa-check"></i><b>0.7</b> How this Toolkit was Developed</a></li>
+<li class="chapter" data-level="0.8" data-path="afam-toolkit-overview.html"><a href="afam-toolkit-overview.html#how-to-use-this-toolkit"><i class="fa fa-check"></i><b>0.8</b> How to use this toolkit</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="Step1.html"><a href="Step1.html"><i class="fa fa-check"></i><b>1</b> Step 1 – Determine Assessment and Management Tier</a><ul>
+<li class="chapter" data-level="1.1" data-path="Step1.html"><a href="Step1.html#step-1a-fill-out-your-data-inventory"><i class="fa fa-check"></i><b>1.1</b> Step 1a – Fill out your Data Inventory</a></li>
+<li class="chapter" data-level="1.2" data-path="Step1.html"><a href="Step1.html#step-1b-using-your-data-inventory-determine-assessment-and-management-tier"><i class="fa fa-check"></i><b>1.2</b> Step 1b – Using your Data Inventory, Determine Assessment and Management Tier</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="Step2.html"><a href="Step2.html"><i class="fa fa-check"></i><b>2</b> Step 2 – Determine Appropriate Fisheries Management Controls</a><ul>
+<li class="chapter" data-level="2.1" data-path="Step2.html"><a href="Step2.html#Step2a"><i class="fa fa-check"></i><b>2.1</b> Step 2a – Summarize and Qualitatively Assess Any Existing Fisheries Management Controls</a></li>
+<li class="chapter" data-level="2.2" data-path="Step2.html"><a href="Step2.html#Step2b"><i class="fa fa-check"></i><b>2.2</b> Step 2b – Preliminary Selection of New Fisheries Management Controls</a></li>
+<li class="chapter" data-level="2.3" data-path="Step2.html"><a href="Step2.html#Step2c"><i class="fa fa-check"></i><b>2.3</b> Step 2c – Consider Applying Additional Fisheries Management Controls to Better Meet Goals</a></li>
+<li class="chapter" data-level="2.4" data-path="Step2.html"><a href="Step2.html#Step2d"><i class="fa fa-check"></i><b>2.4</b> Step 2d – Consider Implications with Relevant Stakeholders</a></li>
+<li class="chapter" data-level="2.5" data-path="Step2.html"><a href="Step2.html#Step2e"><i class="fa fa-check"></i><b>2.5</b> Step 2e – General Guidance for Setting Effective FMCs for the First Time</a></li>
+<li class="chapter" data-level="2.6" data-path="Step2.html"><a href="Step2.html#case-studies"><i class="fa fa-check"></i><b>2.6</b> Fisheries Management Control Case Studies</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Step3.html"><a href="Step3.html"><i class="fa fa-check"></i><b>3</b> Step 3 – Select Performance Indicators, Reference Points, and Assessment Methods</a><ul>
+<li class="chapter" data-level="3.1" data-path="Step3.html"><a href="Step3.html#Step3a"><i class="fa fa-check"></i><b>3.1</b> Step 3a – Select Performance Indicators</a></li>
+<li class="chapter" data-level="3.2" data-path="Step3.html"><a href="Step3.html#Step3b"><i class="fa fa-check"></i><b>3.2</b> Step 3b – Select Reference Points</a></li>
+<li class="chapter" data-level="3.3" data-path="Step3.html"><a href="Step3.html#Step3c"><i class="fa fa-check"></i><b>3.3</b> Step 3c – Select Assessment Methods</a></li>
+<li class="chapter" data-level="3.4" data-path="Step3.html"><a href="Step3.html#assessment-method-descriptions"><i class="fa fa-check"></i><b>3.4</b> Assessment Method Descriptions</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="Step4.html"><a href="Step4.html"><i class="fa fa-check"></i><b>4</b> Step 4 – Define Harvest Control Rules</a><ul>
+<li class="chapter" data-level="4.1" data-path="Step4.html"><a href="Step4.html#step-4a-define-general-harvest-control-rules-for-all-possible-interpretations"><i class="fa fa-check"></i><b>4.1</b> Step 4a – Define General Harvest Control Rules for All Possible Interpretations</a></li>
+<li class="chapter" data-level="4.2" data-path="Step4.html"><a href="Step4.html#step-4b-add-specificity-to-harvest-control-rules"><i class="fa fa-check"></i><b>4.2</b> Step 4b – Add Specificity to Harvest Control Rules</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="Step5.html"><a href="Step5.html"><i class="fa fa-check"></i><b>5</b> Step 5 - Perform Assessment Methods</a><ul>
+<li class="chapter" data-level="5.1" data-path="Step5.html"><a href="Step5.html#installling-the-dashboard-from-the-internet"><i class="fa fa-check"></i><b>5.1</b> Installling the dashboard from the internet</a></li>
+<li class="chapter" data-level="5.2" data-path="Step5.html"><a href="Step5.html#installling-the-dashboard-from-a-local-file-on-your-computer"><i class="fa fa-check"></i><b>5.2</b> Installling the dashboard from a local file on your computer</a></li>
+<li class="chapter" data-level="5.3" data-path="Step5.html"><a href="Step5.html#running-the-afam-toolkit-dashboard-does-not-require-internet"><i class="fa fa-check"></i><b>5.3</b> Running the AFAM Toolkit Dashboard (does not require internet)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="Step6.html"><a href="Step6.html"><i class="fa fa-check"></i><b>6</b> Step 6 – Interpret assessment results</a><ul>
+<li class="chapter" data-level="6.1" data-path="Step6.html"><a href="Step6.html#step-6a---determine-the-most-likely-possible-interpretation-for-each-performance-indicator"><i class="fa fa-check"></i><b>6.1</b> Step 6a - Determine the Most Likely Possible Interpretation for Each Performance Indicator</a></li>
+<li class="chapter" data-level="6.2" data-path="Step6.html"><a href="Step6.html#step-6b-verify-assessment-result-and-interpretation"><i class="fa fa-check"></i><b>6.2</b> Step 6b – Verify Assessment Result and Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Step7.html"><a href="Step7.html"><i class="fa fa-check"></i><b>7</b> Step 7 – Adjust Fisheries Management Controls Using Defined Harvest Control Rules</a></li>
+<li class="chapter" data-level="8" data-path="Step8.html"><a href="Step8.html"><i class="fa fa-check"></i><b>8</b> Step 8 – Complete Your Fishery Management Plan</a><ul>
+<li class="chapter" data-level="8.1" data-path="Step8.html"><a href="Step8.html#fishery-management-plan-template"><i class="fa fa-check"></i><b>8.1</b> Fishery Management Plan Template</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="Glossary.html"><a href="Glossary.html"><i class="fa fa-check"></i><b>9</b> Glossary</a></li>
+<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
+<li class="chapter" data-level="11" data-path="afam-toolkit-worksheet.html"><a href="afam-toolkit-worksheet.html"><i class="fa fa-check"></i><b>11</b> AFAM Toolkit Worksheet</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">AFAM Toolkit Guidance Document</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Step2" class="section level1">
+<h1><span class="header-section-number">2</span> Step 2 – Determine Appropriate Fisheries Management Controls</h1>
+<p><em>What fisheries management controls are appropriate for your fishery?</em></p>
+<div class="figure"><span id="fig:Step2"></span>
+<img src="myMediaFolder/media/Step2.png" alt="Step 2" />
+<p class="caption">Figure 2.1: Step 2</p>
+</div>
+<div id="Step2a" class="section level2">
+<h2><span class="header-section-number">2.1</span> Step 2a – Summarize and Qualitatively Assess Any Existing Fisheries Management Controls</h2>
+<p>As an important first step, summarize any existing fisheries management controls that may affect your site. If there are no existing FMCs, skip to <a href="Step2.html#Step2b">Step 2b</a>.</p>
+<p>Qualitatively assess how existing fisheries management controls are performing. This will help determine whether or not these controls are appropriate, or if other or additional controls should be used instead. Think about the following considerations:</p>
+<ul>
+<li><p><strong>Who mandates this FMC?</strong> Is it locally mandated (in which case it could potentially be modified or removed), or is it mandated by a higher body (such as a regional or national body – this may make the FMC more difficult to modify or remove)? This can help frame a discussion around whether or not this FMC could be modified or removed.</p></li>
+<li><p><strong>What is the cost of this FMC?</strong> Does it require expensive data collection or enforcement?</p></li>
+<li><p><strong>What is the level of compliance with this FMC?</strong></p></li>
+<li><p><strong>What is public attitude towards this FMC?</strong></p></li>
+<li><p><strong>Are current FMCs helping the fishery reach its goals?</strong> You may use Table <a href="Step2.html#tab:fmcs-bio">2.2</a>, Table <a href="Step2.html#tab:fmcs-eco">2.3</a>, and Table <a href="Step2.html#tab:fmcs-social">2.4</a> to see common goals of many FMCs and determine if the goals of your fishery are being met.</p></li>
+<li><p><strong>What are other implementation pros/cons</strong>?</p></li>
+</ul>
+<p>Based on this qualitative assessment, you may be happy with the current set of FMCs in which case you can skip to <a href="Step2.html#Step2c">Step 2c</a>. Alternatively, if the FMCs are not performing as your community may wish, proceed to <a href="Step2.html#Step2b">Step 2b</a> to explore selecting different FMCs. Either way, you will quantitatively assess how well FMCs are doing in terms of fisheries performance in <a href="Step5.html#Step5">Step 5</a> by performing data-limited assessments using any available data. Based on this quantitative evaluation, you may wish to change FMCs during the next iteration of the AFAM cycle.</p>
+</div>
+<div id="Step2b" class="section level2">
+<h2><span class="header-section-number">2.2</span> Step 2b – Preliminary Selection of New Fisheries Management Controls</h2>
+<p>Fisheries managers have a number of different fisheries management controls (FMCs) to choose from to manage their fishery goals. Many FMCs are designed with the primary objective of limiting fishing mortality such as catch limits; however, other FMCs are designed to protect certain biological or ecological functions in an ecosystem such as seasonal closures to protect spawning aggregations. Descriptions of commonly used FMCs are listed in Table <a href="Step2.html#tab:fmcs">2.1</a>. This table also includes data requirements and enforcement considerations for the implementation of each FMC. Additionally, <a href="Step2.html#case-studies">case studies</a> are presented below for each FMC that describe situations where the FMC has been implemented in a small-scale fishery. These case studies present some of the opportunities, challenges, and implications these different FMCs bring to small-scale fisheries.</p>
+<p>To select a list of preliminary fisheries management controls, use the six questions in the decision tree below (Figure <a href="Step2.html#fig:decision-tree">2.2</a>) as a general guide and first step to determine what FMCs may be appropriate for your fishery. However, conditions occurring in your specific fishery must be carefully considered as well as the community goals for management. Additionally, while this figure is one tool for helping select the type of FMC (i.e., minimum size limit) it does no provide guidance on the specific FMC that should be implemented (i.e., what that minimum size limit should be) <a href="Step2.html#Step2c">Steps 2c</a> and <a href="Step2.html#Step2d">2d</a> are designed to guide additional considerations when determining appropriate and specific FMCs.</p>
+<div class="figure"><span id="fig:decision-tree"></span>
+<img src="myMediaFolder/media/FMCs.png" alt="Decision tree to help identify potentially appropriate Fisheries Management Control(s)" />
+<p class="caption">Figure 2.2: Decision tree to help identify potentially appropriate Fisheries Management Control(s)</p>
+</div>
+</div>
+<div id="Step2c" class="section level2">
+<h2><span class="header-section-number">2.3</span> Step 2c – Consider Applying Additional Fisheries Management Controls to Better Meet Goals</h2>
+<p>There is no prescriptive method for determining the ‘perfect’ combination of FMCs for every site because the most appropriate FMCs will greatly depend on the specific conditions and characteristics of the fishery and surrounding community. The following 6 steps, along with the information in in Table <a href="Step2.html#tab:fmcs-bio">2.2</a>, Table <a href="Step2.html#tab:fmcs-eco">2.3</a>, and Table <a href="Step2.html#tab:fmcs-social">2.4</a>, can serve as a guide to help identify a set of FMCs that may be effective at meeting your site’s management goals.</p>
+<ol style="list-style-type: decimal">
+<li><p>Find the FMC(s) that were either existing (<a href="Step2.html#Step2a">Step 2a</a>) or newly selected (<a href="Step2.html#Step2b">Step 2b</a>) in Table <a href="Step2.html#tab:fmcs-bio">2.2</a>, Table <a href="Step2.html#tab:fmcs-eco">2.3</a>, and Table <a href="Step2.html#tab:fmcs-social">2.4</a>. These tables describe potential negative or positive impacts of each FMC on common biological, ecological, and socioeconomic fishery management objectives.</p></li>
+<li><p>Identify which of the management objectives in the first row of Table <a href="Step2.html#tab:fmcs-bio">2.2</a>, Table <a href="Step2.html#tab:fmcs-eco">2.3</a>, and Table <a href="Step2.html#tab:fmcs-social">2.4</a> align with the site’s management goals.</p></li>
+<li><p>Review the potential impact of each FMC being considered for your site on each of your management objectives.</p></li>
+<li><p>Determine if the preliminary selection of FMC(s) will conflict with or fail to accomplish any of your site’s management goals. For example, a catch limit may have been identified as an appropriate FMC to control harvest at a site but additional management goals of the site may be to protect habitat and reduce bycatch. Table <a href="Step2.html#tab:fmcs-eco">2.3</a> shows that implementing a catch limit may result in an increase in bycatch rates and increased habitat damage if implemented without any other FMCs.</p></li>
+<li><p>Use Table <a href="Step2.html#tab:fmcs-bio">2.2</a>, Table <a href="Step2.html#tab:fmcs-eco">2.3</a>, and Table <a href="Step2.html#tab:fmcs-social">2.4</a> to identify FMC(s) that are associated with positive impacts on the sites management objectives. FMC(s) identified here can be chosen in combination with FMC(s) identified in <a href="Step2.html#Step2a">Step 2a</a> to meet multiple management objectives. For example, in some fisheries, combining gear restrictions with catch limits may be effective at controlling harvest, and reducing bycatch and habitat damage.</p></li>
+<li><p>In Table <a href="Step2.html#tab:fmcs-bio">2.2</a>, Table <a href="Step2.html#tab:fmcs-eco">2.3</a>, and Table <a href="Step2.html#tab:fmcs-social">2.4</a>, some FMCs have similar impacts across management objectives and it may be unclear which FMC is most appropriate for your site. To determine the most appropriate FMC(s) for your site, consider the “ease of implementation” for each FMC listed in Table <a href="Step2.html#tab:fmcs">2.1</a> and how it aligns with the specific conditions and characteristics the site.</p></li>
+</ol>
+</div>
+<div id="Step2d" class="section level2">
+<h2><span class="header-section-number">2.4</span> Step 2d – Consider Implications with Relevant Stakeholders</h2>
+<p>Before finalizing which FMC(s)will be implemented at your site, consider how fishers (as well as other stakeholders such as middlemen, enforcement organizations, etc.) may respond to this management control by considering the following questions:</p>
+<ul>
+<li><p>What management methods have successfully been implemented in the past?</p></li>
+<li><p>Can this management method be effectively implemented and enforced?</p></li>
+<li><p>Is this method socially and politically feasible, and will fishers comply with it?</p></li>
+</ul>
+<p>The ability of the selected FMCs to meet the stated community objectives should be discussed will all relevant stakeholders, along with any potential tradeoffs of implementing the selected FMC(s).</p>
+<p>Additionally, prior to implementing FMC(s), any existing social survey data should be reviewed. Social survey data can be used to provide insight into individual attitudes towards fishery management in your community. Any information on enforcement should also be reviewed to gain a better understanding of the likelihood of compliance with implementation of new FMCs.</p>
+</div>
+<div id="Step2e" class="section level2">
+<h2><span class="header-section-number">2.5</span> Step 2e – General Guidance for Setting Effective FMCs for the First Time</h2>
+<p><strong><em>Note – This step is only applicable when developing your Adaptive Fisheries Assessment and Management Framework for the first time. In following years, you will use harvest control rules (defined later) to adaptively adjust these initial controls.</em></strong></p>
+<p>Once you have finalized your list of FMCs that will be implemented in your community, you will need to define the specifics of the FMC for the first time. For example, what will your catch limit actually be? The specifics will depend on the status of your site’s resources, the population dynamics of the targeted species at the site, and your site’s specific management objectives. If you believe target species are depleted, if little information is available, and/or if enforcement or compliance is low, we recommend taking a precautionary approach using the following suggestions:</p>
+<ul>
+<li><p><strong>Catch Limit</strong> - Set annual catch limit at or below the previous year’s total catch</p></li>
+<li><p><strong>Bag or Trip Limit</strong> - Divide the previous year’s catch by the number of fishers participating in the fishery. Set the Bag or trip limit at that level or below</p></li>
+<li><p><strong>Size limit</strong> - Set a minimum size limit above the minimum size at maturity. A maximum size limit may also be set to protect <em>megaspawners</em>.</p></li>
+<li><p><strong>Temporal limits</strong> – Close the fishery during biologically sensitive times or during times (or areas) when the catchability of species greatly increases (such as Spawning aggregations).</p></li>
+<li><p><strong>Vessel/gear restrictions</strong> - Gear and vessel restrictions should be set that minimize the impact of the fishery on habitat. Gear dimensions should also be set that reduce bycatch. For example, small mesh size in nets may be prohibited to reduce the landings of individuals below reproductive maturity.</p></li>
+<li><p><strong>Deployment Limits</strong> - Initial deployment limits may be set to restrict the number of gears being used to the same number of gears that were used in the previous year or below.</p></li>
+<li><p><strong>Sex specific</strong> - Ban the take of females that are egg-bearing or the take of females during a biologically sensitive period.</p></li>
+<li><p><strong>Protection of Ecologically Important Species</strong> - Restrict fishing of specific species in order to protect key ecological function, such as herbivorous parrotfish that control macroalgae cover.</p></li>
+</ul>
+<table style="width:97%;">
+<caption><span id="tab:fmcs">Table 2.1: </span> Descriptions and implementation considerations for different fisheries management controls</caption>
+<colgroup>
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Fisheries Management Control</strong></th>
+<th><strong>Primary Objective</strong></th>
+<th><strong>Descripti on</strong></th>
+<th><strong>Minimum Data Requirement s</strong></th>
+<th><strong>Enforceme nt</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Catch Limit</p></td>
+<td><p>Limit fishing mortality</p></td>
+<td><p>Sets an upper limit on how many fish can be removed by a fishery in a given time. This can be for an entire fishery or can be allocated to individuals or groups of individuals (such as a fisher association ). Limits can be set for individual species or groups of species (also known as a “quota basket). If set correctly and fishers’ incentives are aligned, catch limits are the most direct way of managing fishing mortality. Catch limits can be set on the species basis but also aggregate level based on similar life history traits and vulnerabili ty. If the incentives are not aligned and rights are not allocated, catch limits can perpetuate the race to fish that may lead to safety issues and destructive fishing practices (gear lost, highgrading , etc.)</p>
+<p>Need at least one year’s worth of catch and effort data to know where to set the limit.</p></td>
+<td><p>A time series of catch and effort data; information on the stock’s productivit y (length-bas ed DLSA methods can be used for proxies); life history information</p></td>
+<td><p>Catch limits (individual or group allocated) can be enforced if landings are relatively centralized but may be more difficult if landing sites are more dispersed. Any catch limit program will have associated monitoring costs for implementat ion to be effective.</p></td>
+</tr>
+<tr class="even">
+<td><p>Bag or Trip Limit</p></td>
+<td><p>Limit fishing mortality</p></td>
+<td><p>Limits the number or weight of fish that can be landed by an individual fisher or vessel on a single day or fishing trip. If no illegal discarding is occurring, than bag limits and trip limits based on number of fish allowed to catch can directly control fishing mortality. Can perpetuate high grading and illegal discarding.</p></td>
+<td><p>Time series of catch and effort data, information on the stock’s productivit y (length-bas ed DLSA methods can be used for proxies), and total number of fishermen participati ng in a fishery</p></td>
+<td><p>Can be enforced if landings are relatively centralized but may be more difficult if landing sites are more dispersed. Monitoring for every vessel or individual in a fishery will result in significant implementat ion costs.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Size Limit</p></td>
+<td><p>Limit fishing mortality</p></td>
+<td><p>Sets minimum and/or maximum bounds on the size of fish that can be legally landed in a fishery. Size limits can protect age-structu re by controlling the size selectivity of the fishery to ensure fish have the opportunity to spawn before being caught. However, the biology of the species must be considered carefully because size limits can result in unintended, negative consequence s. Size limits don’t directly control fishing mortality and may cause size truncation over time by removing the largest individuals from a fishery</p></td>
+<td><p>Size at maturity and/or size of megaspawner s; discard mortality rates for targeted species are helpful</p></td>
+<td><p>Can be enforced if landings are relatively centralized but may be more difficult if landing sites are more dispersed. Monitoring is straightfor ward and does not have many associated implementat ion costs.</p></td>
+</tr>
+<tr class="even">
+<td><p>Temporal Limit</p></td>
+<td><p>Limit fishing mortality</p></td>
+<td><p>Restricts the time period over which a fish can be legally landed. If fishing mortality doesn’t increase before or after the closure, temporary closures allow marine resources to increase without disturbance to ensure fish grow bigger and new recruits enter the fishery. Perpetuates the race to fish before and after the closure. Increases fishing effort before and after the closure. Doesn’t directly manage fishing mortality.</p></td>
+<td><p>Temporal dynamics of fishing effort; temporal characteris tics or behavior of target species; information on the relationshi p between catch and effort is helpful</p></td>
+<td><p>Can be enforced if landings are relatively centralized but may be more difficult if landing sites are more dispersed. Temporal limits are more straightfor ward to monitor if the limit covers all species, but may be more difficult if the limit only covers a certain species in the fishery.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Gear Restriction s – Gear Type</p></td>
+<td><p>Limit fishing mortality</p></td>
+<td><p>Restricts the type of fishing gear allowed to participate in a fishery (including banning destructive fishing gear such as dynamite, cyanide, and fine mesh nets) but doesn’t directly manage fishing mortality.</p></td>
+<td><p>Information on the relationshi p between gear characteris tics, fishing effort, and selectivity . If only banning destructive fishing gear, no data is required.</p></td>
+<td><p>Gear restriction s are relatively straightfor ward to enforce however, gathering information required for an effective implementat ion can be costly<em>.</em> If only banning destructive fishing gear, there are low upfront costs but ongoing monitoring costs should be considered.</p></td>
+</tr>
+<tr class="even">
+<td><p>Gear Restriction s – Gear Number (also known as Deployment Limits)</p></td>
+<td><p>Limit fishing mortality</p></td>
+<td><p>Places a cap on the number of gears each fisher can use (such as the number of fixed traps or the number of hooks on a line). Does not directly manage fishing mortality. Can reduce the number of gear in the water thus decreasing habitat impacts..</p></td>
+<td><p>Current fishing effort levels in terms of number of gears; information on the relationshi p between catch and effort is helpful</p></td>
+<td><p>The ease and cost of enforcement will depend on how easily fishing gears can be observed.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Sex-Specifi c Controls</p></td>
+<td><p>Limit fishing mortality</p></td>
+<td><p>Protect reproductiv ely important individuals by setting sex-specifi c prohibition s on fishing activity.</p></td>
+<td><p>Information on reproductiv e traits and sex ratios</p></td>
+<td><p>Sex-specifi c controls are straightfor ward to enforce if there are obvious differences between the sexes. Monitoring costs will depend on how easily the catch can be observed.</p></td>
+</tr>
+<tr class="even">
+<td><p>Seasonal Closures to Protect Vulnerable Life History Stages</p></td>
+<td><p>Protect vulnerable life history stages</p></td>
+<td><p>Protect vulnerable life history stages by restricting the fishery during certain seasons. Seasonal spawning closures allow spawning to occur without disruption to ensure recruits enter the fishery. Perpetuates the race to fish before and after closure. Increases fishing effort before and after the closure. Doesn’t directly manage fishing mortality.</p></td>
+<td><p>Information on seasonal behavior such as spawning aggregation s and migrations, and the temporal and spatial variability of these behaviors</p></td>
+<td><p>Can be enforced if landings are relatively centralized but may be more difficult if landing sites are more dispersed. Seasonal closures are more straightfor ward to monitor if the closure covers all species, but may be more difficult if the closure only covers a certain species in the fishery.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Protection of Ecologicall y Important Species</p></td>
+<td><p>Protect ecological function</p></td>
+<td><p>Restrict fishing of specific species in order to protect key ecological functions. Does not directly control fishing mortality.</p></td>
+<td><p>Information on ecological interaction s and roles</p></td>
+<td><p>Protection of ecologicall y important species can be straightfor ward but monitoring costs will depend on how easily the species and fishery catch can be observed.</p></td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:fmcs-bio">Table 2.2: </span> Effectiveness of different fisheries management controls in meeting biological objectives</caption>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Fisheries Management Control</strong></th>
+<th><strong>Protect Spawning Stock Biomass (SSB)</strong></th>
+<th><strong>Protect Age-Structure</strong></th>
+<th><strong>Protect Vulnerable Life History Stages</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Catch Limit</p></td>
+<td><p>Catch limits directly protect SSB</p></td>
+<td><p>Catch limits do not directly protect age-structure and may have a negative impact on the age-structure because fishers are choosing an overall quantity indiscriminate of size or age.</p></td>
+<td><p>Catch limits do not directly protect vulnerable life history stages</p></td>
+</tr>
+<tr class="even">
+<td><p>Bag or Trip Limit</p></td>
+<td><p>Bag or trip limits do not directly protect SSB because a increase in total fishing effort can still occur</p></td>
+<td><p>Bag or trip limits do not directly protect age-structure and may incentivize fishers to choose larger and more valuable fish than they would otherwise catch, which may have a negative impact on age structure</p></td>
+<td><p>Bag or trip limits do not directly protect vulnerable life history stages</p></td>
+</tr>
+<tr class="odd">
+<td><p>Size Limit</p></td>
+<td><p>Size limits do not directly protect SSB because they do not control total harvest of a stock</p></td>
+<td><p>Size limits can protect age-structure by controlling the size selectivity of the fishery if discard mortality rates are low. However, the biology of the species must be considered carefully because size limits can result in unintended, negative consequences such as size structure truncation.</p></td>
+<td><p>Size limits may protect vulnerable life history stages if those stages are associated with a certain size.</p></td>
+</tr>
+<tr class="even">
+<td><p>Temporal Limit</p></td>
+<td><p>Temporal limits do not directly protect SSB because they do not control total harvest of a stock</p></td>
+<td><p>Temporal limits do not protect age-structure and may have a negative impact on the age-structure because fishers may race to catch as much fish as they can, while they can, indiscriminate of size or age.</p></td>
+<td><p>Temporal limits can be designed to protect vulnerable life history stages associated with the timeframe of the limit.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Gear Restrictions – Gear Type</p></td>
+<td><p>Gear type restrictions do not directly protect SSB because they do not control total harvest of a stock</p></td>
+<td><p>Gear type restrictions can be implemented to protect age-structure by modifying selectivity to allow individuals of a specific size to escape harvest.</p></td>
+<td><p>Gear type restrictions may protect vulnerable life history stages</p></td>
+</tr>
+<tr class="even">
+<td><p>Gear Restrictions – Gear Number (also known as Deployment Limits)</p></td>
+<td><p>Gear number restrictions do not directly protect SSB because an increase in effort may occur if new fishers join the fishery</p></td>
+<td><p>Gear number restrictions do not directly protect age structure</p></td>
+<td><p>Gear number restrictions do not directly protect vulnerable life history stages</p></td>
+</tr>
+<tr class="odd">
+<td><p>Sex-Specific Controls</p></td>
+<td><p>Sex-specific controls protect the spawning biomass of the sex targeted by the regulation</p></td>
+<td><p>Sex-specific controls do not protect age-structure and may have negative consequences for age-structure because fishers may target the largest individuals of the sex that is not protected</p></td>
+<td><p>Sex-specific controls may protect a vulnerable life stage if that occurs for a specific sex</p></td>
+</tr>
+<tr class="even">
+<td><p>Seasonal Closures to Protect Vulnerable Life History Stages</p></td>
+<td><p>Seasonal closures protect spawning biomass during specific seasons</p></td>
+<td><p>Seasonal closures do not directly protect age-structure</p></td>
+<td><p>Seasonal closures protect seasonal vulnerable life history stages</p></td>
+</tr>
+<tr class="odd">
+<td><p>Protection of Ecologically Important Species</p></td>
+<td><p>Protection of ecologically important species protects the SSB of the species of interest but does not directly protect SSB of other target species</p></td>
+<td><p>Protection of ecologically important species protects the age-structure of the protected population but does not directly protect age-structure of other target species</p></td>
+<td><p>Protection of ecologically important species does not directly protect vulnerable life history stages</p></td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:fmcs-eco">Table 2.3: </span> Effectiveness of different fisheries management controls in meeting ecological objectives</caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Fisheries Management Control</strong></th>
+<th><strong>Protect Habitat</strong></th>
+<th><strong>Reduce Bycatch and/or Discards</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Catch Limit</p></td>
+<td><p>Catch limits do not protect habitat and may have a negative impact on habitat unless the use of excessive gear that could damage habitat is mitigated by an individual allocation that stops the race to fish.</p></td>
+<td><p>Bycatch can often increase under a catch limit if there is not a limit for bycatch species along with target species and/or if a single-species catch limit has been reached in a multi-species fishery.</p></td>
+</tr>
+<tr class="even">
+<td><p>Bag or Trip Limit</p></td>
+<td><p>Bag or trip limits do not directly protect habitat</p></td>
+<td><p>Bag or trip limits often result in an increase in bycatch and/or discards because of the incentives to catch the largest and highest value fish, and/or if a single-species catch limit has been reached in a multi-species fishery</p></td>
+</tr>
+<tr class="odd">
+<td><p>Size Limit</p></td>
+<td><p>Size limits do not directly protect habitat</p></td>
+<td><p>Bycatch and/or discards can increase under a size limit because under- or over-sized individuals must be discarded. High discard mortality rates can result in size-limits having unintended, negative consequences. Discard mortality may be less of a problem for invertebrates, however.</p></td>
+</tr>
+<tr class="even">
+<td><p>Temporal Limit</p></td>
+<td><p>Temporal limits do not protect habitat and may have a negative impact if excessive gear is set during the race-to-fish and is lost or abandoned</p></td>
+<td><p>Temporal limits can be designed to reduce bycatch if a fishery interaction with a bycatch species is seasonal. Temporal limits not designed to reduce bycatch may cause an increase in bycatch because fishers are less selective during the race-to-fish</p></td>
+</tr>
+<tr class="odd">
+<td><p>Gear Restrictions – Gear Type</p></td>
+<td><p>Gear type restrictions do not directly protect habitat but can be designed to reduce the impact a fishery has on habitat</p></td>
+<td><p>Gear type restrictions may reduce bycatch by improving selectivity in a fishery</p></td>
+</tr>
+<tr class="even">
+<td><p>Gear Restrictions – Gear Number (also known as Deployment Limits)</p></td>
+<td><p>Gear number do not directly protect habitat</p></td>
+<td><p>Gear number restrictions do not directly reduce bycatch</p></td>
+</tr>
+<tr class="odd">
+<td><p>Sex-Specific Controls</p></td>
+<td><p>Sex-specific controls do not directly protect habitat</p></td>
+<td><p>Sex-specific controls can increase discards because individuals of the protected sex must be returned to sea and depending on the species may not survive</p></td>
+</tr>
+<tr class="even">
+<td><p>Seasonal Closures to Protect Vulnerable Life History Stages</p></td>
+<td><p>Seasonal closures do not directly protect habitat and may have a negative impact on habitat if excessive gear is set during the race-to-fish and is lost or abandoned</p></td>
+<td><p>Seasonal closures do not reduce bycatch and can increase bycatch and discards during the race to fish</p></td>
+</tr>
+<tr class="odd">
+<td><p>Protection of Ecologically Important Species</p></td>
+<td><p>Protection of ecologically important species may protect the habitat if the species of interest plays an important role in maintaining ecosystem health</p></td>
+<td><p>Protection of ecologically important species can increase discards because individuals of the protected species can be discarded to avoid enforcement penalties.</p></td>
+</tr>
+</tbody>
+</table>
+<table style="width:97%;">
+<caption><span id="tab:fmcs-social">Table 2.4: </span> Effectiveness of different fisheries management controls in meeting socioeconomic objectives</caption>
+<colgroup>
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Fisheries Management Control</strong></th>
+<th><strong>Increase Fisher Profits</strong></th>
+<th><strong>Increase Product Quality</strong></th>
+<th>**Maintain Fishing Efficiency<em> </em></th>
+<th><strong>Fisher Safety</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Catch Limit</p></td>
+<td><p>Catch limits that are not allocated at an individual level often cause a <strong>short-ter m</strong> decrease in fisher profits because the race-to-fis h incentivize s capital stuffing and may cause market flooding. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fisher profits. Effects from the race-to-fis h and capital stuffing may be reduced in the case of individuall y allocated limits.</p></td>
+<td><p>If market flooding occurs, product may be frozen or spoil, decreasing the product value. Eliminating market flooding by eliminating the race-to-fis h through individual allocation of catch limits can increase product quality.</p></td>
+<td><p>Catch limits do not directly impact <strong>short-ter m</strong> fishing efficiency. Individual allocation of catch limits can increase fishing efficiency as the race-to-fis h is stopped and fishers have more control over when to fish. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fishing efficiency.</p></td>
+<td><p>Catch limits may have a negative impact on the safety of fishing because during the race-to-fis h, fishers may continue fishing even if fishing conditions become unsafe. Individual allocation of catch limits can have a positive impact on fisher safety since they can eliminate the race-to-fis h.</p></td>
+</tr>
+<tr class="even">
+<td><p>Bag or Trip Limit</p></td>
+<td><p>Bag limits often cause a <strong>short-ter m</strong> decrease in fisher profits, because fishers are incentivize d to take more trips to maintain landings, increasing fishing costs. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fisher profits.</p></td>
+<td><p>Product quality may increase under bag or trip limits because there is an incentive to catch the biggest and highest value/quali ty fish.</p></td>
+<td><p>Bag or trip limits fishers do not directly impact <strong>short-ter m</strong> fishing efficiency. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fishing efficiency.</p></td>
+<td><p>Bag or trip limits may have a negative impact on safety if increasing the number of fishing trips means that they will need to fish in bad weather</p></td>
+</tr>
+<tr class="odd">
+<td><p>Size Limit</p></td>
+<td><p>Size limits do not increase <strong>short-ter m</strong> fisher profits and may cause a decrease in landings revenue if a large portion of landings is over or undersized and needs to be discarded. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fisher profits.</p></td>
+<td><p>Size limits can be implemented to increase product quality if the quality of the product is related to its size</p></td>
+<td><p>Size limits do not directly impact <strong>short-ter m</strong> fishing efficiency. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fishing efficiency.</p></td>
+<td><p>Size limits do not have a direct impact on the fisher safety</p></td>
+</tr>
+<tr class="even">
+<td><p>Temporal Limit</p></td>
+<td><p>Fishers often begin targeting other, less valuable species when a fishery is closed due to a temporal limit, causing <strong>short-ter m</strong> fisher profits to decrease. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fisher profits.</p></td>
+<td><p>Fishers often become less selective during the race-to -fish, resulting in a decrease in product quality</p></td>
+<td><p>Temporal limits do not directly impact <strong>short-ter m</strong> fishing efficiency. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fishing efficiency.</p></td>
+<td><p>Temporal limits may have a negative impact on the safety of fishing because during the race-to-fis h, fishers continue fishing even if fishing conditions become unsafe</p></td>
+</tr>
+<tr class="odd">
+<td><p>Gear Restriction s – Gear Type</p></td>
+<td><p>Gear type restriction s incentivize fishers to invest and improve in unregulated dimensions of gear, increasing fishing costs and reducing <strong>short-ter m</strong> fisher profits. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fisher profits.</p></td>
+<td><p>Gear type restriction s can be designed to increase product quality in a fishery by improving selectivity of higher value individuals</p></td>
+<td><p>Gear type restriction s reduce <strong>short-ter m</strong> fishing efficiency. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fishing efficiency.</p></td>
+<td><p>Gear type restriction s do not typically have a direct impact on fisher safety (unless banning destructive fishing gear that can have unintended negative impacts on fisher, such as dynamite).</p></td>
+</tr>
+<tr class="even">
+<td><p>Gear Restriction s – Gear Number (also known as Deployment Limits)</p></td>
+<td><p>Gear number restriction s do not directly impact <strong>short-ter m</strong> profits but may help stabilize fishing costs. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fisher profits.</p></td>
+<td><p>Gear number restriction s do not have an impact on product quality</p></td>
+<td><p>Gear number restriction s may reduce <strong>short-ter m</strong> fishing efficiency. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fishing efficiency.</p></td>
+<td><p>Gear number restriction s do not have a direct impact on fisher safety</p></td>
+</tr>
+<tr class="odd">
+<td><p>Sex-Specifi c Controls</p></td>
+<td><p>Sex-specifi c controls may decrease <strong>short-ter m</strong> fisher profits because a portion of the catch must be discarded. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fisher profits.</p></td>
+<td><p>Sex-specifi c controls do not affect product quality unless quality is related to sex</p></td>
+<td><p>Sex-specifi c controls do not directly impact <strong>short-ter m</strong> fishing efficiency. . Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fishing efficiency.</p></td>
+<td><p>Sex-specifi c controls do not have a direct impact on fisher safety</p></td>
+</tr>
+<tr class="even">
+<td><p>Seasonal Closures to Protect Vulnerable Life History Stages</p></td>
+<td><p>Seasonal closures do not increase <strong>short-ter m</strong> fisher profits and may cause a decrease in income because fishers often shift to less valuable species. Once a depleted stock recovers, there may be a <strong>long-term </strong> increase in fisher profits.</p></td>
+<td><p>Seasonal closures can lead to a decrease in product quality as fishers shift to less desirable species</p></td>
+<td><p>Seasonal closures do not directly impact <strong>short-ter m</strong> fishing efficiency. . Once a depleted stock recovers, there may be an additional <strong>long-term </strong> increase in fishing efficiency.</p></td>
+<td><p>Seasonal closure may have a negative impact on fisher safety because during the race-to-fis h, fishers may fish in unsafe conditions</p></td>
+</tr>
+<tr class="odd">
+<td><p>Protection of Ecologicall y Important Species</p></td>
+<td><p>Protection of ecologicall y important species will decrease <strong>short-ter m</strong> fisher profits. Once ecological function improves and other depleted target stocks recover, there may be a <strong>long-term </strong> increase in fisher profits.</p></td>
+<td><p>Protection of ecologicall y important species may increase the product quality of other target species if the protected species is prey for the target species</p></td>
+<td><p>Protection of ecologicall y important species does not directly impact <strong>short-ter m</strong> fishing efficiency. Once a depleted stock recovers, there may be an additional <strong>long-term </strong> increase in fishing efficiency.</p></td>
+<td><p>Protection of ecologicall y important species does not have an impact on fisher safety</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="case-studies" class="section level2">
+<h2><span class="header-section-number">2.6</span> Fisheries Management Control Case Studies</h2>
+<p><strong>Catch Limits</strong></p>
+<p>In the sea cucumber fishery in the Northern District of New Caledonia, fishermen noticed a decline in commercial sized sea cucumber known as sandfish (<em>Holothuria scabra</em>) in the early 2000s. After closing the fishery for a short period of time, they worked with the Fisheries Department in 2008 to set a total allowable catch (TAC) for the fishery, which they then allocated into quotas for individual fishermen. The TAC was set according to the total biomass of legally-sized adult sandfish, taking into account both abundance and body size. This harvestable biomass was calculated through sampling of the sandfish population and was re-assessed periodically. After implementing the TAC, there was an increase in total sandfish biomass and a 142% increase in the number of individuals. There was also an increase in the mean weight of sandfish and the density of individuals. Due to the increases in the sandfish population, the fishermen were able to raise the TAC in subsequent years. They also combined the use of the TAC with a cycle of open and closed periods of fishing.</p>
+<p><em>Leopold, M., Cornuet, N., Andrefouet, S., Moenteapo, Z., Duvauchelle, C., Raubani, J., Ham, J., &amp; Dumas, P. (2013). Comanaging small-scale sea cucumber fisheries in New Caledonia and Vanuatu using stock biomass estimates to set spatial catch quotas. Environmental Conservation 40(4), 367-379.</em></p>
+<p><strong>Bag/Trip Limits</strong></p>
+<p>In the recreational gag <em>(Mycteroperca microlepis</em>) fishery in the Gulf of Mexico, bag limits are used to prevent recruitment overfishing. However, discard mortality rates reduce the efficiency of the fishery.</p>
+<p><em>Tetzlaff, J.C., Pine, W.E., Allen, M.S., &amp; Ahrens, R.N.M. (2013). Effectiveness of size limits and bag limits for managing recreational fisheries: a case study of the Gulf of Mexico recreational gag fishery. Bulletin of Marine Science 89(2), 483-502.</em></p>
+<p><strong>Size Limits</strong></p>
+<p>1. In Puerto Rico’s spiny lobster (<em>Panulirus argus</em>) fishery, landings, catch per unit effort, and average body size all increased from 1988-2001, potentially as a result of the implementation of a minimum size limit (Matos-Caraballo et al., 2007).</p>
+<p><em>Matos-Caraballo, D. (2007). Overview of Puerto Rico’s small-scale fisheries statistics 2001-2004. Proceedings of the Gulf and Caribbean Fisheries Institute 58: 95–106.</em></p>
+<p>2. Belize’s queen conch fishery is managed by a variety of regulations, including a prohibition on fishing with scuba equipment, marine reserves that protect nursery, feeding, and mating grounds, a quota system, and a minimum size limit. The minimum size limit was introduced in 2000 and establishes a minimum shell length of 7 inches and a minimum weight of 3 ounces of partially processed meat. As a result of these regulations, conch landings increased from 1977 to 2011, as have average conch density and mean shell length. The minimum size was set based on the size at maturity.</p>
+<p><em>Gongora, M. (2012). Belize National Conch Report 2012. CFMC/OSPESCA/WECAFC/CRFM Queen Conch Working Group Meeting. Panama City, Panama, 23 October 2012.</em></p>
+<p><em>Gongora, M., &amp; Carcamo, R. (). Belize. In: Regional Workshop on the Monitoring and Management of Queen Conch,</em> Strombus gigas<em>. FAO Fisheries Report 832. Kingston, Jamaica. pp. 66-76.</em></p>
+<p><em>Huitric, M. (2005). Lobster and conch fisheries of Belize: a history of sequential exploitation. Ecology and Society 10(1), 21.</em></p>
+<p><strong>Temporal Limits</strong></p>
+<p>1. On Ahus Island in Papua New Guinea, the community only allows fishing in six specific areas of their lagoon for a certain number of days each year. The locations of the restricted areas are dictated by tradition. Ecological surveys found that the biomass and average size of target species was much greater in the restricted areas than outside, and harvest days did not affect the overall stock.</p>
+<p><em>Cinner, J.E., Marnane, M.J., &amp; McClanahan, T.R. (2005). Conservation and community benefits from traditional coral reef management at Ahus Island, Papua New Guinea. Conservation Biology 19, 1714-1723.</em></p>
+<p>2. In villages in Madang Province in Papua New Guinea and North Sulawesi, Indonesia, fishers periodically close areas to harvesting and then open them for specified periods of time. Areas managed with periodic closures have higher biomass and average body size of target fish species than unmanaged areas, and both long-lived and short-lived species benefit from periodic closures. Fishers are able to harvest fish for important events without depleting the stock in the periodically harvested areas.</p>
+<p><em>Cinner, J., Marnane, M.J., McClanahan, T.R., &amp; Almany, G.R. (2005). Periodic closures as adaptive coral reef management in the Indo-Pacific. Ecology and Society 11(1), 31.</em></p>
+<p><strong>Gear/Vessel Restrictions</strong></p>
+<p>In Ahus Island in Papua New Guinea, the community prohibits spear and net fishing in six areas of the reef lagoon, while line fishing is unregulated. A comparison of the reef ecosystem inside and outside of the areas with gear restrictions found that the areas where spear and net fishing were prohibited had 60% more biomass of fish. The individual fish were also larger and there was less discarded gear inside the restricted area. There was no significant difference in the overall fish abundance, species richness of fish, or coral cover and diversity.</p>
+<p><em>Cinner, J.E., Marnane, M.J., &amp; McClanahan, T.R. (2005). Conservation and community benefits from traditional coral reef management at Ahus Island, Papua New Guinea. Conservation Biology 19, 1714-1723.</em></p>
+<p><strong>Deployment Limits</strong></p>
+<p>In a lagoon fishery in Thua Thien Hue Province, Vietnam, fisheries organizations worked to reduce the fishing capacity by decreasing the number of fixed fishing gears present. The amount of fishing gear had previously been increasing without any control over the number and placement of traps and nets. In 2010, the fisheries organizations began a consensus-based process to determine gear reductions of traps and bottom nets in the lagoon.</p>
+<p><em>Takahashi, B. &amp; van Duijn, A. P. (2012). Operationalizing fisheries co-management: Lessons learned from lagoon fisheries co-management in Thua Thien Hue Province, Viet Nam. FAO Regional Office for Asia and the Pacific, Bangkok. RAP Publication 2012/02. 131 pp.</em></p>
+<p><strong>Sex-specific Controls</strong></p>
+<p>The fisheries cooperatives in Baja California, Mexico have been successful at managing their resources sustainably, with increased landings of spiny lobster over the past forty years. Among other regulations, the cooperatives prohibit the capture of egg-bearing females, which contributes to the sustainability of the fishery.</p>
+<p><em>Orensanz, J.M., &amp; Seijo, J.C. (2013). Rights-based management in Latin American fisheries. FAO Fisheries and Aquaculture Technical Paper 582, Rome. pp. 136.</em></p>
+<p><strong>Seasonal Closures</strong></p>
+<p>In 1990, the U.S. Virgin Islands Division of Fish and Wildlife and the Caribbean Fisheries Management Council instituted a seasonal closure of a red hind <em>(Epinephelus guttatus</em>) spawning aggregation south of St. Thomas, in response to declines in red hind abundance. A subsequent study in 1997 found increases in average length and abundance, as well as normalization of the sex ratio compared to before the creation of the seasonal closure.</p>
+<p><em>Beets, J., &amp; Friedlander, A. (1998). Evaluation of a conservation strategy: a spawning aggregation closure for red hind, Epinephelus guttatus, in the U.S. Virgin Islands. Environmental Biology of Fishes 55, 91-98.</em></p>
+<p><strong>Protection of Ecologically Important Species</strong></p>
+<p>In 2010, the government of Bonaire prohibited the harvest of parrotfish with the goal of protecting species that help maintain coral reef health. Parrotfish biomass declined from 2003-2011, but the rate of decline slowed after 2011. From 2011-2013, the density of parrotfish increased, likely in response to the fishing ban.</p>
+<p><em>Stamieszkin, K., &amp; Arnold, S.N. (2013). Trends in Bonaire’s herbivorous fish: change over time, management effects and spatial patterns. In: Status and Trends of Bonaire’s Reefs in 2013: Causes for Optimism, eds. Steneck, R.S., Arnold, S.N., &amp; Rasher, D.B. University of Maine School of Marine Sciences. Pp. 17-31.</em></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Step1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Step3.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-Step2.rmd",
+"text": "Edit"
+},
+"download": ["AFAM_Toolkit_Guidance_Document.pdf", "AFAM_Toolkit_Guidance_Document.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

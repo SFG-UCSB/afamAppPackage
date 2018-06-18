@@ -12,5 +12,10 @@
 #'
 #' @examples
 runAFAM <- function() {
-  runApp("R")
+  appDir <- system.file("shiny-examples", "afamApp", package = "afamAppPackage")
+  if (appDir == "") {
+    stop("Could not find app. Try re-installing `afamAppPackage`.", call. = FALSE)
+  }
+  shiny::runApp(appDir, display.mode = "normal")
+  
 }
