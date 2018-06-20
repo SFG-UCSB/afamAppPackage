@@ -136,13 +136,13 @@ $(document).ready(function () {
 <pre class="r"><code>## Specify packages that are required for AFAM app. Install them if they're not installed already
 list.of.packages &lt;- c(&quot;tidyverse&quot;, &quot;gridExtra&quot;, &quot;pander&quot;, &quot;shiny&quot;, &quot;DT&quot;,&quot;devtools&quot;,&quot;readxl&quot;,&quot;stringr&quot;,&quot;LBSPR&quot;,&quot;TropFishR&quot;,&quot;lubridate&quot;,&quot;zoo&quot;,&quot;curl&quot;)
 new.packages &lt;- list.of.packages[!(list.of.packages %in% installed.packages()[,&quot;Package&quot;])]
-if(length(new.packages) &gt; 0 ) install.packages(new.packages)
+if(length(new.packages) &gt; 0 ) install.packages(new.packages, dependencies = TRUE)
 
 ## Load packages required for AFAM
 lapply(list.of.packages, require, character.only = TRUE)
 
 ## Install AFAM from Github, an online file-sharing service
-install_github(&quot;SFG-UCSB/afamAppPackage&quot;)</code></pre>
+devtools::install_github(&quot;SFG-UCSB/afamAppPackage&quot;)</code></pre>
 </div>
 <div id="installling-the-dashboard-from-a-local-file-on-your-computer" class="section level2">
 <h2>Installling the dashboard from a local file on your computer</h2>
@@ -151,7 +151,7 @@ install_github(&quot;SFG-UCSB/afamAppPackage&quot;)</code></pre>
 <pre class="r"><code>## Specify packages that are required for AFAM app. Install them if they're not installed already
 list.of.packages &lt;- c(&quot;tidyverse&quot;, &quot;gridExtra&quot;, &quot;pander&quot;, &quot;shiny&quot;, &quot;DT&quot;,&quot;devtools&quot;,&quot;readxl&quot;,&quot;stringr&quot;,&quot;LBSPR&quot;,&quot;TropFishR&quot;,&quot;lubridate&quot;,&quot;zoo&quot;,&quot;curl&quot;)
 new.packages &lt;- list.of.packages[!(list.of.packages %in% installed.packages()[,&quot;Package&quot;])]
-if(length(new.packages) &gt; 0 ) install.packages(new.packages)
+if(length(new.packages) &gt; 0 ) install.packages(new.packages, dependencies = TRUE)
 
 ## Load packages required for AFAM
 lapply(list.of.packages, require, character.only = TRUE)
@@ -159,7 +159,7 @@ lapply(list.of.packages, require, character.only = TRUE)
 ## Set your working directory to where the AFAM app file is located. Note that you'll need to change this to match the actual directory on your computer
 setwd(&quot;/Users/gmcdonald/github/afamAppPackage&quot;)
 ## Install AFAM from your local file
-install.packages(&quot;afamAppPackage_0.1.tar.gz&quot;, repos = NULL, type=&quot;source&quot;)</code></pre>
+devtools::install.packages(&quot;afamAppPackage_0.1.tar.gz&quot;, repos = NULL, type=&quot;source&quot;)</code></pre>
 </div>
 <div id="running-the-afam-toolkit-dashboard-does-not-require-internet" class="section level2">
 <h2>Running the AFAM Toolkit Dashboard (does not require internet)</h2>

@@ -1,8 +1,8 @@
 ---
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: html
 ---
 # AFAM Toolkit Dashboard
 The dashboard guides you through all steps of the AFAM Toolkit process. This document will guide you throughhow to install the dashboard on your computer for offline use. If you have have and will have access to the internet, we recommend just using the dashboard online: https://sfg-ucsb.shinyapps.io/afam-dashboard/
@@ -23,13 +23,13 @@ If you choose this option, simply copy and paste the following code into your R 
 ## Specify packages that are required for AFAM app. Install them if they're not installed already
 list.of.packages <- c("tidyverse", "gridExtra", "pander", "shiny", "DT","devtools","readxl","stringr","LBSPR","TropFishR","lubridate","zoo","curl")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages) > 0 ) install.packages(new.packages)
+if(length(new.packages) > 0 ) install.packages(new.packages, dependencies = TRUE)
 
 ## Load packages required for AFAM
 lapply(list.of.packages, require, character.only = TRUE)
 
 ## Install AFAM from Github, an online file-sharing service
-install_github("SFG-UCSB/afamAppPackage")
+devtools::install_github("SFG-UCSB/afamAppPackage")
 ```
 
 ## Installling the dashboard from a local file on your computer
@@ -42,7 +42,7 @@ If you choose this option, simply copy and paste the following code into your R 
 ## Specify packages that are required for AFAM app. Install them if they're not installed already
 list.of.packages <- c("tidyverse", "gridExtra", "pander", "shiny", "DT","devtools","readxl","stringr","LBSPR","TropFishR","lubridate","zoo","curl")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages) > 0 ) install.packages(new.packages)
+if(length(new.packages) > 0 ) install.packages(new.packages, dependencies = TRUE)
 
 ## Load packages required for AFAM
 lapply(list.of.packages, require, character.only = TRUE)
@@ -50,7 +50,7 @@ lapply(list.of.packages, require, character.only = TRUE)
 ## Set your working directory to where the AFAM app file is located. Note that you'll need to change this to match the actual directory on your computer
 setwd("/Users/gmcdonald/github/afamAppPackage")
 ## Install AFAM from your local file
-install.packages("afamAppPackage_0.1.tar.gz", repos = NULL, type="source")
+devtools::install.packages("afamAppPackage_0.1.tar.gz", repos = NULL, type="source")
 ```
 
 ## Running the AFAM Toolkit Dashboard (does not require internet)
