@@ -26,7 +26,7 @@ shinyUI(fluidPage(
                             conditionalPanel(
                               condition = "input.checkDataGroup.indexOf('dataLength') != -1 & input.dataType == 'Use Real Data'",
                               downloadButton(outputId = "download_length_data_sample", label = "Download sample length data"),
-                              fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: country, site, year, species, gear, length_cm,inside_area (TRUE or FALSE, whether or not the measurement is from inside the fishing area of interest). Each row should represent an individual length measurement. You may also download a sample data set as an example."),
+                              fileInput("data",label = "Upload Length Data. Make sure your input *.csv has the following column headers: country, site, year, species, gear, length_cm, count (the number of measurements corresponding to a given length; if unsure, this value should be 1), inside_area (TRUE or FALSE, whether or not the measurement is from inside the fishing area of interest). Each row should represent an individual length measurement. You may also download a sample data set as an example."),
                               hr()
                             ),
                             conditionalPanel(
@@ -71,7 +71,7 @@ shinyUI(fluidPage(
                           hr(),
                           conditionalPanel(
                             condition = "input.checkDataGroup.indexOf('dataLength') != -1",
-                            h1("Raw Length Data"),
+                            h1("Raw Length Data (already expanded using count column)"),
                             DT::dataTableOutput("inputData"),
                             hr()
                           ),

@@ -23,6 +23,4 @@ Imports:
   TropFishR
 Suggests: knitr,
     rmarkdown
-VignetteBuilder: knitr,
-    pander,
-    readr
+Maintainer: Gavin McDonald <gmcdonald@bren.ucsb.edu>

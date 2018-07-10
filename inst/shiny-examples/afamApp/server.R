@@ -12,7 +12,8 @@ shinyServer(function(input, output) {
     if (input$sizeMax != -999) df <- df %>% filter(length_cm<input$sizeMax)
     if (input$sizeMin != -999) df <- df %>% filter(length_cm>input$sizeMin)
     if (input$insideArea == TRUE) df <- df %>% filter(inside_area == "Inside")
-    df
+    # Expand based on count column
+    df[rep(1:nrow(df), df$count),]
   })
   
   catchData <- reactive({
@@ -1959,7 +1960,7 @@ shinyServer(function(input, output) {
       gsub(" ", "", paste("LBAR_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
-      write.csv(LBARInput(),file)
+      write.csv(LBARInput(),file, row.names = FALSE)
     }) 
   
   output$downloadCC <- downloadHandler(
@@ -1967,7 +1968,7 @@ shinyServer(function(input, output) {
       gsub(" ", "", paste("CC_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
-      write.csv(CCInput()$table,file)
+      write.csv(CCInput()$table,file, row.names = FALSE)
     }) 
   
   output$downloadSPR <- downloadHandler(
@@ -1975,7 +1976,7 @@ shinyServer(function(input, output) {
       gsub(" ", "", paste("SPR_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
-      write.csv(SPRInput()$table,file)
+      write.csv(SPRInput()$table,file, row.names = FALSE)
     }) 
   
   output$downloadLengthFD <- downloadHandler(
@@ -1983,7 +1984,7 @@ shinyServer(function(input, output) {
       gsub(" ", "", paste("averageLengthFD_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
-      write.csv(lengthFDInput(),file)
+      write.csv(lengthFDInput(),file, row.names = FALSE)
     }) 
   
   output$downloadFroese <- downloadHandler(
@@ -1991,7 +1992,7 @@ shinyServer(function(input, output) {
       gsub(" ", "", paste("Froese_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
-      write.csv(FroeseInput(),file)
+      write.csv(FroeseInput(),file, row.names = FALSE)
     }) 
   
   output$downloadLBARPlot <- downloadHandler(
@@ -2050,7 +2051,7 @@ shinyServer(function(input, output) {
       gsub(" ", "", paste("LHI_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
-      write.csv(LHIInput(),file)
+      write.csv(LHIInput(),file, row.names = FALSE)
     }) 
   
   output$downloadLHIFull <- downloadHandler(
@@ -2058,7 +2059,7 @@ shinyServer(function(input, output) {
       gsub(" ", "", paste("LHI_Database.csv", sep=""))
     },
     content = function(file) {
-      write.csv(lhi_database,file)
+      write.csv(lhi_database,file, row.names = FALSE)
     }) 
   
   output$button <- renderUI({
@@ -2075,7 +2076,7 @@ shinyServer(function(input, output) {
       gsub(" ", "", paste("Summary_Results_",input$siteSelection,"_",input$speciesSelection,"_",input$gearGlobalSelection,"_",input$yearGlobalSelection,".csv", sep=""))
     },
     content = function(file) {
-      write.csv(summaryInput(),file)
+      write.csv(summaryInput(),file, row.names = FALSE)
     }) 
   
   output$HCRUI <- renderUI({
@@ -2206,7 +2207,7 @@ shinyServer(function(input, output) {
       "sample_length_data.csv"
     },
     content = function(con) {
-      write.csv(df_length, con)
+      write.csv(df_length, con, row.names = FALSE)
     }
   )
   
@@ -2215,7 +2216,7 @@ shinyServer(function(input, output) {
       "sample_landings_data.csv"
     },
     content = function(con) {
-      write.csv(df_catch, con)
+      write.csv(df_catch, con, row.names = FALSE)
     }
   )
   
@@ -2224,7 +2225,7 @@ shinyServer(function(input, output) {
       "sample_uvc_ecosystem_biomass_data.csv"
     },
     content = function(con) {
-      write.csv(df_biomass, con)
+      write.csv(df_biomass, con, row.names = FALSE)
     }
   )
   
@@ -2233,7 +2234,7 @@ shinyServer(function(input, output) {
       "sample_uvc_species_density_data.csv"
     },
     content = function(con) {
-      write.csv(df_density, con)
+      write.csv(df_density, con, row.names = FALSE)
     }
   )
   
